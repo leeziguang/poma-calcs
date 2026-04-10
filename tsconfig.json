@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"],
+      "app/*": ["src/*"],
+      "_shared/*": ["src/_shared/*"],
+      "@ant-design/icons/lib/dist$/*": ["src/_shared/antd/icons/*"]
+    },
+    "outDir": "./dist/",
+    "declaration": true,
+    "declarationDir": "./lib",
+    "lib": ["DOM", "es2017"],
+    "target": "ES2017",
+    "jsx": "react",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    //"useDefineForClassFields": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noImplicitOverride": false,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": ["./src/**/*"]
+}
