@@ -14,6 +14,9 @@ export const calcBaseStat = (
 
   return (
     (realStat * 0.5) /
-    Math.floor(ENEMY_DEF * (1 - (1 - STAT_BOOSTS_MAP[defDrops])))
-  );
+    Math.floor(ENEMY_DEF * STAT_BOOSTS_MAP[defDrops])
+  ).toLocaleString(undefined, {
+    minimumFractionDigits: 6,
+    maximumFractionDigits: 6
+  });
 };

@@ -1,68 +1,69 @@
 import React from "react";
-import { Form, InputNumber, Select } from "antd";
-import { STAT_BOOST_LABEL } from "./constants";
+import { Card, Form, InputNumber, Select } from "antd";
+import { statBoostOptions, statDropOptions } from "./constants";
 import { EStatBoost } from "../../types/base-stats";
-import { EBaseStatFormFields } from "../../types";
+import { EBaseStatFormFields, EPairListFormFields } from "../../types";
 import { calcBaseStat } from "./helpers";
+import "./style.scss";
 
 interface IBaseStatsProps {
-  stat: number;
   name: string;
+  pairName: number;
 }
 
-const statBoostSelectOptions = (Object.keys(EStatBoost) as EStatBoost[]).map(
-  boost => ({
-    label: STAT_BOOST_LABEL[boost],
-    value: boost
-  })
-);
+export const BaseStats = ({ name, pairName }: IBaseStatsProps) => {
+  const fieldPath = (field: EBaseStatFormFields) => [
+    EPairListFormFields.PAIR,
+    pairName,
+    EBaseStatFormFields.DATA_COL,
+    name,
+    field
+  ];
 
-export const BaseStats = ({ stat, name }: IBaseStatsProps) => {
   return (
-    <>
+    <Card className="baseStats-card">
       <Form.Item noStyle shouldUpdate>
         {({ getFieldValue }) => {
           return (
             <span>
               {calcBaseStat(
-                stat,
-                getFieldValue([
-                  EBaseStatFormFields.DATA_ROW,
-                  name,
-                  EBaseStatFormFields.GRID
-                ]),
-                getFieldValue([
-                  EBaseStatFormFields.DATA_ROW,
-                  name,
-                  EBaseStatFormFields.STAT_BOOSTS
-                ]),
-                getFieldValue([
-                  EBaseStatFormFields.DATA_ROW,
-                  name,
-                  EBaseStatFormFields.DEF_DROPS
-                ])
+                getFieldValue(fieldPath(EBaseStatFormFields.STAT)),
+                getFieldValue(fieldPath(EBaseStatFormFields.GRID)),
+                getFieldValue(fieldPath(EBaseStatFormFields.STAT_BOOSTS)),
+                getFieldValue(fieldPath(EBaseStatFormFields.DEF_DROPS))
               )}
             </span>
           );
         }}
       </Form.Item>
-      <Form.Item name={[name, EBaseStatFormFields.GRID]}>
+
+      <Form.Item name={[name, EBaseStatFormFields.STAT]} label="Raw Stat">
         <InputNumber />
       </Form.Item>
+
+      <Form.Item
+        name={[name, EBaseStatFormFields.GRID]}
+        label="Grid Boost"
+        initialValue={0}
+      >
+        <InputNumber />
+      </Form.Item>
+
       <Form.Item
         name={[name, EBaseStatFormFields.STAT_BOOSTS]}
         label="Stat Boost"
-        initialValue={EStatBoost.ZERO}
+        initialValue={EStatBoost.PLUS_6}
       >
-        <Select options={statBoostSelectOptions} />
+        <Select options={statBoostOptions} />
       </Form.Item>
+
       <Form.Item
         name={[name, EBaseStatFormFields.DEF_DROPS]}
         label="Def Drops"
         initialValue={EStatBoost.ZERO}
       >
-        <Select options={statBoostSelectOptions.reverse()} />
+        <Select options={statDropOptions} />
       </Form.Item>
-    </>
+    </Card>
   );
 };

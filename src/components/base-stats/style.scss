@@ -1,0 +1,26 @@
+.baseStats-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .ant-form-item {
+    margin-bottom: 0;
+
+    &-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-label {
+      text-align: center;
+    }
+
+    &-no-colon {
+      &::after {
+        margin: 0;
+      }
+    }
+  }
+
+}
