@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { Button, Card, Form, Input } from "antd";
 import { BaseStats } from "../base-stats";
 import { RenameableTitle } from "../renameable-title";
-import { EBaseStatFormFields, EPairListFormFields } from "../../types";
+import { EPairListFormFields } from "../../types";
 
 import "./style.scss";
+import { MovePower } from "../move-power";
+import { DEFAULT_COL } from "./constants";
 
 export const DataColList = ({
   fieldName,
@@ -36,7 +38,7 @@ export const DataColList = ({
         />
       )}
       <div className="dataColList-colWrapper">
-        <Form.List name={[fieldName, EBaseStatFormFields.DATA_COL]}>
+        <Form.List name={[fieldName, EPairListFormFields.DATA_COL]}>
           {(fields, { add, remove }) => (
             <>
               <Form.Item noStyle shouldUpdate>
@@ -60,10 +62,11 @@ export const DataColList = ({
                         e.stopPropagation();
                         const prevValues = getFieldValue([
                           ...parentFieldPath,
-                          EBaseStatFormFields.DATA_COL
+                          EPairListFormFields.DATA_COL
                         ])?.at(-1);
 
-                        add(prevValues);
+                        console.log(prevValues);
+                        add(prevValues || DEFAULT_COL);
                         setColumnTitles(prev => ({
                           ...prev,
                           [fields.length]: newTitle
@@ -91,7 +94,10 @@ export const DataColList = ({
                       onStartEdit={() => setEditingCol(field.name)}
                       onEndEdit={() => setEditingCol(null)}
                     />
+
                     <BaseStats name={String(field.name)} pairName={fieldName} />
+                    <MovePower name={String(field.name)} pairName={fieldName} />
+
                     <Button
                       onClick={() => remove(field.name)}
                       // icon={<DeleteOutlined />}

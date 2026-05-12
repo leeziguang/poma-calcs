@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "paths": {
       "src/*": ["src/*"],
@@ -7,9 +8,7 @@
       "_shared/*": ["src/_shared/*"],
       "@ant-design/icons/lib/dist$/*": ["src/_shared/antd/icons/*"]
     },
-    "outDir": "./dist/",
     "declaration": true,
-    "declarationDir": "./lib",
     "lib": ["DOM", "es2017"],
     "target": "ES2017",
     "jsx": "react",
@@ -20,8 +19,8 @@
     "skipLibCheck": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
     "experimentalDecorators": true,
     //"useDefineForClassFields": true,
     "removeComments": true,

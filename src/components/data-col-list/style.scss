@@ -14,12 +14,7 @@
   
   &-body {
     display: flex;
-    gap: 20px;
-
-    .ant-form-item-label {
-      font-weight: 600;
-      max-height: 28px;
-    }
+    gap: 8px;
   }
 
   &-addCol {

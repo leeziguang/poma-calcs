@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { DataColList } from "../components/data-col-list";
 import { Button, Form, Input } from "antd";
 import { EPairListFormFields } from "src/types";
+import "./style.scss";
 
 export const MainPage = () => {
   const PokemonList = () => {
-    const [pairName, setPairName] = useState<string>("Pokemon x/5");
+    const [pairName, setPairName] = useState<string>("TEST PAIR 11037");
     const [pairNames, setPairNames] = useState<string[]>([]);
 
     return (
-      <Form colon={false}>
+      <Form colon={false} layout="vertical" className="form">
         <Form.List name={EPairListFormFields.PAIR}>
           {(fields, { add, remove }) => (
             <>

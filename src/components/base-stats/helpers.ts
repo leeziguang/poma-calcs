@@ -1,6 +1,6 @@
 import { EStatBoost } from "src/types/base-stats";
 import { ENEMY_DEF, STAT_BOOSTS_MAP } from "./constants";
-import { isValidNumber } from "src/helpers";
+import { isValidNumber } from "src/lib/helpers";
 
 export const calcBaseStat = (
   stat: number,
