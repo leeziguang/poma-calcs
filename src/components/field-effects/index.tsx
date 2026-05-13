@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Card,
@@ -9,7 +9,6 @@ import {
   InputNumber,
   Select
 } from "antd";
-import { EPairListFormFields } from "src/types";
 import { ECircle, EFieldEffectFormFields } from "src/types/field-effect";
 import {
   CIRCLE_MULTI_MAP,
@@ -24,41 +23,45 @@ import { pairStore } from "src/store/pair";
 
 interface IFieldEffectProps {
   name: string;
-  pairName: number;
+  fieldPath: (string | number)[];
 }
 
-export const FieldEffect = ({ name, pairName }: IFieldEffectProps) => {
-  const formVal = Form.useWatch([
-    EPairListFormFields.PAIR,
-    pairName,
-    EPairListFormFields.DATA_COL,
-    name
-  ]);
-
-  const headerVal = useMemo(
-    () =>
-      calcFieldEffect({
-        syncBoosts: formVal?.[EFieldEffectFormFields.SYNC_BOOSTS],
-        wtz: formVal?.[EFieldEffectFormFields.WTZ],
-        circle: formVal?.[EFieldEffectFormFields.CIRCLE],
-        rebuff: formVal?.[EFieldEffectFormFields.REBUFF],
-        seun: formVal?.[EFieldEffectFormFields.SEUN]
-      }),
-    [formVal]
+export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
+  const form = Form.useFormInstance();
+  const syncBoosts = Form.useWatch(
+    [...fieldPath, EFieldEffectFormFields.SYNC_BOOSTS],
+    form
   );
+  const wtz = Form.useWatch([...fieldPath, EFieldEffectFormFields.WTZ], form);
+  const circle = Form.useWatch(
+    [...fieldPath, EFieldEffectFormFields.CIRCLE],
+    form
+  );
+  const rebuff = Form.useWatch(
+    [...fieldPath, EFieldEffectFormFields.REBUFF],
+    form
+  );
+  const seun = Form.useWatch([...fieldPath, EFieldEffectFormFields.SEUN], form);
+
+  const headerVal = calcFieldEffect({ syncBoosts, wtz, circle, rebuff, seun });
 
   useEffect(() => {
     pairStore.updateMoveInfo(name, { fieldEffect: headerVal });
   }, [name, headerVal]);
 
   return (
-    <Collapse className="fieldEffect-collapse" defaultActiveKey={[name]}>
+    <Collapse
+      className="fieldEffect-collapse"
+      defaultActiveKey={["field-effect-panel"]}
+    >
       <Collapse.Panel
-        key={name}
+        key="field-effect-panel"
         header={
           <>
             <div>Field Effect</div>
-            {headerVal}
+            {headerVal?.toLocaleString(undefined, {
+              maximumFractionDigits: 6
+            })}
           </>
         }
       >

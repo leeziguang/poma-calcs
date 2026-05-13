@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { Collapse, Form, InputNumber, Select } from "antd";
 import { statBoostOptions, statDropOptions } from "./constants";
-import { EPairListFormFields } from "../../types";
 import { EBaseStatFormFields } from "src/types/base-stats";
 import { calcBaseStat } from "./helpers";
 import "./style.scss";
@@ -9,40 +8,46 @@ import { pairStore } from "src/store/pair";
 
 interface IBaseStatsProps {
   name: string;
-  pairName: number;
+  fieldPath: (string | number)[];
 }
 
-export const BaseStats = ({ name, pairName }: IBaseStatsProps) => {
-  const colValue = Form.useWatch([
-    EPairListFormFields.PAIR,
-    pairName,
-    EPairListFormFields.DATA_COL,
-    name
-  ]);
-
-  const headerVal = useMemo(
-    () =>
-      calcBaseStat({
-        stat: colValue?.[EBaseStatFormFields.STAT],
-        grid: colValue?.[EBaseStatFormFields.GRID],
-        statBoost: colValue?.[EBaseStatFormFields.STAT_BOOSTS],
-        defDrops: colValue?.[EBaseStatFormFields.DEF_DROPS]
-      }),
-    [colValue]
+export const BaseStats = ({ name, fieldPath }: IBaseStatsProps) => {
+  const form = Form.useFormInstance();
+  const stat = Form.useWatch([...fieldPath, EBaseStatFormFields.STAT], form);
+  const grid = Form.useWatch([...fieldPath, EBaseStatFormFields.GRID], form);
+  const statBoost = Form.useWatch(
+    [...fieldPath, EBaseStatFormFields.STAT_BOOSTS],
+    form
   );
+  const defDrops = Form.useWatch(
+    [...fieldPath, EBaseStatFormFields.DEF_DROPS],
+    form
+  );
+
+  const headerVal = calcBaseStat({
+    stat,
+    grid,
+    statBoost,
+    defDrops
+  });
 
   useEffect(() => {
     pairStore.updateMoveInfo(name, { baseStat: headerVal });
   }, [name, headerVal]);
 
   return (
-    <Collapse className="baseStats-collapse" defaultActiveKey={[name]}>
+    <Collapse
+      className="baseStats-collapse"
+      defaultActiveKey={["base-stats-panel"]}
+    >
       <Collapse.Panel
-        key={name}
+        key="base-stats-panel"
         header={
           <>
             <div>Base Stat</div>
-            {headerVal}
+            {headerVal?.toLocaleString(undefined, {
+              maximumFractionDigits: 6
+            })}
           </>
         }
       >

@@ -9,17 +9,25 @@ import "./style.scss";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
 import { FieldEffect } from "../field-effects";
-import { calcPairFinalDamage } from "./helpers";
+import { calcPairTotalDamage } from "./helpers";
 import { pairStore } from "src/store/pair";
 import { observer } from "mobx-react";
 
-const PairDamageDisplay = observer(() => <Card>{calcPairFinalDamage()}</Card>);
+const PairDamageDisplay = observer(() => <Card>{calcPairTotalDamage()}</Card>);
 
 const MoveDamageDisplay = observer(
   ({ moveColName }: { moveColName: string }) => (
     <Card className="dataColList-move-damage">
       <b>Damage</b>
-      <div>{pairStore.moveDamageRec?.[moveColName]?.finalDamage || "-"}</div>
+      <div>
+        {pairStore.moveDamageRec?.[moveColName]?.finalDamage?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+          }
+        ) || "-"}
+      </div>
     </Card>
   )
 );
@@ -104,44 +112,63 @@ export const DataColList = ({
               </Form.Item>
 
               <div className="dataColList-body">
-                {fields.map(field => (
-                  <div key={field.key} className="dataColList-col">
-                    <RenameableTitle
-                      isEditing={editingCol === field.name}
-                      value={columnTitles?.[field.name]}
-                      onChange={val =>
-                        setColumnTitles(prev => ({
-                          ...prev,
-                          [field.name]: val
-                        }))
-                      }
-                      onStartEdit={() => setEditingCol(field.name)}
-                      onEndEdit={() => setEditingCol(null)}
-                    />
+                {fields.map(field => {
+                  return (
+                    <div key={field.key} className="dataColList-col">
+                      <RenameableTitle
+                        isEditing={editingCol === field.name}
+                        value={columnTitles?.[field.name]}
+                        onChange={val =>
+                          setColumnTitles(prev => ({
+                            ...prev,
+                            [field.name]: val
+                          }))
+                        }
+                        onStartEdit={() => setEditingCol(field.name)}
+                        onEndEdit={() => setEditingCol(null)}
+                      />
 
-                    <MoveDamageDisplay moveColName={String(field.name)} />
+                      <MoveDamageDisplay moveColName={String(field.name)} />
 
-                    <BaseStats
-                      name={String(field.name)}
-                      pairName={pairFieldName}
-                    />
-                    <MovePower
-                      name={String(field.name)}
-                      pairName={pairFieldName}
-                    />
-                    <FieldEffect
-                      name={String(field.name)}
-                      pairName={pairFieldName}
-                    />
+                      <BaseStats
+                        name={String(field.name)}
+                        fieldPath={[
+                          EPairListFormFields.PAIR,
+                          pairFieldName,
+                          EPairListFormFields.DATA_COL,
+                          field.name
+                        ]}
+                      />
 
-                    <Button
-                      onClick={() => remove(field.name)}
-                      // icon={<DeleteOutlined />}
-                    >
-                      Remove
-                    </Button>
-                  </div>
-                ))}
+                      <MovePower
+                        name={String(field.name)}
+                        fieldPath={[
+                          EPairListFormFields.PAIR,
+                          pairFieldName,
+                          EPairListFormFields.DATA_COL,
+                          field.name
+                        ]}
+                      />
+
+                      <FieldEffect
+                        name={String(field.name)}
+                        fieldPath={[
+                          EPairListFormFields.PAIR,
+                          pairFieldName,
+                          EPairListFormFields.DATA_COL,
+                          field.name
+                        ]}
+                      />
+
+                      <Button
+                        onClick={() => remove(field.name)}
+                        // icon={<DeleteOutlined />}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  );
+                })}
               </div>
             </>
           )}

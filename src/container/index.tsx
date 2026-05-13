@@ -7,6 +7,7 @@ import "./style.scss";
 
 export const MainPage = () => {
   const PokemonList = () => {
+    const [form] = Form.useForm();
     const [pairName, setPairName] = useState<string>(undefined);
     const [pairNames, setPairNames] = useState<string[]>([]);
 
@@ -16,6 +17,7 @@ export const MainPage = () => {
         layout="vertical"
         className="form"
         onValuesChange={(_, values) => console.log(values)}
+        form={form}
       >
         <Form.List name={EPairListFormFields.PAIR}>
           {(fields, { add, remove }) => (

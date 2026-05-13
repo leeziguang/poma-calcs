@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { Checkbox, Collapse, Form, Input, InputNumber, Select } from "antd";
-import { EPairListFormFields } from "src/types";
 import { EMovePowerFormFields } from "src/types/move-power";
 import { calcMovePower, calcSyncPower, formToCalcArgAdaptor } from "./helpers";
 import { MOVE_LEVEL_OPTIONS } from "./constants";
@@ -9,38 +8,69 @@ import { pairStore } from "src/store/pair";
 
 interface IMovePowerProps {
   name: string;
-  pairName: number;
+  fieldPath: (string | number)[];
 }
 
-export const MovePower = ({ name, pairName }: IMovePowerProps) => {
-  const formVal = Form.useWatch([
-    EPairListFormFields.PAIR,
-    pairName,
-    EPairListFormFields.DATA_COL,
-    name
-  ]);
+export const MovePower = ({ name, fieldPath }: IMovePowerProps) => {
+  const form = Form.useFormInstance();
+  const baseMove = Form.useWatch(
+    [...fieldPath, EMovePowerFormFields.BASE_MOVE],
+    form
+  );
+  const moveLvl = Form.useWatch(
+    [...fieldPath, EMovePowerFormFields.MOVE_LVL],
+    form
+  );
+  const grid = Form.useWatch([...fieldPath, EMovePowerFormFields.GRID], form);
+  const smPmun = Form.useWatch(
+    [...fieldPath, EMovePowerFormFields.SM_PMUN],
+    form
+  );
+  const syun = Form.useWatch([...fieldPath, EMovePowerFormFields.SYUN], form);
+  const multis = Form.useWatch(
+    [...fieldPath, EMovePowerFormFields.MULTIS],
+    form
+  );
+  const innateMultis = Form.useWatch(
+    [...fieldPath, EMovePowerFormFields.INNATE_MULTIS],
+    form
+  );
+  const optionsValue = Form.useWatch(
+    [...fieldPath, EMovePowerFormFields.OPTIONS],
+    form
+  );
 
-  const optionsValue = formVal?.[EMovePowerFormFields.OPTIONS];
   const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
 
-  const args = useMemo(() => formToCalcArgAdaptor(formVal), [formVal]);
-  const headerVal = useMemo(
-    () => (isSync ? calcSyncPower(args) : calcMovePower(args)),
-    [isSync, args]
-  );
+  const args = formToCalcArgAdaptor({
+    [EMovePowerFormFields.BASE_MOVE]: baseMove,
+    [EMovePowerFormFields.MOVE_LVL]: moveLvl,
+    [EMovePowerFormFields.GRID]: grid,
+    [EMovePowerFormFields.SM_PMUN]: smPmun,
+    [EMovePowerFormFields.SYUN]: syun,
+    [EMovePowerFormFields.MULTIS]: multis,
+    [EMovePowerFormFields.INNATE_MULTIS]: innateMultis,
+    [EMovePowerFormFields.OPTIONS]: optionsValue
+  });
+  const headerVal = isSync ? calcSyncPower(args) : calcMovePower(args);
 
   useEffect(() => {
     pairStore.updateMoveInfo(name, { movePower: headerVal });
   }, [name, headerVal]);
 
   return (
-    <Collapse className="movePower-collapse" defaultActiveKey={[name]}>
+    <Collapse
+      className="movePower-collapse"
+      defaultActiveKey={["move-power-panel"]}
+    >
       <Collapse.Panel
-        key={name}
+        key="move-power-panel"
         header={
           <>
             <div>Move Power</div>
-            {headerVal}
+            {headerVal?.toLocaleString(undefined, {
+              maximumFractionDigits: 6
+            })}
           </>
         }
       >

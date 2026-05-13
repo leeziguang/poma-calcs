@@ -7,7 +7,7 @@ import {
 import { AOE_PENALTY_MAP, SM_PMUN_MULTI, SYUN_MULTI } from "./constants";
 
 export const formToCalcArgAdaptor = (
-  formVal: IMovePowerFormValues
+  formVal: Partial<IMovePowerFormValues>
 ): ICalcMovePowerArgs | ICalcSyncPowerArgs => ({
   base: formVal?.[EMovePowerFormFields.BASE_MOVE],
   moveLvlMulti: formVal?.[EMovePowerFormFields.MOVE_LVL],
