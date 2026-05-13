@@ -1,2 +1,11 @@
 .movePower-collapse {
+  .movePower-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    padding-left: 36px;
+
+    .ant-checkbox-wrapper {
+      margin: 0;
+    }
+  }
 }

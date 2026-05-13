@@ -1,0 +1,27 @@
+.ant-btn {
+  padding: 0px 4px;
+}
+
+.fieldEffect-circle{
+  &-wrapper {
+    display: flex;
+    align-items: end;
+  }
+
+  &-card {
+    background-color: rgba(0, 0, 0, 0.03);
+    .ant-card-body {
+      padding: 4px 8px;
+    }
+  }
+
+  &-members {
+    min-width: 60px !important;
+    max-width: 60px !important;
+  }
+
+  &-type {
+    min-width: 120px !important;
+    max-width: 120px !important;
+  }
+}

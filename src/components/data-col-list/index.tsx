@@ -8,6 +8,7 @@ import { EPairListFormFields } from "../../types";
 import "./style.scss";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
+import { FieldEffect } from "../field-effects";
 
 export const DataColList = ({
   fieldName,
@@ -81,7 +82,7 @@ export const DataColList = ({
               </Form.Item>
               <div className="dataColList-body">
                 {fields.map(field => (
-                  <div key={field.key}>
+                  <div key={field.key} className="dataColList-col">
                     <RenameableTitle
                       isEditing={editingCol === field.name}
                       value={columnTitles?.[field.name]}
@@ -97,6 +98,10 @@ export const DataColList = ({
 
                     <BaseStats name={String(field.name)} pairName={fieldName} />
                     <MovePower name={String(field.name)} pairName={fieldName} />
+                    <FieldEffect
+                      name={String(field.name)}
+                      pairName={fieldName}
+                    />
 
                     <Button
                       onClick={() => remove(field.name)}

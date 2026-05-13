@@ -1,6 +1,10 @@
-import { ICalcMovePowerArgs, ICalcSyncPowerArgs } from "src/types/move-power";
+import {
+  EMovePowerFormFields,
+  ICalcMovePowerArgs,
+  ICalcSyncPowerArgs,
+  IMovePowerFormValues
+} from "src/types/move-power";
 import { SYUN_MULTI } from "./constants";
-import { EMovePowerFormFields, IMovePowerFormValues } from "src/types";
 
 export const formToCalcArgAdaptor = (
   formVal: IMovePowerFormValues

@@ -17,3 +17,17 @@ export enum EStatDrops {
   MINUS_5 = "MINUS_5",
   MINUS_6 = "MINUS_6"
 }
+
+export enum EBaseStatFormFields {
+  STAT = "STAT",
+  GRID = "STAT_GRID",
+  STAT_BOOSTS = "STAT_BOOSTS",
+  DEF_DROPS = "DEF_DROPS"
+}
+
+export interface IBaseStatFormValues {
+  [EBaseStatFormFields.STAT]: number;
+  [EBaseStatFormFields.GRID]: number;
+  [EBaseStatFormFields.STAT_BOOSTS]: EStatBoost;
+  [EBaseStatFormFields.DEF_DROPS]: EStatDrops;
+}

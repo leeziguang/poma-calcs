@@ -28,21 +28,18 @@
         margin-right: 8px;
       }
     }
+
+    .ant-collapse-header-text {
+      div {
+        font-weight: 600;
+      }
+    }
   }
 
   .ant-collapse-content-box {
     .ant-select, .ant-input-number, textarea.ant-input {
       min-width: 150px;
       max-width: 150px;
-    }
-
-    .ant-checkbox-group {
-      display: flex;
-      flex-direction: column;
-      
-      .ant-checkbox-wrapper {
-        margin: 0;
-      }
     }
   }
 }

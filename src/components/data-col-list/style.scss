@@ -17,6 +17,10 @@
     gap: 8px;
   }
 
+  &-col {
+    min-width: 252px;
+  }
+
   &-addCol {
     display: flex;
     gap: 8px;

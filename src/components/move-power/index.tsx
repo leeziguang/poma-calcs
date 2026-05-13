@@ -1,6 +1,7 @@
-import { Checkbox, Collapse, Form, Input, InputNumber, Select } from "antd";
 import React from "react";
-import { EMovePowerFormFields, EPairListFormFields } from "src/types";
+import { Checkbox, Collapse, Form, Input, InputNumber, Select } from "antd";
+import { EPairListFormFields } from "src/types";
+import { EMovePowerFormFields } from "src/types/move-power";
 import { calcMovePower, calcSyncPower, formToCalcArgAdaptor } from "./helpers";
 import { MOVE_LEVEL_OPTIONS } from "./constants";
 import "./style.scss";
@@ -36,11 +37,19 @@ export const MovePower = ({ name, pairName }: IMovePowerProps) => {
         const optionsValue = getFieldValue(
           fieldPath(EMovePowerFormFields.OPTIONS)
         );
-        const header = isSync ? calcSyncPower(args) : calcMovePower(args);
+        const headerVal = isSync ? calcSyncPower(args) : calcMovePower(args);
 
         return (
           <Collapse className="movePower-collapse" defaultActiveKey={[name]}>
-            <Collapse.Panel key={name} header={header}>
+            <Collapse.Panel
+              key={name}
+              header={
+                <>
+                  <div>Move Power</div>
+                  {headerVal}
+                </>
+              }
+            >
               <Form.Item
                 name={[name, EMovePowerFormFields.OPTIONS]}
                 normalize={(values: EMovePowerFormFields[]) =>
@@ -48,8 +57,9 @@ export const MovePower = ({ name, pairName }: IMovePowerProps) => {
                     ? values.filter(v => v !== EMovePowerFormFields.IS_TERA)
                     : values
                 }
+                valuePropName="checked"
               >
-                <Checkbox.Group>
+                <Checkbox.Group className="movePower-checkbox-group">
                   <Checkbox value={EMovePowerFormFields.IS_SYNC}>
                     Sync Move
                   </Checkbox>
@@ -84,14 +94,14 @@ export const MovePower = ({ name, pairName }: IMovePowerProps) => {
                 label="Base Power"
                 name={[name, EMovePowerFormFields.BASE_MOVE]}
               >
-                <InputNumber />
+                <InputNumber min={0} />
               </Form.Item>
 
               <Form.Item
                 label="Grid Boost"
                 name={[name, EMovePowerFormFields.GRID]}
               >
-                <InputNumber />
+                <InputNumber min={0} />
               </Form.Item>
 
               {isSync ? (
@@ -116,14 +126,14 @@ export const MovePower = ({ name, pairName }: IMovePowerProps) => {
                 label="Passive & Grid Multis"
                 name={[name, EMovePowerFormFields.MULTIS]}
               >
-                <InputNumber step={0.1} />
+                <InputNumber step={0.1} min={0} />
               </Form.Item>
 
               <Form.Item
                 label="Innate Multis"
                 name={[name, EMovePowerFormFields.INNATE_MULTIS]}
               >
-                <InputNumber step={0.1} />
+                <InputNumber step={0.1} min={0} />
               </Form.Item>
 
               <Form.Item
