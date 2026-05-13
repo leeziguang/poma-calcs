@@ -1,39 +1,36 @@
 import React, { useState } from "react";
 import { DataColList } from "../components/data-col-list";
-import { Button, Form, Input } from "antd";
+import { Button, Form } from "antd";
 import { EPairListFormFields } from "src/types";
+import { ActionTopbar } from "src/components/action-topbar";
 import "./style.scss";
 
 export const MainPage = () => {
   const PokemonList = () => {
-    const [pairName, setPairName] = useState<string>("TEST PAIR 11037");
+    const [pairName, setPairName] = useState<string>(undefined);
     const [pairNames, setPairNames] = useState<string[]>([]);
 
     return (
-      <Form colon={false} layout="vertical" className="form">
+      <Form
+        colon={false}
+        layout="vertical"
+        className="form"
+        onValuesChange={(_, values) => console.log(values)}
+      >
         <Form.List name={EPairListFormFields.PAIR}>
           {(fields, { add, remove }) => (
             <>
-              <div>
-                <Input
-                  value={pairName}
-                  onChange={e => setPairName(e.target.value)}
-                />
-                <Button
-                  onClick={() => {
-                    add();
-                    setPairNames(prev => [...prev, pairName]);
-                    setPairName(undefined);
-                  }}
-                >
-                  Add Pair
-                </Button>
-              </div>
+              <ActionTopbar
+                add={add}
+                pairName={pairName}
+                setPairName={setPairName}
+                setPairNames={setPairNames}
+              />
 
               {fields?.map(field => (
                 <div key={field.key}>
                   <DataColList
-                    fieldName={field.name}
+                    pairFieldName={field.name}
                     title={pairNames[field.name]}
                     onTitleChange={val =>
                       setPairNames(prev =>
@@ -62,7 +59,7 @@ export const MainPage = () => {
 
   return (
     <div>
-      Poma Calcs
+      <b>Poma Calcs</b>
       <PokemonList />
     </div>
   );

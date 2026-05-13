@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input } from "antd";
 import { BaseStats } from "../base-stats";
@@ -9,22 +9,42 @@ import "./style.scss";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
 import { FieldEffect } from "../field-effects";
+import { calcPairFinalDamage } from "./helpers";
+import { pairStore } from "src/store/pair";
+import { observer } from "mobx-react";
+
+const PairDamageDisplay = observer(() => <Card>{calcPairFinalDamage()}</Card>);
+
+const MoveDamageDisplay = observer(
+  ({ moveColName }: { moveColName: string }) => (
+    <Card className="dataColList-move-damage">
+      <b>Damage</b>
+      <div>{pairStore.moveDamageRec?.[moveColName]?.finalDamage || "-"}</div>
+    </Card>
+  )
+);
 
 export const DataColList = ({
-  fieldName,
+  pairFieldName,
   title,
   onTitleChange
 }: {
-  fieldName: number;
+  pairFieldName: number;
   title?: string;
   onTitleChange?: (val: string) => void;
 }) => {
+  useEffect(() => {
+    pairStore.init();
+
+    return () => pairStore.init();
+  }, []);
+
   const [columnTitles, setColumnTitles] = useState<Record<number, string>>({});
   const [editingCol, setEditingCol] = useState<number | null>(null);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(undefined);
 
-  const parentFieldPath = [EPairListFormFields.PAIR, fieldName];
+  const parentFieldPath = [EPairListFormFields.PAIR, pairFieldName];
 
   return (
     <Card className="dataColList-card">
@@ -38,8 +58,11 @@ export const DataColList = ({
           titleClassName="dataColList-title"
         />
       )}
+
+      <PairDamageDisplay />
+
       <div className="dataColList-colWrapper">
-        <Form.List name={[fieldName, EPairListFormFields.DATA_COL]}>
+        <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>
           {(fields, { add, remove }) => (
             <>
               <Form.Item noStyle shouldUpdate>
@@ -66,7 +89,6 @@ export const DataColList = ({
                           EPairListFormFields.DATA_COL
                         ])?.at(-1);
 
-                        console.log(prevValues);
                         add(prevValues || DEFAULT_COL);
                         setColumnTitles(prev => ({
                           ...prev,
@@ -80,6 +102,7 @@ export const DataColList = ({
                   </div>
                 )}
               </Form.Item>
+
               <div className="dataColList-body">
                 {fields.map(field => (
                   <div key={field.key} className="dataColList-col">
@@ -96,11 +119,19 @@ export const DataColList = ({
                       onEndEdit={() => setEditingCol(null)}
                     />
 
-                    <BaseStats name={String(field.name)} pairName={fieldName} />
-                    <MovePower name={String(field.name)} pairName={fieldName} />
+                    <MoveDamageDisplay moveColName={String(field.name)} />
+
+                    <BaseStats
+                      name={String(field.name)}
+                      pairName={pairFieldName}
+                    />
+                    <MovePower
+                      name={String(field.name)}
+                      pairName={pairFieldName}
+                    />
                     <FieldEffect
                       name={String(field.name)}
-                      pairName={fieldName}
+                      pairName={pairFieldName}
                     />
 
                     <Button

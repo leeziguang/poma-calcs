@@ -5,6 +5,13 @@
 
   &-colWrapper {
     overflow: auto;
+    margin-top: 36px;
+  }
+
+  &-move-damage {
+    .ant-card-body {
+      padding: 4px 0;
+    }
   }
 
   &-title {

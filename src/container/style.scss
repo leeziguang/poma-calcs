@@ -1,3 +1,22 @@
+.pairList {
+  &-actions-row-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px 12px 24px;
+    
+    &-delete-wrapper {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    &-add-wrapper {
+      display: flex;
+      max-width: 300px;
+    }
+  }
+}
+
 .form {
   .ant-form-item {
     margin-bottom: 8px;

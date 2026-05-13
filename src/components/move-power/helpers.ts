@@ -4,7 +4,7 @@ import {
   ICalcSyncPowerArgs,
   IMovePowerFormValues
 } from "src/types/move-power";
-import { SYUN_MULTI } from "./constants";
+import { AOE_PENALTY_MAP, SM_PMUN_MULTI, SYUN_MULTI } from "./constants";
 
 export const formToCalcArgAdaptor = (
   formVal: IMovePowerFormValues
@@ -38,10 +38,16 @@ export const calcMovePower = ({
     ) + grid
   );
 
-  const moveMulti = 1 + multis + smpmun * SYUN_MULTI;
+  const moveMulti = 1 + multis + smpmun * SM_PMUN_MULTI;
   const innateMulti = 1 + innate;
 
-  return realMovePower * moveMulti * innateMulti;
+  const aoeMulti = options?.includes(EMovePowerFormFields.IS_AOE)
+    ? options?.includes(EMovePowerFormFields.IGNORE_AOE_PENALTY)
+      ? 3
+      : AOE_PENALTY_MAP[3]
+    : 1;
+
+  return realMovePower * moveMulti * innateMulti * aoeMulti;
 };
 
 export const calcSyncPower = ({
@@ -66,5 +72,10 @@ export const calcSyncPower = ({
   const moveMulti = 1 + multis + syun * SYUN_MULTI;
   const innateMulti = 1 + innate;
 
-  return realMovePower * moveMulti * innateMulti;
+  return (
+    realMovePower *
+    moveMulti *
+    innateMulti *
+    (options?.includes(EMovePowerFormFields.IS_AOE) ? 3 : 1)
+  );
 };

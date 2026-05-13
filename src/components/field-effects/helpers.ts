@@ -10,7 +10,6 @@ export const calcFieldEffect = ({
   rebuff,
   seun
 }: ICalcFieldEffectArg) => {
-  console.log("calcFieldEffect", syncBoosts, wtz, circle, rebuff, seun);
   const totalCircleMulti = (circle || []).reduce(
     (acc, c) =>
       acc +
