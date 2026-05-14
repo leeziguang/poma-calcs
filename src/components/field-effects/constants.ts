@@ -33,7 +33,7 @@ export const REBUFF_MULTI_MAP = {
 } as Record<number, number>;
 
 export const REBUFF_OPTIONS = [0, 1, 2, 3].map(opt => ({
-  label: `+${opt}`,
+  label: `-${opt}`,
   value: REBUFF_MULTI_MAP[opt]
 }));
 

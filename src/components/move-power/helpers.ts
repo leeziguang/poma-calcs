@@ -5,12 +5,16 @@ import {
   IMovePowerFormValues
 } from "src/types/move-power";
 import { AOE_PENALTY_MAP, SM_PMUN_MULTI, SYUN_MULTI } from "./constants";
+import {
+  MOVE_LEVEL_MOVE_BOOST_MAP,
+  MOVE_LEVEL_SYNC_BOOST_MAP
+} from "../action-topbar/constants";
 
 export const formToCalcArgAdaptor = (
   formVal: Partial<IMovePowerFormValues>
 ): ICalcMovePowerArgs | ICalcSyncPowerArgs => ({
   base: formVal?.[EMovePowerFormFields.BASE_MOVE],
-  moveLvlMulti: formVal?.[EMovePowerFormFields.MOVE_LVL],
+  moveLvl: formVal?.[EMovePowerFormFields.MOVE_LVL],
   grid: formVal?.[EMovePowerFormFields.GRID],
   options: formVal?.[EMovePowerFormFields.OPTIONS],
   smpmun: formVal?.[EMovePowerFormFields.SM_PMUN],
@@ -21,7 +25,7 @@ export const formToCalcArgAdaptor = (
 
 export const calcMovePower = ({
   base,
-  moveLvlMulti,
+  moveLvl,
   grid,
   options,
   smpmun,
@@ -34,7 +38,7 @@ export const calcMovePower = ({
     Math.floor(
       Math.floor(
         base * (options?.includes(EMovePowerFormFields.IS_TERA) ? 1.5 : 1)
-      ) * moveLvlMulti
+      ) * MOVE_LEVEL_MOVE_BOOST_MAP[moveLvl]
     ) + grid
   );
 
@@ -52,7 +56,7 @@ export const calcMovePower = ({
 
 export const calcSyncPower = ({
   base,
-  moveLvlMulti,
+  moveLvl,
   grid,
   options,
   syun,
@@ -65,7 +69,7 @@ export const calcSyncPower = ({
     Math.floor(
       Math.floor(
         base * (options?.includes(EMovePowerFormFields.IS_TECH) ? 1.5 : 1)
-      ) * moveLvlMulti
+      ) * MOVE_LEVEL_SYNC_BOOST_MAP[moveLvl]
     ) + grid
   );
 

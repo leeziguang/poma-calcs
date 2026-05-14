@@ -1,8 +1,5 @@
 import { EStatBoost, EStatDrops } from "../../types/base-stats";
 
-// arbitrary value
-export const ENEMY_DEF = 50;
-
 export const STAT_BOOST_LABEL = {
   [EStatBoost.ZERO]: "0",
   [EStatBoost.PLUS_1]: "+1",

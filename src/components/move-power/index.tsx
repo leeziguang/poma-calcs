@@ -1,24 +1,29 @@
 import React, { useEffect } from "react";
-import { Checkbox, Collapse, Form, Input, InputNumber, Select } from "antd";
+import { Checkbox, Collapse, Form, Input, InputNumber } from "antd";
 import { EMovePowerFormFields } from "src/types/move-power";
 import { calcMovePower, calcSyncPower, formToCalcArgAdaptor } from "./helpers";
-import { MOVE_LEVEL_OPTIONS } from "./constants";
 import "./style.scss";
 import { pairStore } from "src/store/pair";
+import { EPairListFormFields } from "src/types";
 
 interface IMovePowerProps {
   name: string;
   fieldPath: (string | number)[];
+  pairFieldName: number;
 }
 
-export const MovePower = ({ name, fieldPath }: IMovePowerProps) => {
+export const MovePower = ({
+  name,
+  fieldPath,
+  pairFieldName
+}: IMovePowerProps) => {
   const form = Form.useFormInstance();
   const baseMove = Form.useWatch(
     [...fieldPath, EMovePowerFormFields.BASE_MOVE],
     form
   );
   const moveLvl = Form.useWatch(
-    [...fieldPath, EMovePowerFormFields.MOVE_LVL],
+    [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MOVE_LVL],
     form
   );
   const grid = Form.useWatch([...fieldPath, EMovePowerFormFields.GRID], form);
@@ -121,13 +126,6 @@ export const MovePower = ({ name, fieldPath }: IMovePowerProps) => {
               <></>
             )}
           </Checkbox.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Move Level"
-          name={[name, EMovePowerFormFields.MOVE_LVL]}
-        >
-          <Select options={MOVE_LEVEL_OPTIONS} />
         </Form.Item>
 
         <Form.Item

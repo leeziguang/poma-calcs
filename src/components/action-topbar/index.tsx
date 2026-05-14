@@ -22,7 +22,7 @@ export const ActionTopbar = observer(
           Enemy Def
           <InputNumber
             value={configStore.enemyDef}
-            onChange={configStore.setEnemyDef}
+            onChange={(val: number) => configStore.setEnemyDef(val)}
             placeholder="Enemy Def"
             controls={false}
             min={0}

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, Input, Select } from "antd";
 import { BaseStats } from "../base-stats";
 import { RenameableTitle } from "../renameable-title";
-import { EPairListFormFields } from "../../types";
+import { EPairListFormFields, EMoveLevelValues } from "../../types";
+import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
 
 import "./style.scss";
 import { MovePower } from "../move-power";
@@ -68,6 +69,14 @@ export const DataColList = ({
       )}
 
       <PairDamageDisplay />
+
+      <Form.Item
+        label="Move Level"
+        name={[pairFieldName, EPairListFormFields.MOVE_LVL]}
+        initialValue={EMoveLevelValues.ONE}
+      >
+        <Select options={MOVE_LEVEL_OPTIONS} />
+      </Form.Item>
 
       <div className="dataColList-colWrapper">
         <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>
@@ -138,6 +147,7 @@ export const DataColList = ({
                           EPairListFormFields.DATA_COL,
                           field.name
                         ]}
+                        pairFieldName={pairFieldName}
                       />
 
                       <MovePower
@@ -148,6 +158,7 @@ export const DataColList = ({
                           EPairListFormFields.DATA_COL,
                           field.name
                         ]}
+                        pairFieldName={pairFieldName}
                       />
 
                       <FieldEffect

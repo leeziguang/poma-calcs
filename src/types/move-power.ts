@@ -17,7 +17,7 @@ export enum EMovePowerFormFields {
 
 export interface ICalcMovePowerArgs {
   base: number;
-  moveLvlMulti: number;
+  moveLvl: string;
   grid?: number;
   options?: IMovePowerFormValues["OPTIONS"];
   smpmun?: number;
@@ -27,7 +27,7 @@ export interface ICalcMovePowerArgs {
 
 export interface ICalcSyncPowerArgs {
   base: number;
-  moveLvlMulti: number;
+  moveLvl: string;
   grid?: number;
   options?: IMovePowerFormValues["OPTIONS"];
   syun?: number;
@@ -37,7 +37,7 @@ export interface ICalcSyncPowerArgs {
 
 export interface IMovePowerFormValues {
   [EMovePowerFormFields.BASE_MOVE]: number;
-  [EMovePowerFormFields.MOVE_LVL]: number;
+  [EMovePowerFormFields.MOVE_LVL]: string;
   [EMovePowerFormFields.GRID]: number;
   [EMovePowerFormFields.SM_PMUN]?: number;
   [EMovePowerFormFields.SYUN]?: number;
