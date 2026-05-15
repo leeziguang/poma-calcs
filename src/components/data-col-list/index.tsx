@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 // import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input, Select } from "antd";
+import { Button, Card, Form, FormListFieldData, Input, Select } from "antd";
 import { BaseStats } from "../base-stats";
 import { RenameableTitle } from "../renameable-title";
-import { EPairListFormFields, EMoveLevelValues } from "../../types";
+import {
+  EPairListFormFields,
+  EMoveLevelValues,
+  IPairListFormValues
+} from "../../types";
 import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
 
 import "./style.scss";
@@ -13,24 +17,38 @@ import { FieldEffect } from "../field-effects";
 import { calcPairTotalDamage } from "./helpers";
 import { pairStore } from "src/store/pair";
 import { observer } from "mobx-react";
+import { NamePath, StoreValue } from "antd/lib/form/interface";
 
-const PairDamageDisplay = observer(() => <Card>{calcPairTotalDamage()}</Card>);
+const PairDamageDisplay = observer(() => {
+  const totalDmg =
+    calcPairTotalDamage()?.toLocaleString(undefined, {
+      maximumFractionDigits: 6
+    }) || "-";
+
+  return (
+    <div className="dataColList-pair-damage" title={totalDmg}>
+      <span className="dataColList-pair-damage-label">Total Pair Damage</span>
+      {totalDmg}
+    </div>
+  );
+});
 
 const MoveDamageDisplay = observer(
-  ({ moveColName }: { moveColName: string }) => (
-    <Card className="dataColList-move-damage">
-      <b>Damage</b>
-      <div>
-        {pairStore.moveDamageRec?.[moveColName]?.finalDamage?.toLocaleString(
-          undefined,
-          {
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-          }
-        ) || "-"}
-      </div>
-    </Card>
-  )
+  ({ moveColName }: { moveColName: string }) => {
+    const moveDamageString =
+      pairStore.moveDamageRec?.[moveColName]?.finalDamage?.toLocaleString(
+        undefined,
+        {
+          maximumFractionDigits: 6
+        }
+      ) || "-";
+    return (
+      <Card className="dataColList-move-damage">
+        <b>Move Damage</b>
+        <div title={moveDamageString}>{moveDamageString}</div>
+      </Card>
+    );
+  }
 );
 
 export const DataColList = ({
@@ -55,6 +73,51 @@ export const DataColList = ({
 
   const parentFieldPath = [EPairListFormFields.PAIR, pairFieldName];
 
+  const AddMoveButton = ({
+    add,
+    fields,
+    getFieldValue
+  }: {
+    add: (v?: StoreValue) => void;
+    fields: FormListFieldData[];
+    getFieldValue: (
+      path: NamePath
+    ) => IPairListFormValues[EPairListFormFields.PAIR][EPairListFormFields.DATA_COL];
+  }): React.ReactNode => (
+    <div className="dataColList-addCol">
+      <Input
+        placeholder="Move Name"
+        value={newTitle}
+        onChange={e => setNewTitle(e.target.value)}
+        onPressEnter={() => {
+          add();
+          setColumnTitles(prev => ({
+            ...prev,
+            [fields.length]: newTitle
+          }));
+          setNewTitle(undefined);
+        }}
+      />
+      <Button
+        onClick={() => {
+          const prevValues = getFieldValue([
+            ...parentFieldPath,
+            EPairListFormFields.DATA_COL
+          ])?.slice(-1)[0];
+
+          add(prevValues || DEFAULT_COL);
+          setColumnTitles(prev => ({
+            ...prev,
+            [fields.length]: newTitle
+          }));
+          setNewTitle(undefined);
+        }}
+      >
+        Add
+      </Button>
+    </div>
+  );
+
   return (
     <Card className="dataColList-card">
       {title !== undefined && (
@@ -68,57 +131,33 @@ export const DataColList = ({
         />
       )}
 
-      <PairDamageDisplay />
+      <div className="dataColList-level-and-damage-bar">
+        <Form.Item
+          label="Move Level"
+          name={[pairFieldName, EPairListFormFields.MOVE_LVL]}
+          initialValue={EMoveLevelValues.ONE}
+        >
+          <Select options={MOVE_LEVEL_OPTIONS} />
+        </Form.Item>
 
-      <Form.Item
-        label="Move Level"
-        name={[pairFieldName, EPairListFormFields.MOVE_LVL]}
-        initialValue={EMoveLevelValues.ONE}
-      >
-        <Select options={MOVE_LEVEL_OPTIONS} />
-      </Form.Item>
+        <PairDamageDisplay />
+      </div>
 
       <div className="dataColList-colWrapper">
         <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>
           {(fields, { add, remove }) => (
             <>
-              <Form.Item noStyle shouldUpdate>
-                {({ getFieldValue }) => (
-                  <div className="dataColList-addCol">
-                    <Input
-                      placeholder="Move Name"
-                      value={newTitle}
-                      onChange={e => setNewTitle(e.target.value)}
-                      onPressEnter={() => {
-                        add();
-                        setColumnTitles(prev => ({
-                          ...prev,
-                          [fields.length]: newTitle
-                        }));
-                        setNewTitle(undefined);
-                      }}
+              <div className="dataColList-add-move-bar">
+                <Form.Item noStyle shouldUpdate>
+                  {({ getFieldValue }) => (
+                    <AddMoveButton
+                      add={add}
+                      fields={fields}
+                      getFieldValue={getFieldValue}
                     />
-                    <Button
-                      onClick={e => {
-                        e.stopPropagation();
-                        const prevValues = getFieldValue([
-                          ...parentFieldPath,
-                          EPairListFormFields.DATA_COL
-                        ])?.at(-1);
-
-                        add(prevValues || DEFAULT_COL);
-                        setColumnTitles(prev => ({
-                          ...prev,
-                          [fields.length]: newTitle
-                        }));
-                        setNewTitle(undefined);
-                      }}
-                    >
-                      Add
-                    </Button>
-                  </div>
-                )}
-              </Form.Item>
+                  )}
+                </Form.Item>
+              </div>
 
               <div className="dataColList-body">
                 {fields.map(field => {
