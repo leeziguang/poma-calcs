@@ -2,10 +2,11 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Card } from "antd";
 import { numberToDisplayString, getPercent } from "src/lib/helpers";
-import { pairStore } from "src/store/pair";
+import { usePairStore } from "src/store/pair-context";
 
 export const MoveDamageDisplay = observer(
   ({ moveColName }: { moveColName: string }) => {
+    const pairStore = usePairStore();
     const moveDamageString = numberToDisplayString(
       pairStore.moveDamageRec?.[moveColName]?.finalDamage,
       6

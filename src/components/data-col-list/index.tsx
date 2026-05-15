@@ -8,7 +8,7 @@ import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
 import { FieldEffect } from "../field-effects";
-import { pairStore } from "src/store/pair";
+import { usePairStore } from "src/store/pair-context";
 import { MoveDamageDisplay } from "../damage-display/move";
 import { TotalDamageDisplay } from "../damage-display/total";
 import "./style.scss";
@@ -23,6 +23,7 @@ export const DataColList = ({
   title?: string;
   onTitleChange?: (val: string) => void;
 }) => {
+  const pairStore = usePairStore();
   useEffect(() => {
     pairStore.init();
 

@@ -1,16 +1,24 @@
 .renameableTitle {
   cursor: pointer;
-  &-input {
-    max-width: 120px;
-  }
 
   &-title {
     cursor: pointer;
     font-weight: 600;
     padding: 4px 0;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       opacity: 0.7;
     }
+  }
+}
+
+.renameableTitle-input-wrapper {
+  max-width: 200px;
+
+  .renameableTitle-input {
+    max-width: 120px;
   }
 }

@@ -19,7 +19,7 @@ import {
 } from "./constants";
 import "./style.scss";
 import { calcFieldEffect } from "./helpers";
-import { pairStore } from "src/store/pair";
+import { usePairStore } from "src/store/pair-context";
 
 interface IFieldEffectProps {
   name: string;
@@ -27,6 +27,7 @@ interface IFieldEffectProps {
 }
 
 export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
+  const pairStore = usePairStore();
   const form = Form.useFormInstance();
   const syncBoosts = Form.useWatch(
     [...fieldPath, EFieldEffectFormFields.SYNC_BOOSTS],

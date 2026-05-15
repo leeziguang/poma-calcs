@@ -1,4 +1,11 @@
 .dataColList{
+  &-title {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &-card {
     background-color: rgba(0, 0, 0, 0.05);
 
@@ -58,7 +65,7 @@
     align-items: center;
     position: absolute;
 
-    top: 28px;
+    top: 60px;
     gap: 8px;
 
     input {

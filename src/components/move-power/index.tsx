@@ -3,7 +3,7 @@ import { Checkbox, Collapse, Form, Input, InputNumber } from "antd";
 import { EMovePowerFormFields } from "src/types/move-power";
 import { calcMovePower, calcSyncPower, formToCalcArgAdaptor } from "./helpers";
 import "./style.scss";
-import { pairStore } from "src/store/pair";
+import { usePairStore } from "src/store/pair-context";
 import { EPairListFormFields } from "src/types";
 
 interface IMovePowerProps {
@@ -17,6 +17,7 @@ export const MovePower = ({
   fieldPath,
   pairFieldName
 }: IMovePowerProps) => {
+  const pairStore = usePairStore();
   const form = Form.useFormInstance();
   const baseMove = Form.useWatch(
     [...fieldPath, EMovePowerFormFields.BASE_MOVE],

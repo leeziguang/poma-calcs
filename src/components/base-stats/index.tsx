@@ -4,7 +4,7 @@ import { Collapse, Form, InputNumber, Select } from "antd";
 import { statBoostOptions, statDropOptions } from "./constants";
 import { EBaseStatFormFields } from "src/types/base-stats";
 import { calcBaseStat } from "./helpers";
-import { pairStore } from "src/store/pair";
+import { usePairStore } from "src/store/pair-context";
 import "./style.scss";
 import { EPairListFormFields } from "src/types";
 
@@ -16,6 +16,7 @@ interface IBaseStatsProps {
 
 export const BaseStats = observer(
   ({ name, fieldPath, pairFieldName }: IBaseStatsProps) => {
+    const pairStore = usePairStore();
     const form = Form.useFormInstance();
     const stat = Form.useWatch([...fieldPath, EBaseStatFormFields.STAT], form);
     const moveLvl = Form.useWatch(

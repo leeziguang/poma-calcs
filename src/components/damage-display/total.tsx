@@ -1,9 +1,10 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { numberToDisplayString } from "src/lib/helpers";
-import { pairStore } from "src/store/pair";
+import { usePairStore } from "src/store/pair-context";
 
 export const TotalDamageDisplay = observer(() => {
+  const pairStore = usePairStore();
   const totalDmgString = numberToDisplayString(pairStore?.totalDamage, 6);
 
   return (
