@@ -42,98 +42,91 @@ const TabLabel = observer(
   }
 );
 
-export const MainPage = () => {
-  const PokemonList = () => {
-    const [form] = Form.useForm();
-    const [pairName, setPairName] = useState<string>(undefined);
-    const [pairNames, setPairNames] = useState<string[]>([]);
-    const storesRef = useRef<Map<React.Key, PairStore>>(new Map());
+const PokemonList = () => {
+  const [form] = Form.useForm();
+  const [pairName, setPairName] = useState<string | undefined>(undefined);
+  const [pairNames, setPairNames] = useState<string[]>([]);
+  const storesRef = useRef<Map<React.Key, PairStore>>(new Map());
 
-    const getOrCreateStore = (key: React.Key): PairStore => {
-      if (!storesRef.current.has(key)) {
-        const store = new PairStore();
-        store.init();
-        storesRef.current.set(key, store);
-      }
-      return storesRef.current.get(key);
-    };
-
-    return (
-      <Form colon={false} layout="vertical" className="form" form={form}>
-        <Form.List name={EPairListFormFields.PAIR}>
-          {(fields, { add, remove }) => {
-            const firstStore =
-              fields.length > 0 ? getOrCreateStore(fields[0].key) : undefined;
-
-            return (
-              <>
-                <ActionTopbar
-                  add={add}
-                  pairName={pairName}
-                  setPairName={setPairName}
-                  setPairNames={setPairNames}
-                />
-
-                <Tabs
-                  type="editable-card"
-                  hideAdd
-                  onEdit={(targetKey, action) => {
-                    if (action !== "remove") return;
-                    const field = fields.find(
-                      f => String(f.key) === String(targetKey)
-                    );
-                    if (!field) return;
-                    storesRef.current.delete(field.key);
-                    remove(field.name);
-                    setPairNames(prev =>
-                      prev.filter((_, i) => i !== field.name)
-                    );
-                  }}
-                  items={fields.map(field => {
-                    const store = getOrCreateStore(field.key);
-                    const name =
-                      pairNames[field.name] ?? `Pair ${field.name + 1}`;
-
-                    return {
-                      key: String(field.key),
-                      label: (
-                        <TabLabel
-                          name={name}
-                          store={store}
-                          firstStore={firstStore}
-                          onRename={val =>
-                            setPairNames(prev =>
-                              prev.map((n, i) => (i === field.name ? val : n))
-                            )
-                          }
-                        />
-                      ),
-                      children: (
-                        <PairStoreContext.Provider value={store}>
-                          <DataColList
-                            pairFieldName={field.name}
-                            title={
-                              pairNames[field.name] ?? `Pair ${field.name + 1}`
-                            }
-                            onTitleChange={val =>
-                              setPairNames(prev =>
-                                prev.map((n, i) => (i === field.name ? val : n))
-                              )
-                            }
-                          />
-                        </PairStoreContext.Provider>
-                      )
-                    };
-                  })}
-                />
-              </>
-            );
-          }}
-        </Form.List>
-      </Form>
-    );
+  const getOrCreateStore = (key: React.Key): PairStore => {
+    if (!storesRef.current.has(key)) {
+      const store = new PairStore();
+      store.init();
+      storesRef.current.set(key, store);
+    }
+    return storesRef.current.get(key) as PairStore;
   };
 
+  const handleRename = (fieldName: number, val: string) =>
+    setPairNames(prev => prev.map((n, i) => (i === fieldName ? val : n)));
+
+  return (
+    <Form colon={false} layout="vertical" className="form" form={form}>
+      <Form.List name={EPairListFormFields.PAIR}>
+        {(fields, { add, remove }) => {
+          const firstStore =
+            fields.length > 0 ? getOrCreateStore(fields[0].key) : undefined;
+
+          return (
+            <>
+              <ActionTopbar
+                add={add}
+                pairName={pairName}
+                setPairName={setPairName}
+                setPairNames={setPairNames}
+              />
+
+              <Tabs
+                type="editable-card"
+                hideAdd
+                onEdit={(targetKey, action) => {
+                  if (action !== "remove") return;
+                  const field = fields.find(
+                    f => String(f.key) === String(targetKey)
+                  );
+                  if (!field) return;
+                  storesRef.current.delete(field.key);
+                  remove(field.name);
+                  setPairNames(prev => prev.filter((_, i) => i !== field.name));
+                }}
+                items={fields.map(field => {
+                  const store = getOrCreateStore(field.key);
+                  const name =
+                    pairNames[field.name] ?? `Pair ${field.name + 1}`;
+
+                  return {
+                    key: String(field.key),
+                    label: (
+                      <TabLabel
+                        name={name}
+                        store={store}
+                        firstStore={firstStore}
+                        onRename={val => handleRename(field.name, val)}
+                      />
+                    ),
+                    children: (
+                      <PairStoreContext.Provider value={store}>
+                        <DataColList
+                          pairFieldName={field.name}
+                          title={
+                            pairNames[field.name] ?? `Pair ${field.name + 1}`
+                          }
+                          onTitleChange={val => handleRename(field.name, val)}
+                        />
+                      </PairStoreContext.Provider>
+                    )
+                  };
+                })}
+              />
+            </>
+          );
+        }}
+      </Form.List>
+    </Form>
+  );
+};
+
+export const MainPage = () => {
   return (
     <div>
       <b>Poma Calcs</b>

@@ -16,13 +16,19 @@ export const ActionTopbar = observer(
       configStore.init();
     }, []);
 
+    const handleAdd = () => {
+      add();
+      setPairNames(prev => [...prev, pairName ?? ""]);
+      setPairName(undefined);
+    };
+
     return (
       <div className="pairList-actions-row-wrapper">
         <div className="pairList-actions-row-wrapper-delete-wrapper">
           Enemy Def
           <InputNumber
             value={configStore.enemyDef}
-            onChange={(val: number) => configStore.setEnemyDef(val)}
+            onChange={val => val !== null && configStore.setEnemyDef(val)}
             placeholder="Enemy Def"
             controls={false}
             min={0}
@@ -33,16 +39,9 @@ export const ActionTopbar = observer(
             value={pairName}
             onChange={e => setPairName(e.target.value)}
             placeholder="Name of pair to add"
+            onPressEnter={handleAdd}
           />
-          <Button
-            onClick={() => {
-              add();
-              setPairNames(prev => [...prev, pairName]);
-              setPairName(undefined);
-            }}
-          >
-            Add Pair
-          </Button>
+          <Button onClick={handleAdd}>Add Pair</Button>
         </div>
       </div>
     );

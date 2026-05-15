@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, Select } from "antd";
 import { BaseStats } from "../base-stats";
 import { RenameableTitle } from "../renameable-title";
@@ -11,8 +10,8 @@ import { FieldEffect } from "../field-effects";
 import { usePairStore } from "src/store/pair-context";
 import { MoveDamageDisplay } from "../damage-display/move";
 import { TotalDamageDisplay } from "../damage-display/total";
-import "./style.scss";
 import { DeleteOutlined } from "@ant-design/icons";
+import "./style.scss";
 
 export const DataColList = ({
   pairFieldName,
@@ -30,10 +29,12 @@ export const DataColList = ({
     return () => pairStore.init();
   }, []);
 
-  const [columnTitles, setColumnTitles] = useState<Record<number, string>>({});
+  const [columnTitles, setColumnTitles] = useState<
+    Record<number, string | undefined>
+  >({});
   const [editingCol, setEditingCol] = useState<number | null>(null);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const [newTitle, setNewTitle] = useState(undefined);
+  const [newTitle, setNewTitle] = useState<string | undefined>(undefined);
 
   const parentFieldPath = [EPairListFormFields.PAIR, pairFieldName];
   const form = Form.useFormInstance();
@@ -96,7 +97,7 @@ export const DataColList = ({
                         <div className="dataColList-col-title">
                           <RenameableTitle
                             isEditing={editingCol === field.name}
-                            value={columnTitles?.[field.name]}
+                            value={columnTitles?.[field.name] as string}
                             onChange={val =>
                               setColumnTitles(prev => ({
                                 ...prev,
@@ -121,7 +122,6 @@ export const DataColList = ({
                                   ...prev,
                                   [fields.length]: prev[field.name]
                                 }));
-                                setNewTitle(undefined);
                               }}
                               type="link"
                             >

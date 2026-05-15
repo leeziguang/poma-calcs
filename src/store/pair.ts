@@ -1,13 +1,14 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import { IMoveInfo } from "src/types/pair";
 
 export class PairStore {
-  moveDamageRec: Record<string, IMoveInfo>;
+  moveDamageRec: Record<string, IMoveInfo> = {};
 
   constructor() {
     makeObservable(this, {
       moveDamageRec: observable,
-      updateMoveInfo: action
+      updateMoveInfo: action,
+      totalDamage: computed
     });
   }
 
@@ -32,5 +33,3 @@ export class PairStore {
     this.moveDamageRec = {};
   }
 }
-
-export const pairStore = new PairStore();

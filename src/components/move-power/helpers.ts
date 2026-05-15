@@ -13,8 +13,8 @@ import {
 export const formToCalcArgAdaptor = (
   formVal: Partial<IMovePowerFormValues>
 ): ICalcMovePowerArgs | ICalcSyncPowerArgs => ({
-  base: formVal?.[EMovePowerFormFields.BASE_MOVE],
-  moveLvl: formVal?.[EMovePowerFormFields.MOVE_LVL],
+  base: formVal?.[EMovePowerFormFields.BASE_MOVE] as number,
+  moveLvl: formVal?.[EMovePowerFormFields.MOVE_LVL] as string,
   grid: formVal?.[EMovePowerFormFields.GRID],
   options: formVal?.[EMovePowerFormFields.OPTIONS],
   smpmun: formVal?.[EMovePowerFormFields.SM_PMUN],
@@ -39,11 +39,11 @@ export const calcMovePower = ({
       Math.floor(
         base * (options?.includes(EMovePowerFormFields.IS_TERA) ? 1.5 : 1)
       ) * MOVE_LEVEL_MOVE_BOOST_MAP[moveLvl]
-    ) + grid
+    ) + (grid as number)
   );
 
-  const moveMulti = 1 + multis + smpmun * SM_PMUN_MULTI;
-  const innateMulti = 1 + innate;
+  const moveMulti = 1 + (multis as number) + (smpmun as number) * SM_PMUN_MULTI;
+  const innateMulti = 1 + (innate as number);
 
   const aoeMulti = options?.includes(EMovePowerFormFields.IS_AOE)
     ? options?.includes(EMovePowerFormFields.IGNORE_AOE_PENALTY)
@@ -70,11 +70,11 @@ export const calcSyncPower = ({
       Math.floor(
         base * (options?.includes(EMovePowerFormFields.IS_TECH) ? 1.5 : 1)
       ) * MOVE_LEVEL_SYNC_BOOST_MAP[moveLvl]
-    ) + grid
+    ) + (grid as number)
   );
 
-  const moveMulti = 1 + multis + syun * SYUN_MULTI;
-  const innateMulti = 1 + innate;
+  const moveMulti = 1 + (multis as number) + (syun as number) * SYUN_MULTI;
+  const innateMulti = 1 + (innate as number);
 
   return Math.floor(
     realMovePower *

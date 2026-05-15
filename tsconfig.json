@@ -15,7 +15,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "skipLibCheck": true,
     "allowJs": true,
     "esModuleInterop": true,
