@@ -61,7 +61,7 @@ export const BaseStats = observer(
           }
         >
           <Form.Item name={[name, EBaseStatFormFields.STAT]} label="Raw Stat">
-            <InputNumber min={0} />
+            <InputNumber min={0} autoFocus />
           </Form.Item>
 
           <Form.Item name={[name, EBaseStatFormFields.GRID]} label="Grid Boost">

@@ -12,10 +12,21 @@
       padding: 4px 16px;
     }
 
-    div {
-      max-width: 252px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    &-values {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+
+      &-raw {
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &-percent {
+        white-space: pre;
+      }
     }
   }
 

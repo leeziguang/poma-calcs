@@ -9,47 +9,14 @@ import {
   IPairListFormValues
 } from "../../types";
 import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
-
-import "./style.scss";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
 import { FieldEffect } from "../field-effects";
-import { calcPairTotalDamage } from "./helpers";
 import { pairStore } from "src/store/pair";
-import { observer } from "mobx-react";
 import { NamePath, StoreValue } from "antd/lib/form/interface";
-
-const PairDamageDisplay = observer(() => {
-  const totalDmg =
-    calcPairTotalDamage()?.toLocaleString(undefined, {
-      maximumFractionDigits: 6
-    }) || "-";
-
-  return (
-    <div className="dataColList-pair-damage" title={totalDmg}>
-      <span className="dataColList-pair-damage-label">Total Pair Damage</span>
-      {totalDmg}
-    </div>
-  );
-});
-
-const MoveDamageDisplay = observer(
-  ({ moveColName }: { moveColName: string }) => {
-    const moveDamageString =
-      pairStore.moveDamageRec?.[moveColName]?.finalDamage?.toLocaleString(
-        undefined,
-        {
-          maximumFractionDigits: 6
-        }
-      ) || "-";
-    return (
-      <Card className="dataColList-move-damage">
-        <b>Move Damage</b>
-        <div title={moveDamageString}>{moveDamageString}</div>
-      </Card>
-    );
-  }
-);
+import "./style.scss";
+import { MoveDamageDisplay } from "../damage-display/move";
+import { TotalDamageDisplay } from "../damage-display/total";
 
 export const DataColList = ({
   pairFieldName,
@@ -140,7 +107,7 @@ export const DataColList = ({
           <Select options={MOVE_LEVEL_OPTIONS} />
         </Form.Item>
 
-        <PairDamageDisplay />
+        <TotalDamageDisplay />
       </div>
 
       <div className="dataColList-colWrapper">

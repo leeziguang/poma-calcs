@@ -21,6 +21,13 @@ export class PairStore {
     this.moveDamageRec = { ...this.moveDamageRec, [key]: merged };
   }
 
+  get totalDamage() {
+    return Object.values(this.moveDamageRec || {}).reduce(
+      (acc, moveInfo) => acc + (moveInfo.finalDamage ?? 0),
+      0
+    );
+  }
+
   init() {
     this.moveDamageRec = {};
   }
