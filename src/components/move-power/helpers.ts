@@ -76,10 +76,10 @@ export const calcSyncPower = ({
   const moveMulti = 1 + multis + syun * SYUN_MULTI;
   const innateMulti = 1 + innate;
 
-  return (
+  return Math.floor(
     realMovePower *
-    moveMulti *
-    innateMulti *
-    (options?.includes(EMovePowerFormFields.IS_AOE) ? 3 : 1)
+      moveMulti *
+      innateMulti *
+      (options?.includes(EMovePowerFormFields.IS_AOE) ? 3 : 1)
   );
 };

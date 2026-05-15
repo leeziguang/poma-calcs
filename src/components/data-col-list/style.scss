@@ -1,6 +1,10 @@
 .dataColList{
   &-card {
     background-color: rgba(0, 0, 0, 0.05);
+
+    > .ant-card-body {
+      padding: 8px 24px 12px 24px;
+    }
   }
 
   &-colWrapper {
@@ -29,11 +33,6 @@
       }
     }
   }
-
-  &-title {
-    min-height: 32px;
-    max-height: 32px;
-  }
   
   &-body {
     display: flex;
@@ -42,6 +41,16 @@
 
   &-col {
     min-width: 252px;
+
+    &-title {
+      &-actions {
+        display: flex;
+        gap: 4px;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: -4px;
+      }
+    }
   }
 
   &-add-move-bar {
@@ -49,7 +58,7 @@
     align-items: center;
     position: absolute;
 
-    top: 46px;
+    top: 28px;
     gap: 8px;
 
     input {
@@ -74,7 +83,7 @@
     text-overflow: ellipsis;
 
     &-label {
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 4px;
     }
   }

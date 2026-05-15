@@ -6,12 +6,34 @@
   &-wrapper {
     display: flex;
     align-items: end;
+
+    .anticon-delete {
+      margin-bottom: 16px;
+      margin-left: 4px;
+    }
   }
 
   &-card {
     background-color: rgba(0, 0, 0, 0.03);
+
     .ant-card-body {
       padding: 4px 8px;
+    }
+
+    .anticon-plus {
+      svg {
+        height: 12px;
+        width: 12px;
+        margin-bottom: 1px;
+      }
+    }
+
+    &-title {
+      display: flex;
+      padding-left: 84px;
+      font-weight: 600;
+      align-items: center;
+      gap: 63px;
     }
   }
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Button,
   Card,
   Checkbox,
   Collapse,
@@ -9,6 +8,7 @@ import {
   InputNumber,
   Select
 } from "antd";
+import { DeleteOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { ECircle, EFieldEffectFormFields } from "src/types/field-effect";
 import {
   CIRCLE_MULTI_MAP,
@@ -80,14 +80,14 @@ export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
           {(fields, { add, remove }) => {
             return (
               <Card className="fieldEffect-circle-card">
-                <span>
-                  Circle{" "}
+                <div className="fieldEffect-circle-card-title">
+                  <span>Circle</span>
                   {fields?.length < 9 ? (
-                    <Button onClick={add}>+</Button>
+                    <PlusCircleOutlined onClick={add} />
                   ) : (
                     <></>
                   )}
-                </span>
+                </div>
                 {fields?.map(field => (
                   <div key={field.key} className="fieldEffect-circle-wrapper">
                     <Form.Item
@@ -110,7 +110,7 @@ export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
                         className="fieldEffect-circle-members"
                       />
                     </Form.Item>
-                    <Button onClick={() => remove(field.name)}>-</Button>
+                    <DeleteOutlined onClick={() => remove(field.name)} />
                   </div>
                 ))}
               </Card>

@@ -23,7 +23,7 @@ export function isValidNumber(value: number): boolean {
 }
 
 export function getPercent(num: number, denom: number) {
-  if (!isValidNumber(denom) || denom === 0) return "- %";
+  if (!isValidNumber(denom) || denom === 0) return " - %";
 
   return `${((num / denom) * 100).toFixed(2)} %`;
 }

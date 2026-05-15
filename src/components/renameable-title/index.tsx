@@ -21,15 +21,17 @@ export const RenameableTitle = ({
   titleClassName
 }: IRenameableTitleProps) => {
   return isEditing ? (
-    <Input
-      autoFocus
-      placeholder="Move Name"
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      onBlur={onEndEdit}
-      onPressEnter={onEndEdit}
-      className="renameableTitle-input"
-    />
+    <div>
+      <Input
+        autoFocus
+        placeholder="Move Name"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onBlur={onEndEdit}
+        onPressEnter={onEndEdit}
+        className="renameableTitle-input"
+      />
+    </div>
   ) : (
     <div
       className={classNames("renameableTitle-title", titleClassName)}

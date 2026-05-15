@@ -16,7 +16,7 @@ export const MainPage = () => {
         colon={false}
         layout="vertical"
         className="form"
-        onValuesChange={(_, values) => console.log(values)}
+        // onValuesChange={(_, values) => console.log(values)}
         form={form}
       >
         <Form.List name={EPairListFormFields.PAIR}>
