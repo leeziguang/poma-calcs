@@ -108,14 +108,14 @@ export const DataColList = ({
                           <div className="dataColList-col-title-actions">
                             <Button
                               onClick={() => {
-                                const prevValues = form
+                                const dupVal = form
                                   .getFieldValue([
                                     ...parentFieldPath,
                                     EPairListFormFields.DATA_COL
                                   ])
-                                  ?.slice(-1)[0];
+                                  ?.slice(field.name)[0];
 
-                                add(prevValues || DEFAULT_COL);
+                                add(dupVal || DEFAULT_COL);
                                 setColumnTitles(prev => ({
                                   ...prev,
                                   [fields.length]: prev[field.name]

@@ -29,10 +29,13 @@ export const REBUFF_MULTI_MAP = {
   [0]: 1,
   [1]: 1.3,
   [2]: 1.5,
-  [3]: 1.6
+  [3]: 1.6,
+  [4]: 1.9,
+  [5]: 2.1,
+  [6]: 2.2
 } as Record<number, number>;
 
-export const REBUFF_OPTIONS = [0, 1, 2, 3].map(opt => ({
+export const REBUFF_OPTIONS = [0, 1, 2, 3, 4, 5, 6].map(opt => ({
   label: `-${opt}`,
   value: REBUFF_MULTI_MAP[opt]
 }));
