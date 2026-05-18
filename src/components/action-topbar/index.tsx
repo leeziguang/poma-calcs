@@ -4,9 +4,10 @@ import { Checkbox, InputNumber, Button, Select } from "antd";
 import { DefaultOptionType } from "antd/lib/select";
 import { configStore } from "src/store/config";
 import { trainerStore } from "src/store/trainer";
+import { EPairListFormFields, EMoveLevelValues } from "src/types";
 
 interface IActionTopbarProps {
-  add: () => void;
+  add: (defaultValue?: Record<string, unknown>) => void;
   setPairName: (name: string | undefined) => void;
   pairName: string | undefined;
   setPairNames: (updater: (prev: string[]) => string[]) => void;
@@ -27,7 +28,10 @@ export const ActionTopbar = observer(
     }, [pairName]);
 
     const handleAdd = () => {
-      add();
+      add({
+        [EPairListFormFields.LVL]: 140,
+        [EPairListFormFields.MOVE_LVL]: EMoveLevelValues.ONE
+      });
       setPairNames(prev => [...prev, pairName ?? ""]);
       setPairName(undefined);
     };
@@ -62,11 +66,12 @@ export const ActionTopbar = observer(
         <div className="pairList-actions-row-wrapper-add-wrapper">
           <Select
             value={selectedKey}
-            options={trainerStore.trainerOptList}
+            options={trainerStore.trainerOptList || []}
             onChange={handleSelect}
             placeholder="Select a trainer"
             style={{ flex: 1 }}
             showSearch
+            optionFilterProp="label"
           />
           <Button onClick={handleAdd} disabled={!selectedKey}>
             Add Pair

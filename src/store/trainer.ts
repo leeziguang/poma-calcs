@@ -1,30 +1,99 @@
-import { action, makeObservable, observable } from "mobx";
-import { fetchTrainerName } from "src/service";
+import { action, computed, makeObservable, observable } from "mobx";
+import {
+  fetchTrainer,
+  fetchTrainerBase,
+  fetchTrainerNamesEn,
+  fetchVerboseTrainerNamesEn
+} from "src/service";
+import { ITrainer, ITrainerBasePicked } from "src/types/trainer";
 
 export class TrainerStore {
-  trainers: Record<string, string> = {};
+  trainers: ITrainer[] = [];
+  trainerBase: ITrainerBasePicked[] = [];
+  trainerNamesEn: Record<string, string> = {};
+  verboseTrainerNamesEn: Record<string, string> = {};
+
   constructor() {
     makeObservable(this, {
       trainers: observable,
-      setTrainers: action
+      trainerBase: observable,
+      trainerNamesEn: observable,
+      verboseTrainerNamesEn: observable,
+      setTrainers: action,
+      setTrainerBase: action,
+      setTrainerNamesEn: action,
+      setVerboseTrainerNamesEn: action,
+      trainerOptList: computed
     });
   }
 
-  setTrainers(trainers: Record<string, string>) {
-    this.trainers = { ...this.trainers, ...trainers };
+  setTrainers(trainers: ITrainer[]) {
+    this.trainers = trainers;
+  }
+
+  setTrainerBase(trainerBase: ITrainerBasePicked[]) {
+    this.trainerBase = trainerBase;
+  }
+
+  setTrainerNamesEn(names: Record<string, string>) {
+    this.trainerNamesEn = names;
+  }
+
+  setVerboseTrainerNamesEn(names: Record<string, string>) {
+    this.verboseTrainerNamesEn = names;
   }
 
   getTrainers() {
-    return fetchTrainerName().then(data => {
-      this.setTrainers(data);
-      console.log(data);
+    return fetchTrainer().then(data => {
+      this.setTrainers(data.entries);
     });
   }
 
+  getTrainerBase() {
+    return fetchTrainerBase().then(data => {
+      this.setTrainerBase(
+        data.entries.map(e => ({
+          trainerBaseId: e.id,
+          trainerNameId: e.trainerNameId
+        }))
+      );
+    });
+  }
+
+  getTrainerNamesEn() {
+    return fetchTrainerNamesEn().then(data => {
+      this.setTrainerNamesEn(data);
+    });
+  }
+
+  getVerboseTrainerNamesEn() {
+    return fetchVerboseTrainerNamesEn().then(data => {
+      this.setVerboseTrainerNamesEn(data);
+    });
+  }
+
+  initApiCalls() {
+    this.getTrainers();
+    this.getTrainerBase();
+    this.getTrainerNamesEn();
+    this.getVerboseTrainerNamesEn();
+  }
+
+  reset() {
+    this.trainers = [];
+    this.trainerBase = [];
+    this.trainerNamesEn = {};
+    this.verboseTrainerNamesEn = {};
+  }
+
   get trainerOptList() {
-    return Object.entries(this.trainers).map(([key, name]) => ({
+    const combined = {
+      ...this.trainerNamesEn,
+      ...this.verboseTrainerNamesEn
+    };
+    return Object.entries(combined).map(([key, value]) => ({
       value: key,
-      label: name
+      label: value
     }));
   }
 }

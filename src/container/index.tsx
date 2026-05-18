@@ -161,7 +161,9 @@ const PokemonList = () => {
 
 export const MainPage = () => {
   useEffect(() => {
-    trainerStore.getTrainers();
+    trainerStore.initApiCalls();
+
+    return () => trainerStore.reset();
   }, []);
 
   return (
