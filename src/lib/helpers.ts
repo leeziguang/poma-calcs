@@ -27,3 +27,7 @@ export function getPercent(num: number, denom: number) {
 
   return `${((num / denom) * 100).toFixed(2)} %`;
 }
+
+export function formatMoveLevel(ml: string) {
+  return ml?.startsWith("SA") ? ml.replace(" ", "") : `${ml}/5`;
+}

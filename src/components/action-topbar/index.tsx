@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { InputNumber, Input, Button } from "antd";
+import { Checkbox, InputNumber, Button, Select } from "antd";
+import { DefaultOptionType } from "antd/lib/select";
 import { configStore } from "src/store/config";
+import { trainerStore } from "src/store/trainer";
 
 interface IActionTopbarProps {
   add: () => void;
@@ -12,14 +14,31 @@ interface IActionTopbarProps {
 
 export const ActionTopbar = observer(
   ({ add, setPairName, pairName, setPairNames }: IActionTopbarProps) => {
+    const [selectedKey, setSelectedKey] = useState<string | undefined>(
+      undefined
+    );
+
     useEffect(() => {
-      configStore.init();
+      return () => configStore.reset();
     }, []);
+
+    useEffect(() => {
+      if (pairName === undefined) setSelectedKey(undefined);
+    }, [pairName]);
 
     const handleAdd = () => {
       add();
       setPairNames(prev => [...prev, pairName ?? ""]);
       setPairName(undefined);
+    };
+
+    const handleSelect = (
+      key: string,
+      option: DefaultOptionType | DefaultOptionType[]
+    ) => {
+      setSelectedKey(key);
+      const opt = Array.isArray(option) ? option[0] : option;
+      setPairName(opt.label as string);
     };
 
     return (
@@ -33,15 +52,25 @@ export const ActionTopbar = observer(
             controls={false}
             min={0}
           />
+          <Checkbox
+            checked={configStore.isCustomMode}
+            onChange={e => configStore.setIsCustomMode(e.target.checked)}
+          >
+            Custom Mode
+          </Checkbox>
         </div>
         <div className="pairList-actions-row-wrapper-add-wrapper">
-          <Input
-            value={pairName}
-            onChange={e => setPairName(e.target.value)}
-            placeholder="Name of pair to add"
-            onPressEnter={handleAdd}
+          <Select
+            value={selectedKey}
+            options={trainerStore.trainerOptList}
+            onChange={handleSelect}
+            placeholder="Select a trainer"
+            style={{ flex: 1 }}
+            showSearch
           />
-          <Button onClick={handleAdd}>Add Pair</Button>
+          <Button onClick={handleAdd} disabled={!selectedKey}>
+            Add Pair
+          </Button>
         </div>
       </div>
     );

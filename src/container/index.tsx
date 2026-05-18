@@ -1,41 +1,76 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import { DataColList } from "../components/data-col-list";
-import { Form, Tabs } from "antd";
+import { Form, Tabs, Tooltip } from "antd";
 import { EPairListFormFields } from "src/types";
 import { ActionTopbar } from "src/components/action-topbar";
 import { PairStore } from "src/store/pair";
 import { PairStoreContext } from "src/store/pair-context";
-import { getPercent } from "src/lib/helpers";
+import { formatMoveLevel, getPercent } from "src/lib/helpers";
 import { RenameableTitle } from "src/components/renameable-title";
+import { configStore } from "src/store/config";
 import "./style.scss";
+import { trainerStore } from "src/store/trainer";
 
 const TabLabel = observer(
   ({
     name,
+    fieldName,
     store,
     firstStore,
     onRename
   }: {
     name: string;
+    fieldName: number;
     store: PairStore;
     firstStore: PairStore | undefined;
     onRename: (val: string) => void;
   }) => {
     const [isEditing, setIsEditing] = useState(false);
+    const form = Form.useFormInstance();
+    const level = Form.useWatch(
+      [EPairListFormFields.PAIR, fieldName, EPairListFormFields.LVL],
+      form
+    );
+    const moveLevel = Form.useWatch(
+      [EPairListFormFields.PAIR, fieldName, EPairListFormFields.MOVE_LVL],
+      form
+    );
     const percent = firstStore
       ? getPercent(store.totalDamage, firstStore.totalDamage)
       : " - %";
 
     return (
       <span className="tabLabel" onKeyDown={e => e.stopPropagation()}>
-        <RenameableTitle
-          isEditing={isEditing}
-          value={name}
-          onChange={onRename}
-          onStartEdit={() => setIsEditing(true)}
-          onEndEdit={() => setIsEditing(false)}
-        />
+        <div>
+          {configStore.isCustomMode ? (
+            <RenameableTitle
+              isEditing={isEditing}
+              value={name}
+              onChange={onRename}
+              onStartEdit={() => setIsEditing(true)}
+              onEndEdit={() => setIsEditing(false)}
+              displaySuffix={
+                level !== undefined && moveLevel !== undefined ? (
+                  <span>{` (${level}) ${formatMoveLevel(moveLevel)} EXR`}</span>
+                ) : null
+              }
+            />
+          ) : (
+            <Tooltip
+              title={`${name} (${level}) ${formatMoveLevel(moveLevel)} EXR`}
+            >
+              <div className="tabLabel-title">
+                <div className="tabLabel-title-name">{name || "Untitled"}</div>
+                {level !== undefined && moveLevel !== undefined && (
+                  <span className="tabLabel-title-levels">
+                    {` (${level}) ${formatMoveLevel(moveLevel)} EXR`}
+                  </span>
+                )}
+              </div>
+            </Tooltip>
+          )}
+        </div>
         <span className="tabLabel-percent">({percent})</span>
       </span>
     );
@@ -99,6 +134,7 @@ const PokemonList = () => {
                     label: (
                       <TabLabel
                         name={name}
+                        fieldName={field.name}
                         store={store}
                         firstStore={firstStore}
                         onRename={val => handleRename(field.name, val)}
@@ -108,9 +144,6 @@ const PokemonList = () => {
                       <PairStoreContext.Provider value={store}>
                         <DataColList
                           pairFieldName={field.name}
-                          title={
-                            pairNames[field.name] ?? `Pair ${field.name + 1}`
-                          }
                           onTitleChange={val => handleRename(field.name, val)}
                         />
                       </PairStoreContext.Provider>
@@ -127,6 +160,10 @@ const PokemonList = () => {
 };
 
 export const MainPage = () => {
+  useEffect(() => {
+    trainerStore.getTrainers();
+  }, []);
+
   return (
     <div>
       <b>Poma Calcs</b>

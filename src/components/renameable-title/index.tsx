@@ -10,6 +10,7 @@ interface IRenameableTitleProps {
   onStartEdit: () => void;
   onEndEdit: () => void;
   titleClassName?: string;
+  displaySuffix?: React.ReactNode;
 }
 
 export const RenameableTitle = ({
@@ -18,7 +19,8 @@ export const RenameableTitle = ({
   onChange,
   onStartEdit,
   onEndEdit,
-  titleClassName
+  titleClassName,
+  displaySuffix
 }: IRenameableTitleProps) => {
   return isEditing ? (
     <div className="renameableTitle-input-wrapper">
@@ -38,7 +40,8 @@ export const RenameableTitle = ({
       onClick={onStartEdit}
       title={value}
     >
-      {value || "Untitled"}
+      <div className="renameableTitle-title-value">{value || "Untitled"}</div>
+      <span className="renameableTitle-title-suffix">{displaySuffix}</span>
     </div>
   );
 };

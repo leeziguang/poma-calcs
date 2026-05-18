@@ -5,7 +5,8 @@ import { IMovePowerFormValues } from "./move-power";
 export enum EPairListFormFields {
   PAIR = "PAIR",
   DATA_COL = "DATA_COL",
-  MOVE_LVL = "MOVE_LVL"
+  MOVE_LVL = "MOVE_LVL",
+  LVL = "LVL"
 }
 
 export interface IPairListFormValues {
