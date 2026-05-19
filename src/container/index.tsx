@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import { DataColList } from "../components/data-col-list";
-import { Form, Tabs, Tooltip } from "antd";
+import { Empty, Form, Tabs, Tooltip } from "antd";
 import { EPairListFormFields } from "src/types";
 import { ActionTopbar } from "src/components/action-topbar";
 import { PairStore } from "src/store/pair";
@@ -163,11 +163,16 @@ const PokemonList = () => {
 };
 
 export const MainPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    trainerStore.initApiCalls();
-    monsterStore.initApiCalls();
-    moveStore.initApiCalls();
-    passiveStore.initApiCalls();
+    setIsLoading(true);
+    Promise.all([
+      trainerStore.initApiCalls(),
+      monsterStore.initApiCalls(),
+      moveStore.initApiCalls(),
+      passiveStore.initApiCalls()
+    ]).then(() => setIsLoading(false));
 
     return () => {
       trainerStore.reset();
@@ -180,7 +185,7 @@ export const MainPage = () => {
   return (
     <div>
       <b>Poma Calcs</b>
-      <PokemonList />
+      {isLoading ? <Empty /> : <PokemonList />}
     </div>
   );
 };

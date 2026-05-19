@@ -112,3 +112,8 @@ export interface ITrainerBasePicked {
 export interface ITrainerBaseApiResponse {
   entries: ITrainerBase[];
 }
+
+export enum ETrainerKind {
+  MC = 1,
+  GACHA = 2
+}

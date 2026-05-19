@@ -46,3 +46,6 @@ export const MOVE_LEVEL_OPTIONS = Object.values(EMoveLevelValues).map(val => ({
   label: val,
   value: val
 }));
+
+export const MC_BASE_ID = "10700000";
+export const SCRAPPED_MON_ID_PREFIX = "29999";

@@ -1,10 +1,15 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import {
   fetchMonster,
   fetchMonsterBase,
   fetchMonsterNamesEn
 } from "src/service/monster";
-import { IMonster, IMonsterBase } from "src/types/monster";
+import {
+  EMonsterBaseFields,
+  EMonsterFields,
+  IMonster,
+  IMonsterBase
+} from "src/types/monster";
 
 export class MonsterStore {
   monsters: IMonster[] = [];
@@ -18,7 +23,8 @@ export class MonsterStore {
       monsterNamesEn: observable,
       setMonsters: action,
       setMonsterBase: action,
-      setMonsterNamesEn: action
+      setMonsterNamesEn: action,
+      monsterMapById: computed
     });
   }
 
@@ -32,6 +38,34 @@ export class MonsterStore {
 
   setMonsterNamesEn(names: Record<string, string>) {
     this.monsterNamesEn = names;
+  }
+
+  get monsterMapById(): Record<
+    string,
+    { monsterName: string; monsterBaseId: number }
+  > {
+    const map: Record<
+      string,
+      { monsterName: string; monsterBaseId: number }
+    > = {};
+    for (const monster of this.monsters) {
+      const monsterId = String(monster[EMonsterFields.MONSTER_ID]);
+      const monsterBase = this.monsterBase.find(
+        mB =>
+          mB[EMonsterBaseFields.MONSTER_BASE_ID] ===
+          monster[EMonsterFields.MONSTER_BASE_ID]
+      );
+      const monsterName = this.monsterNamesEn[
+        String(monsterBase?.[EMonsterBaseFields.MONSTER_NAME_ID])
+      ];
+      if (monsterBase && monsterName) {
+        map[monsterId] = {
+          monsterName,
+          monsterBaseId: monsterBase[EMonsterBaseFields.MONSTER_BASE_ID]
+        };
+      }
+    }
+    return map;
   }
 
   getMonsters() {

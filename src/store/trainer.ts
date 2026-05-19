@@ -1,11 +1,20 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import {
+  MC_BASE_ID,
+  SCRAPPED_MON_ID_PREFIX
+} from "src/components/action-topbar/constants";
+import {
   fetchTrainer,
   fetchTrainerBase,
   fetchTrainerNamesEn,
   fetchVerboseTrainerNamesEn
 } from "src/service/trainer";
-import { ITrainer, ITrainerBasePicked } from "src/types/trainer";
+import {
+  ETrainerFields,
+  ETrainerKind,
+  ITrainer,
+  ITrainerBasePicked
+} from "src/types/trainer";
 
 export class TrainerStore {
   trainers: ITrainer[] = [];
@@ -23,7 +32,7 @@ export class TrainerStore {
       setTrainerBase: action,
       setTrainerNamesEn: action,
       setVerboseTrainerNamesEn: action,
-      trainerOptList: computed
+      trainerInfoList: computed
     });
   }
 
@@ -72,6 +81,28 @@ export class TrainerStore {
     });
   }
 
+  get trainerInfoList(): { trainerName: string; monsterId: string }[] {
+    return this.trainers
+      .filter(
+        t =>
+          t[ETrainerFields.TRAINER_KIND] === ETrainerKind.GACHA &&
+          t[ETrainerFields.RARITY] >= 4 &&
+          !t[ETrainerFields.MONSTER_ID].startsWith(SCRAPPED_MON_ID_PREFIX)
+      )
+      .map(t => {
+        const trainerBase = this.trainerBase.find(
+          b => b.trainerBaseId === String(t[ETrainerFields.TRAINER_BASE_ID])
+        );
+        // Prioritize verbose name over base name; fall back to "MC" for eggmon
+        const trainerName =
+          trainerBase?.trainerBaseId === MC_BASE_ID
+            ? "MC"
+            : this.verboseTrainerNamesEn[t[ETrainerFields.TRAINER_ID]] ||
+              this.trainerNamesEn[trainerBase?.trainerNameId as string];
+        return { trainerName, monsterId: t.monsterId };
+      });
+  }
+
   initApiCalls() {
     this.getTrainers();
     this.getTrainerBase();
@@ -84,20 +115,6 @@ export class TrainerStore {
     this.trainerBase = [];
     this.trainerNamesEn = {};
     this.verboseTrainerNamesEn = {};
-  }
-
-  get trainerOptList() {
-    // TODO: add monster api
-    // TODO: add the pokemon to the label to make it clearer which pair it is
-    // TODO: add pokemon param & trainer param to the options? to make it easier for search?
-    const combined = {
-      ...this.trainerNamesEn,
-      ...this.verboseTrainerNamesEn
-    };
-    return Object.entries(combined).map(([key, value]) => ({
-      value: key,
-      label: value
-    }));
   }
 }
 
