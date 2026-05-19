@@ -87,9 +87,11 @@ export class MonsterStore {
   }
 
   initApiCalls() {
-    this.getMonsters();
-    this.getMonsterBase();
-    this.getMonsterNamesEn();
+    return Promise.all([
+      this.getMonsters(),
+      this.getMonsterBase(),
+      this.getMonsterNamesEn()
+    ]);
   }
 
   reset() {

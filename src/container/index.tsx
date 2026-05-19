@@ -1,19 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
+import { runInAction } from "mobx";
 import { DataColList } from "../components/data-col-list";
-import { Empty, Form, Tabs, Tooltip } from "antd";
+import { Form, Spin, Tabs, Tooltip } from "antd";
+import uniqBy from "lodash/uniqBy";
 import { EPairListFormFields } from "src/types";
 import { ActionTopbar } from "src/components/action-topbar";
 import { PairStore } from "src/store/pair";
 import { PairStoreContext } from "src/store/pair-context";
 import { formatMoveLevel, getPercent } from "src/lib/helpers";
 import { RenameableTitle } from "src/components/renameable-title";
+
 import { configStore } from "src/store/config";
-import "./style.scss";
 import { trainerStore } from "src/store/trainer";
 import { monsterStore } from "src/store/monster";
 import { moveStore } from "src/store/move";
 import { passiveStore } from "src/store/passive";
+
+import "./style.scss";
 
 const TabLabel = observer(
   ({
@@ -63,6 +67,9 @@ const TabLabel = observer(
             <Tooltip
               title={`${name} (${level}) ${formatMoveLevel(moveLevel)} EXR`}
             >
+              {/*
+                TODO: change layout of title, name <br /> (level) move level with (%) at the right in its own block
+              */}
               <div className="tabLabel-title">
                 <div className="tabLabel-title-name">{name || "Untitled"}</div>
                 {level !== undefined && moveLevel !== undefined && (
@@ -163,16 +170,35 @@ const PokemonList = () => {
 };
 
 export const MainPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
     Promise.all([
       trainerStore.initApiCalls(),
       monsterStore.initApiCalls(),
       moveStore.initApiCalls(),
       passiveStore.initApiCalls()
-    ]).then(() => setIsLoading(false));
+    ])
+      .then(() => {
+        runInAction(() => {
+          const monsterMap = monsterStore.monsterMapById;
+          trainerStore.setTrainerOptionsList(
+            uniqBy(
+              trainerStore.trainerInfoList.map(({ trainerName, monsterId }) => {
+                const monsterInfo = monsterMap[monsterId];
+                return {
+                  label: `${trainerName} & ${monsterInfo?.monsterName}`,
+                  value: `${trainerName} & ${monsterInfo?.monsterName}`,
+                  monsterId,
+                  monsterBaseId: monsterInfo?.monsterBaseId
+                };
+              }),
+              "value"
+            )
+          );
+        });
+      })
+      .finally(() => setIsLoading(false));
 
     return () => {
       trainerStore.reset();
@@ -185,7 +211,9 @@ export const MainPage = () => {
   return (
     <div>
       <b>Poma Calcs</b>
-      {isLoading ? <Empty /> : <PokemonList />}
+      <Spin spinning={isLoading}>
+        <PokemonList />
+      </Spin>
     </div>
   );
 };

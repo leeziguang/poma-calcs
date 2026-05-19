@@ -1,12 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { Checkbox, InputNumber, Button, Select } from "antd";
 import { DefaultOptionType } from "antd/lib/select";
-import uniqBy from "lodash/uniqBy";
 import { configStore } from "src/store/config";
 import { EPairListFormFields, EMoveLevelValues } from "src/types";
 import { trainerStore } from "src/store/trainer";
-import { monsterStore } from "src/store/monster";
 
 interface IActionTopbarProps {
   add: (defaultValue?: Record<string, unknown>) => void;
@@ -19,23 +17,6 @@ export const ActionTopbar = observer(
   ({ add, setPairName, pairName, setPairNames }: IActionTopbarProps) => {
     const [selectedKey, setSelectedKey] = useState<string | undefined>(
       undefined
-    );
-
-    const trainerOptionList = useMemo(
-      () =>
-        uniqBy(
-          trainerStore.trainerInfoList.map(({ trainerName, monsterId }) => {
-            const monsterInfo = monsterStore.monsterMapById[monsterId];
-            return {
-              label: `${trainerName} & ${monsterInfo?.monsterName}`,
-              value: `${trainerName} & ${monsterInfo?.monsterName}`,
-              monsterId,
-              monsterBaseId: monsterInfo?.monsterBaseId
-            };
-          }),
-          "value"
-        ),
-      [trainerStore.trainerInfoList, monsterStore.monsterMapById]
     );
 
     useEffect(() => {
@@ -61,7 +42,6 @@ export const ActionTopbar = observer(
     ) => {
       setSelectedKey(key);
       const opt = Array.isArray(option) ? option[0] : option;
-      console.log(opt);
       setPairName(opt.label as string);
     };
 
@@ -86,7 +66,7 @@ export const ActionTopbar = observer(
         <div className="pairList-actions-row-wrapper-add-wrapper">
           <Select
             value={selectedKey}
-            options={trainerOptionList}
+            options={trainerStore.trainerOptionsList || []}
             onChange={handleSelect}
             placeholder="Select a trainer"
             showSearch

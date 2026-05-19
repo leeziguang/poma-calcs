@@ -38,8 +38,10 @@ export class PassiveStore {
   }
 
   initApiCalls() {
-    this.getPassiveSkillNamesEn();
-    this.getPassiveSkillNamePartsEn();
+    return Promise.all([
+      this.getPassiveSkillNamesEn(),
+      this.getPassiveSkillNamePartsEn()
+    ]);
   }
 
   reset() {

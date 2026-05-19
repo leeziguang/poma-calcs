@@ -9,8 +9,8 @@
       "@ant-design/icons/lib/dist$/*": ["src/_shared/antd/icons/*"]
     },
     "declaration": true,
-    "lib": ["DOM", "es2017"],
-    "target": "ES2017",
+    "lib": ["DOM", "es2018"],
+    "target": "ES2018",
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "node",

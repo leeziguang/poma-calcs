@@ -36,8 +36,7 @@ export class MoveStore {
   }
 
   initApiCalls() {
-    this.getMoves();
-    this.getMoveNamesEn();
+    return Promise.all([this.getMoves(), this.getMoveNamesEn()]);
   }
 
   reset() {

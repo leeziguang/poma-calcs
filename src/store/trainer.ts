@@ -16,11 +16,19 @@ import {
   ITrainerBasePicked
 } from "src/types/trainer";
 
+export interface ITrainerOption {
+  label: string;
+  value: string;
+  monsterId: string;
+  monsterBaseId: number | undefined;
+}
+
 export class TrainerStore {
   trainers: ITrainer[] = [];
   trainerBase: ITrainerBasePicked[] = [];
   trainerNamesEn: Record<string, string> = {};
   verboseTrainerNamesEn: Record<string, string> = {};
+  trainerOptionsList: ITrainerOption[] = [];
 
   constructor() {
     makeObservable(this, {
@@ -28,10 +36,12 @@ export class TrainerStore {
       trainerBase: observable,
       trainerNamesEn: observable,
       verboseTrainerNamesEn: observable,
+      trainerOptionsList: observable,
       setTrainers: action,
       setTrainerBase: action,
       setTrainerNamesEn: action,
       setVerboseTrainerNamesEn: action,
+      setTrainerOptionsList: action,
       trainerInfoList: computed
     });
   }
@@ -50,6 +60,10 @@ export class TrainerStore {
 
   setVerboseTrainerNamesEn(names: Record<string, string>) {
     this.verboseTrainerNamesEn = names;
+  }
+
+  setTrainerOptionsList(options: ITrainerOption[]) {
+    this.trainerOptionsList = options;
   }
 
   getTrainers() {
@@ -104,10 +118,12 @@ export class TrainerStore {
   }
 
   initApiCalls() {
-    this.getTrainers();
-    this.getTrainerBase();
-    this.getTrainerNamesEn();
-    this.getVerboseTrainerNamesEn();
+    return Promise.all([
+      this.getTrainers(),
+      this.getTrainerBase(),
+      this.getTrainerNamesEn(),
+      this.getVerboseTrainerNamesEn()
+    ]);
   }
 
   reset() {
@@ -115,6 +131,7 @@ export class TrainerStore {
     this.trainerBase = [];
     this.trainerNamesEn = {};
     this.verboseTrainerNamesEn = {};
+    this.trainerOptionsList = [];
   }
 }
 
