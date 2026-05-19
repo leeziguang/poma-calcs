@@ -4,7 +4,7 @@ import {
   fetchTrainerBase,
   fetchTrainerNamesEn,
   fetchVerboseTrainerNamesEn
-} from "src/service";
+} from "src/service/trainer";
 import { ITrainer, ITrainerBasePicked } from "src/types/trainer";
 
 export class TrainerStore {
@@ -87,6 +87,9 @@ export class TrainerStore {
   }
 
   get trainerOptList() {
+    // TODO: add monster api
+    // TODO: add the pokemon to the label to make it clearer which pair it is
+    // TODO: add pokemon param & trainer param to the options? to make it easier for search?
     const combined = {
       ...this.trainerNamesEn,
       ...this.verboseTrainerNamesEn

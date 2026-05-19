@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Checkbox, Collapse, Form, Input, InputNumber } from "antd";
-import { EMovePowerFormFields } from "src/types/move-power";
+import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 import { calcMovePower, calcSyncPower, formToCalcArgAdaptor } from "./helpers";
 import "./style.scss";
 import { usePairStore } from "src/store/pair-context";

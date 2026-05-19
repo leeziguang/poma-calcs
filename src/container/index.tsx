@@ -11,6 +11,9 @@ import { RenameableTitle } from "src/components/renameable-title";
 import { configStore } from "src/store/config";
 import "./style.scss";
 import { trainerStore } from "src/store/trainer";
+import { monsterStore } from "src/store/monster";
+import { moveStore } from "src/store/move";
+import { passiveStore } from "src/store/passive";
 
 const TabLabel = observer(
   ({
@@ -162,8 +165,16 @@ const PokemonList = () => {
 export const MainPage = () => {
   useEffect(() => {
     trainerStore.initApiCalls();
+    monsterStore.initApiCalls();
+    moveStore.initApiCalls();
+    passiveStore.initApiCalls();
 
-    return () => trainerStore.reset();
+    return () => {
+      trainerStore.reset();
+      monsterStore.reset();
+      moveStore.reset();
+      passiveStore.reset();
+    };
   }, []);
 
   return (

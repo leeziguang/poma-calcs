@@ -2,9 +2,12 @@ import {
   EBaseStatFormFields,
   EStatBoost,
   EStatDrops
-} from "src/types/base-stats";
-import { EMovePowerFormFields } from "src/types/move-power";
-import { EFieldEffectFormFields, EWTZ } from "src/types/field-effect";
+} from "src/types/data-col-list/base-stats";
+import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
+import {
+  EWTZ,
+  EFieldEffectFormFields
+} from "src/types/data-col-list/field-effect";
 import { REBUFF_MULTI_MAP, WTZ_MULTI_MAP } from "../field-effects/constants";
 import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
 import { EMoveLevelValues } from "src/types";

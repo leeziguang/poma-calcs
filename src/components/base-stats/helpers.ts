@@ -1,4 +1,4 @@
-import { EStatBoost, EStatDrops } from "src/types/base-stats";
+import { EStatBoost, EStatDrops } from "src/types/data-col-list/base-stats";
 import { STAT_BOOSTS_MAP } from "./constants";
 import { isValidNumber } from "src/lib/helpers";
 import { configStore } from "src/store/config";

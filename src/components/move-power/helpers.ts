@@ -3,7 +3,7 @@ import {
   ICalcMovePowerArgs,
   ICalcSyncPowerArgs,
   IMovePowerFormValues
-} from "src/types/move-power";
+} from "src/types/data-col-list/move-power";
 import { AOE_PENALTY_MAP, SM_PMUN_MULTI, SYUN_MULTI } from "./constants";
 import {
   MOVE_LEVEL_MOVE_BOOST_MAP,

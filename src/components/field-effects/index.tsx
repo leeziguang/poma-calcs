@@ -9,7 +9,10 @@ import {
   Select
 } from "antd";
 import { DeleteOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { ECircle, EFieldEffectFormFields } from "src/types/field-effect";
+import {
+  ECircle,
+  EFieldEffectFormFields
+} from "src/types/data-col-list/field-effect";
 import {
   CIRCLE_MULTI_MAP,
   CIRCLE_OPTIONS,

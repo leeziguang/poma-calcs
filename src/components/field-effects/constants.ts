@@ -1,4 +1,4 @@
-import { ECircle, EWTZ } from "src/types/field-effect";
+import { ECircle, EWTZ } from "src/types/data-col-list/field-effect";
 
 export const WTZ_MULTI_MAP = {
   [EWTZ.NONE]: 1,

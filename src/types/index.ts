@@ -1,6 +1,6 @@
-import { IBaseStatFormValues } from "./base-stats";
-import { IFieldEffectFormValues } from "./field-effect";
-import { IMovePowerFormValues } from "./move-power";
+import { IBaseStatFormValues } from "./data-col-list/base-stats";
+import { IFieldEffectFormValues } from "./data-col-list/field-effect";
+import { IMovePowerFormValues } from "./data-col-list/move-power";
 
 export enum EPairListFormFields {
   PAIR = "PAIR",

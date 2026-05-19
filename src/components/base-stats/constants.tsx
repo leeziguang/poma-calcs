@@ -1,4 +1,4 @@
-import { EStatBoost, EStatDrops } from "../../types/base-stats";
+import { EStatBoost, EStatDrops } from "../../types/data-col-list/base-stats";
 
 export const STAT_BOOST_LABEL = {
   [EStatBoost.ZERO]: "0",

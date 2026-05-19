@@ -1,7 +1,7 @@
 import {
   EFieldEffectFormFields,
   ICalcFieldEffectArg
-} from "src/types/field-effect";
+} from "src/types/data-col-list/field-effect";
 
 export const calcFieldEffect = ({
   syncBoosts,

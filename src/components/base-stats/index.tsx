@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { Collapse, Form, InputNumber, Select } from "antd";
 import { statBoostOptions, statDropOptions } from "./constants";
-import { EBaseStatFormFields } from "src/types/base-stats";
+import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";
 import { calcBaseStat } from "./helpers";
 import { usePairStore } from "src/store/pair-context";
 import "./style.scss";
