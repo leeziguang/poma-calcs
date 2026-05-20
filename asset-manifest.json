@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/poma-calcs/static/css/main.40a9fb63.css",
-    "main.js": "/poma-calcs/static/js/main.92422da3.js",
+    "main.css": "/poma-calcs/static/css/main.d2274387.css",
+    "main.js": "/poma-calcs/static/js/main.08b40dde.js",
     "index.html": "/poma-calcs/index.html",
-    "main.40a9fb63.css.map": "/poma-calcs/static/css/main.40a9fb63.css.map",
-    "main.92422da3.js.map": "/poma-calcs/static/js/main.92422da3.js.map"
+    "main.d2274387.css.map": "/poma-calcs/static/css/main.d2274387.css.map",
+    "main.08b40dde.js.map": "/poma-calcs/static/js/main.08b40dde.js.map"
   },
   "entrypoints": [
-    "static/css/main.40a9fb63.css",
-    "static/js/main.92422da3.js"
+    "static/css/main.d2274387.css",
+    "static/js/main.08b40dde.js"
   ]
 }
