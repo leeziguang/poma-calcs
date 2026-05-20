@@ -67,9 +67,6 @@ const TabLabel = observer(
             <Tooltip
               title={`${name} (${level}) ${formatMoveLevel(moveLevel)} EXR`}
             >
-              {/*
-                TODO: change layout of title, name <br /> (level) move level with (%) at the right in its own block
-              */}
               <div className="tabLabel-title">
                 <div className="tabLabel-title-name">{name || "Untitled"}</div>
                 {level !== undefined && moveLevel !== undefined && (
@@ -77,11 +74,11 @@ const TabLabel = observer(
                     {` (${level}) ${formatMoveLevel(moveLevel)} EXR`}
                   </span>
                 )}
+                <span className="tabLabel-percent">[{percent}]</span>
               </div>
             </Tooltip>
           )}
         </div>
-        <span className="tabLabel-percent">({percent})</span>
       </span>
     );
   }

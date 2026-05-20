@@ -30,18 +30,32 @@
     }
   }
 
-  .tabLabel {
-    cursor: default;
-    
-    &-title {
-      font-weight: 600;
-      max-width: 200px;
-      display: flex;
+  .ant-tabs-nav {
+    .tabLabel {
+      cursor: default;
+      
+      &-title {
+        max-width: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+  
+        &-name {
+          font-weight: 600;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
 
-      &-name {
-        max-width: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        &-levels {
+          font-weight: 600;
+        }
+      }
+    }
+    .ant-tabs-tab {
+      padding: 4px 8px;
+      
+      .ant-tabs-tab-remove {
+        margin: 0;
       }
     }
   }
