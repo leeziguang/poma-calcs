@@ -8,22 +8,26 @@ import {
   EMonsterBaseFields,
   EMonsterFields,
   IMonster,
-  IMonsterBase
+  IMonsterBase,
+  IMonsterMapVal
 } from "src/types/monster";
 
 export class MonsterStore {
   monsters: IMonster[] = [];
   monsterBase: IMonsterBase[] = [];
   monsterNamesEn: Record<string, string> = {};
+  selectedMonsterBaseId = "";
 
   constructor() {
     makeObservable(this, {
       monsters: observable,
       monsterBase: observable,
       monsterNamesEn: observable,
+      selectedMonsterBaseId: observable,
       setMonsters: action,
       setMonsterBase: action,
       setMonsterNamesEn: action,
+      setSelectedMonsterBaseId: action,
       monsterMapById: computed
     });
   }
@@ -40,14 +44,13 @@ export class MonsterStore {
     this.monsterNamesEn = names;
   }
 
-  get monsterMapById(): Record<
-    string,
-    { monsterName: string; monsterBaseId: number }
-  > {
-    const map: Record<
-      string,
-      { monsterName: string; monsterBaseId: number }
-    > = {};
+  setSelectedMonsterBaseId(monsterId: string) {
+    this.selectedMonsterBaseId = monsterId;
+  }
+
+  get monsterMapById(): Record<string, IMonsterMapVal> {
+    const map: Record<string, IMonsterMapVal> = {};
+
     for (const monster of this.monsters) {
       const monsterId = String(monster[EMonsterFields.MONSTER_ID]);
       const monsterBase = this.monsterBase.find(
@@ -58,14 +61,23 @@ export class MonsterStore {
       const monsterName = this.monsterNamesEn[
         String(monsterBase?.[EMonsterBaseFields.MONSTER_NAME_ID])
       ];
+
       if (monsterBase && monsterName) {
         map[monsterId] = {
           monsterName,
-          monsterBaseId: monsterBase[EMonsterBaseFields.MONSTER_BASE_ID]
+          monsterBaseId: monsterBase[EMonsterBaseFields.MONSTER_BASE_ID],
+          atkValues: monster[EMonsterFields.ATK_VALUES].slice(-2),
+          spaValues: monster[EMonsterFields.SPA_VALUES].slice(-2),
+          syncMoveId: monster[EMonsterFields.SYNC_MOVE_ID]
         };
       }
     }
+
     return map;
+  }
+
+  get selectedMonster() {
+    return this.monsterMapById[this.selectedMonsterBaseId];
   }
 
   getMonsters() {

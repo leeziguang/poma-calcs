@@ -118,7 +118,7 @@
     "wrapper-webpack-plugin": "^2.1.0"
   },
   "engines": {
-    "node": "*"
+    "node": ">=20"
   },
   "dependencies": {
     "gh-pages": "^6.3.0",

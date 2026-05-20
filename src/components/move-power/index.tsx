@@ -8,43 +8,23 @@ import { EPairListFormFields } from "src/types";
 
 interface IMovePowerProps {
   name: string;
-  fieldPath: (string | number)[];
   pairFieldName: number;
 }
 
-export const MovePower = ({
-  name,
-  fieldPath,
-  pairFieldName
-}: IMovePowerProps) => {
+export const MovePower = ({ name, pairFieldName }: IMovePowerProps) => {
   const pairStore = usePairStore();
   const form = Form.useFormInstance();
-  const baseMove = Form.useWatch(
-    [...fieldPath, EMovePowerFormFields.BASE_MOVE],
-    form
-  );
-  const moveLvl = Form.useWatch(
-    [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MOVE_LVL],
-    form
-  );
-  const grid = Form.useWatch([...fieldPath, EMovePowerFormFields.GRID], form);
-  const smPmun = Form.useWatch(
-    [...fieldPath, EMovePowerFormFields.SM_PMUN],
-    form
-  );
-  const syun = Form.useWatch([...fieldPath, EMovePowerFormFields.SYUN], form);
-  const multis = Form.useWatch(
-    [...fieldPath, EMovePowerFormFields.MULTIS],
-    form
-  );
-  const innateMultis = Form.useWatch(
-    [...fieldPath, EMovePowerFormFields.INNATE_MULTIS],
-    form
-  );
-  const optionsValue = Form.useWatch(
-    [...fieldPath, EMovePowerFormFields.OPTIONS],
-    form
-  );
+  const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
+  const pairData = pairs?.[pairFieldName];
+  const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
+  const baseMove = colData?.[EMovePowerFormFields.BASE_MOVE];
+  const moveLvl = pairData?.[EPairListFormFields.MOVE_LVL];
+  const grid = colData?.[EMovePowerFormFields.GRID];
+  const smPmun = colData?.[EMovePowerFormFields.SM_PMUN];
+  const syun = colData?.[EMovePowerFormFields.SYUN];
+  const multis = colData?.[EMovePowerFormFields.MULTIS];
+  const innateMultis = colData?.[EMovePowerFormFields.INNATE_MULTIS];
+  const optionsValue = colData?.[EMovePowerFormFields.OPTIONS];
 
   const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
 

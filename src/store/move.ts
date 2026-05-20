@@ -1,6 +1,6 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import { fetchMove, fetchMoveNamesEn } from "src/service/move";
-import { IMove } from "src/types/move";
+import { EMoveFields, IMove } from "src/types/move";
 
 export class MoveStore {
   moves: IMove[] = [];
@@ -11,7 +11,8 @@ export class MoveStore {
       moves: observable,
       moveNamesEn: observable,
       setMoves: action,
-      setMoveNamesEn: action
+      setMoveNamesEn: action,
+      moveMap: computed
     });
   }
 
@@ -21,6 +22,14 @@ export class MoveStore {
 
   setMoveNamesEn(names: Record<string, string>) {
     this.moveNamesEn = names;
+  }
+
+  get moveMap(): Record<string, IMove> {
+    const map: Record<string, IMove> = {};
+    for (const move of this.moves) {
+      map[String(move[EMoveFields.MOVE_ID])] = move;
+    }
+    return map;
   }
 
   getMoves() {

@@ -13,6 +13,7 @@ import {
   ECircle,
   EFieldEffectFormFields
 } from "src/types/data-col-list/field-effect";
+import { EPairListFormFields } from "src/types";
 import {
   CIRCLE_MULTI_MAP,
   CIRCLE_OPTIONS,
@@ -32,20 +33,15 @@ interface IFieldEffectProps {
 export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
   const pairStore = usePairStore();
   const form = Form.useFormInstance();
-  const syncBoosts = Form.useWatch(
-    [...fieldPath, EFieldEffectFormFields.SYNC_BOOSTS],
-    form
-  );
-  const wtz = Form.useWatch([...fieldPath, EFieldEffectFormFields.WTZ], form);
-  const circle = Form.useWatch(
-    [...fieldPath, EFieldEffectFormFields.CIRCLE],
-    form
-  );
-  const rebuff = Form.useWatch(
-    [...fieldPath, EFieldEffectFormFields.REBUFF],
-    form
-  );
-  const seun = Form.useWatch([...fieldPath, EFieldEffectFormFields.SEUN], form);
+  const pairFieldName = fieldPath[1] as number;
+  const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
+  const colData =
+    pairs?.[pairFieldName]?.[EPairListFormFields.DATA_COL]?.[Number(name)];
+  const syncBoosts = colData?.[EFieldEffectFormFields.SYNC_BOOSTS];
+  const wtz = colData?.[EFieldEffectFormFields.WTZ];
+  const circle = colData?.[EFieldEffectFormFields.CIRCLE];
+  const rebuff = colData?.[EFieldEffectFormFields.REBUFF];
+  const seun = colData?.[EFieldEffectFormFields.SEUN];
 
   const headerVal = calcFieldEffect({ syncBoosts, wtz, circle, rebuff, seun });
 

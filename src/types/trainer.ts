@@ -1,3 +1,5 @@
+import { DefaultOptionType } from "antd/lib/select";
+
 export enum ETrainerFields {
   TRAINER_ID = "trainerId",
   TRAINER_KIND = "trainerKind",
@@ -116,4 +118,19 @@ export interface ITrainerBaseApiResponse {
 export enum ETrainerKind {
   MC = 1,
   GACHA = 2
+}
+
+export interface ITrainerOption extends DefaultOptionType {
+  monsterId: string;
+  monsterBaseId: number;
+}
+
+export interface ITrainerInfoListVal {
+  trainerName: string;
+  trainerId: string;
+  move1Id: number;
+  move2Id: number;
+  move3Id: number;
+  move4Id: number;
+  monsterId: string;
 }

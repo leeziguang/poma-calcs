@@ -1,8 +1,5 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import {
-  MC_BASE_ID,
-  SCRAPPED_MON_ID_PREFIX
-} from "src/components/action-topbar/constants";
+import { SCRAPPED_MON_ID_PREFIX, MC_BASE_ID } from "src/container/constants";
 import {
   fetchTrainer,
   fetchTrainerBase,
@@ -13,12 +10,14 @@ import {
   ETrainerFields,
   ETrainerKind,
   ITrainer,
-  ITrainerBasePicked
+  ITrainerBasePicked,
+  ITrainerInfoListVal
 } from "src/types/trainer";
 
 export interface ITrainerOption {
   label: string;
   value: string;
+  trainerId: string;
   monsterId: string;
   monsterBaseId: number | undefined;
 }
@@ -29,6 +28,7 @@ export class TrainerStore {
   trainerNamesEn: Record<string, string> = {};
   verboseTrainerNamesEn: Record<string, string> = {};
   trainerOptionsList: ITrainerOption[] = [];
+  selectedTrainerId = "";
 
   constructor() {
     makeObservable(this, {
@@ -37,12 +37,15 @@ export class TrainerStore {
       trainerNamesEn: observable,
       verboseTrainerNamesEn: observable,
       trainerOptionsList: observable,
+      selectedTrainerId: observable,
       setTrainers: action,
       setTrainerBase: action,
       setTrainerNamesEn: action,
       setVerboseTrainerNamesEn: action,
       setTrainerOptionsList: action,
-      trainerInfoList: computed
+      setSelectedTrainerId: action,
+      trainerInfoMap: computed,
+      selectedTrainer: computed
     });
   }
 
@@ -64,6 +67,10 @@ export class TrainerStore {
 
   setTrainerOptionsList(options: ITrainerOption[]) {
     this.trainerOptionsList = options;
+  }
+
+  setSelectedTrainerId(id: string) {
+    this.selectedTrainerId = id;
   }
 
   getTrainers() {
@@ -95,8 +102,10 @@ export class TrainerStore {
     });
   }
 
-  get trainerInfoList(): { trainerName: string; monsterId: string }[] {
-    return this.trainers
+  get trainerInfoMap(): Record<string, ITrainerInfoListVal> {
+    const map: Record<string, ITrainerInfoListVal> = {};
+
+    this.trainers
       .filter(
         t =>
           t[ETrainerFields.TRAINER_KIND] === ETrainerKind.GACHA &&
@@ -113,8 +122,23 @@ export class TrainerStore {
             ? "MC"
             : this.verboseTrainerNamesEn[t[ETrainerFields.TRAINER_ID]] ||
               this.trainerNamesEn[trainerBase?.trainerNameId as string];
-        return { trainerName, monsterId: t.monsterId };
+
+        map[t[ETrainerFields.TRAINER_ID]] = {
+          trainerName,
+          trainerId: t[ETrainerFields.TRAINER_ID],
+          move1Id: t.move1Id,
+          move2Id: t.move2Id,
+          move3Id: t.move3Id,
+          move4Id: t.move4Id,
+          monsterId: t.monsterId
+        };
       });
+
+    return map;
+  }
+
+  get selectedTrainer() {
+    return this.trainerInfoMap[this.selectedTrainerId];
   }
 
   initApiCalls() {

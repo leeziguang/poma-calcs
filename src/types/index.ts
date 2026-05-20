@@ -6,7 +6,10 @@ export enum EPairListFormFields {
   PAIR = "PAIR",
   DATA_COL = "DATA_COL",
   MOVE_LVL = "MOVE_LVL",
-  LVL = "LVL"
+  LVL = "LVL",
+  MONSTER_ID = "MONSTER_ID",
+  MOVE_ID = "MOVE_ID",
+  TRAINER_ID = "TRAINER_ID"
 }
 
 export interface IPairListFormValues {

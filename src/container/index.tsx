@@ -3,13 +3,13 @@ import { observer } from "mobx-react";
 import { runInAction } from "mobx";
 import { DataColList } from "../components/data-col-list";
 import { Form, Spin, Tabs, Tooltip } from "antd";
-import uniqBy from "lodash/uniqBy";
 import { EPairListFormFields } from "src/types";
 import { ActionTopbar } from "src/components/action-topbar";
 import { PairStore } from "src/store/pair";
 import { PairStoreContext } from "src/store/pair-context";
 import { formatMoveLevel, getPercent } from "src/lib/helpers";
 import { RenameableTitle } from "src/components/renameable-title";
+import { genTrainerOptionList } from "./helpers";
 
 import { configStore } from "src/store/config";
 import { trainerStore } from "src/store/trainer";
@@ -35,14 +35,9 @@ const TabLabel = observer(
   }) => {
     const [isEditing, setIsEditing] = useState(false);
     const form = Form.useFormInstance();
-    const level = Form.useWatch(
-      [EPairListFormFields.PAIR, fieldName, EPairListFormFields.LVL],
-      form
-    );
-    const moveLevel = Form.useWatch(
-      [EPairListFormFields.PAIR, fieldName, EPairListFormFields.MOVE_LVL],
-      form
-    );
+    const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
+    const level = pairs?.[fieldName]?.[EPairListFormFields.LVL];
+    const moveLevel = pairs?.[fieldName]?.[EPairListFormFields.MOVE_LVL];
     const percent = firstStore
       ? getPercent(store.totalDamage, firstStore.totalDamage)
       : " - %";
@@ -177,23 +172,9 @@ export const MainPage = () => {
       passiveStore.initApiCalls()
     ])
       .then(() => {
-        runInAction(() => {
-          const monsterMap = monsterStore.monsterMapById;
-          trainerStore.setTrainerOptionsList(
-            uniqBy(
-              trainerStore.trainerInfoList.map(({ trainerName, monsterId }) => {
-                const monsterInfo = monsterMap[monsterId];
-                return {
-                  label: `${trainerName} & ${monsterInfo?.monsterName}`,
-                  value: `${trainerName} & ${monsterInfo?.monsterName}`,
-                  monsterId,
-                  monsterBaseId: monsterInfo?.monsterBaseId
-                };
-              }),
-              "value"
-            )
-          );
-        });
+        //
+        // this is here to ensure load lag from opening trainer select is shifted to page init load instead
+        runInAction(() => genTrainerOptionList());
       })
       .finally(() => setIsLoading(false));
 

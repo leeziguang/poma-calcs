@@ -77,3 +77,11 @@ export interface IMonsterBase {
 export interface IMonsterBaseApiResponse {
   entries: IMonsterBase[];
 }
+
+export interface IMonsterMapVal {
+  monsterName: string;
+  monsterBaseId: number;
+  atkValues: number[];
+  spaValues: number[];
+  syncMoveId: number;
+}

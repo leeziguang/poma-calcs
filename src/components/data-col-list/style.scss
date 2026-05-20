@@ -78,8 +78,8 @@
   &-level-and-damage-bar {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
-    margin-left: 178px;
+    gap: 12px;
+    margin-left: 298px;
   }
 
   &-pair-damage {
@@ -92,6 +92,13 @@
     &-label {
       font-weight: 600;
       margin-bottom: 4px;
+    }
+  }
+
+  &-addCol {
+    .ant-select {
+      min-width: 250px;
+      max-width: 250px;
     }
   }
 }

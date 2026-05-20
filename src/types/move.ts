@@ -1,3 +1,5 @@
+import { DefaultOptionType } from "antd/lib/select";
+
 export enum EMoveFields {
   MOVE_ID = "moveId",
   CATEGORY = "category",
@@ -32,4 +34,28 @@ export interface IMove {
 
 export interface IMoveApiResponse {
   entries: IMove[];
+}
+
+export enum EMoveCategory {
+  PHYSICAL = "Physical",
+  SPECIAL = "Special",
+  STATUS = "Status"
+}
+
+export enum EMoveTarget {
+  SINGLE = "OpponentSingle",
+  ALL = "OpponentAll"
+}
+
+export enum EMoveGroup {
+  REGULAR = "Regular",
+  SYNC = "Sync"
+}
+
+export interface IMoveOption extends DefaultOptionType {
+  power: number;
+  target: EMoveTarget;
+  group: EMoveGroup;
+  category: EMoveCategory;
+  uses: number;
 }
