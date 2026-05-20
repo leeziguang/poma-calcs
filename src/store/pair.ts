@@ -1,9 +1,5 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { EMonsterFields, IMonster } from "src/types/monster";
 import { IMoveInfo } from "src/types/pair";
-import { ETrainerFields } from "src/types/trainer";
-import { monsterStore } from "./monster";
-import { trainerStore } from "./trainer";
 
 export class PairStore {
   moveDamageRec: Record<string, IMoveInfo> = {};

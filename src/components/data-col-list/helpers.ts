@@ -15,7 +15,7 @@ import { ETrainerFields } from "src/types/trainer";
 
 export const genMoveOptions = (trainerId: string): IMoveOption[] => {
   const trainer = trainerStore?.trainerInfoMap?.[trainerId];
-  const monster = monsterStore?.monsterMapById?.[trainer.monsterId];
+  const monster = monsterStore?.monsterMapById?.[trainer?.monsterId];
 
   const res = [] as IMoveOption[];
 

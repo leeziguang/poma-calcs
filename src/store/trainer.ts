@@ -106,31 +106,31 @@ export class TrainerStore {
     const map: Record<string, ITrainerInfoListVal> = {};
 
     this.trainers
-      .filter(
+      ?.filter(
         t =>
-          t[ETrainerFields.TRAINER_KIND] === ETrainerKind.GACHA &&
-          t[ETrainerFields.RARITY] >= 4 &&
-          !t[ETrainerFields.MONSTER_ID].startsWith(SCRAPPED_MON_ID_PREFIX)
+          t?.[ETrainerFields.TRAINER_KIND] === ETrainerKind.GACHA &&
+          t?.[ETrainerFields.RARITY] >= 4 &&
+          !t?.[ETrainerFields.MONSTER_ID]?.startsWith(SCRAPPED_MON_ID_PREFIX)
       )
-      .map(t => {
+      ?.map(t => {
         const trainerBase = this.trainerBase.find(
-          b => b.trainerBaseId === String(t[ETrainerFields.TRAINER_BASE_ID])
+          b => b?.trainerBaseId === String(t?.[ETrainerFields.TRAINER_BASE_ID])
         );
         // Prioritize verbose name over base name; fall back to "MC" for eggmon
         const trainerName =
           trainerBase?.trainerBaseId === MC_BASE_ID
             ? "MC"
-            : this.verboseTrainerNamesEn[t[ETrainerFields.TRAINER_ID]] ||
+            : this.verboseTrainerNamesEn[t?.[ETrainerFields.TRAINER_ID]] ||
               this.trainerNamesEn[trainerBase?.trainerNameId as string];
 
         map[t[ETrainerFields.TRAINER_ID]] = {
           trainerName,
-          trainerId: t[ETrainerFields.TRAINER_ID],
-          move1Id: t.move1Id,
-          move2Id: t.move2Id,
-          move3Id: t.move3Id,
-          move4Id: t.move4Id,
-          monsterId: t.monsterId
+          trainerId: t?.[ETrainerFields.TRAINER_ID],
+          move1Id: t?.move1Id,
+          move2Id: t?.move2Id,
+          move3Id: t?.move3Id,
+          move4Id: t?.move4Id,
+          monsterId: t?.monsterId
         };
       });
 
