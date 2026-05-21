@@ -1,3 +1,5 @@
+import { ComponentProps } from "react";
+import { Form } from "antd";
 import { IBaseStatFormValues } from "./data-col-list/base-stats";
 import { IFieldEffectFormValues } from "./data-col-list/field-effect";
 import { IMovePowerFormValues } from "./data-col-list/move-power";
@@ -19,6 +21,10 @@ export interface IPairListFormValues {
       IFieldEffectFormValues)[];
   };
 }
+
+type FormListProps = Parameters<ComponentProps<typeof Form.List>["children"]>;
+export type FormListFields = FormListProps[0];
+export type FormListOperations = FormListProps[1];
 
 export enum EMoveLevelValues {
   ONE = "1",

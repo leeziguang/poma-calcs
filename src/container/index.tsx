@@ -3,7 +3,11 @@ import { observer } from "mobx-react";
 import { runInAction } from "mobx";
 import { DataColList } from "../components/data-col-list";
 import { Form, Spin, Tabs, Tooltip } from "antd";
-import { EPairListFormFields } from "src/types";
+import {
+  EPairListFormFields,
+  FormListFields,
+  FormListOperations
+} from "src/types";
 import { ActionTopbar } from "src/components/action-topbar";
 import { PairStore } from "src/store/pair";
 import { PairStoreContext } from "src/store/pair-context";
@@ -84,10 +88,26 @@ const TabLabel = observer(
   }
 );
 
-const PokemonList = () => {
-  const [form] = Form.useForm();
+const PairListBody = ({
+  fields,
+  add,
+  remove
+}: {
+  fields: FormListFields;
+  add: FormListOperations["add"];
+  remove: FormListOperations["remove"];
+}) => {
   const [pairNames, setPairNames] = useState<string[]>([]);
+  const [activeKey, setActiveKey] = useState<string | undefined>(undefined);
   const storesRef = useRef<Map<React.Key, PairStore>>(new Map());
+  const prevLengthRef = useRef(fields.length);
+
+  useEffect(() => {
+    if (fields.length > prevLengthRef.current && fields.length > 0) {
+      setActiveKey(String(fields[fields.length - 1].key));
+    }
+    prevLengthRef.current = fields.length;
+  }, [fields.length]);
 
   const getOrCreateStore = (key: React.Key): PairStore => {
     if (!storesRef.current.has(key)) {
@@ -101,63 +121,68 @@ const PokemonList = () => {
   const handleRename = (fieldName: number, val: string) =>
     setPairNames(prev => prev.map((n, i) => (i === fieldName ? val : n)));
 
+  const firstStore =
+    fields.length > 0 ? getOrCreateStore(fields[0].key) : undefined;
+
+  return (
+    <>
+      <ActionTopbar
+        add={add}
+        onAdd={name => setPairNames(prev => [...prev, name])}
+      />
+
+      <Tabs
+        type="editable-card"
+        hideAdd
+        activeKey={activeKey}
+        onChange={setActiveKey}
+        onEdit={(targetKey, action) => {
+          if (action !== "remove") return;
+          const field = fields.find(f => String(f.key) === String(targetKey));
+          if (!field) return;
+          storesRef.current.delete(field.key);
+          remove(field.name);
+          setPairNames(prev => prev.filter((_, i) => i !== field.name));
+        }}
+        items={fields.map(field => {
+          const store = getOrCreateStore(field.key);
+          const name = pairNames[field.name] ?? `Pair ${field.name + 1}`;
+
+          return {
+            key: String(field.key),
+            label: (
+              <TabLabel
+                name={name}
+                fieldName={field.name}
+                store={store}
+                firstStore={firstStore}
+                onRename={val => handleRename(field.name, val)}
+              />
+            ),
+            children: (
+              <PairStoreContext.Provider value={store}>
+                <DataColList
+                  pairFieldName={field.name}
+                  onTitleChange={val => handleRename(field.name, val)}
+                />
+              </PairStoreContext.Provider>
+            )
+          };
+        })}
+      />
+    </>
+  );
+};
+
+const PokemonList = () => {
+  const [form] = Form.useForm();
+
   return (
     <Form colon={false} layout="vertical" className="form" form={form}>
       <Form.List name={EPairListFormFields.PAIR}>
-        {(fields, { add, remove }) => {
-          const firstStore =
-            fields.length > 0 ? getOrCreateStore(fields[0].key) : undefined;
-
-          return (
-            <>
-              <ActionTopbar
-                add={add}
-                onAdd={name => setPairNames(prev => [...prev, name])}
-              />
-
-              <Tabs
-                type="editable-card"
-                hideAdd
-                onEdit={(targetKey, action) => {
-                  if (action !== "remove") return;
-                  const field = fields.find(
-                    f => String(f.key) === String(targetKey)
-                  );
-                  if (!field) return;
-                  storesRef.current.delete(field.key);
-                  remove(field.name);
-                  setPairNames(prev => prev.filter((_, i) => i !== field.name));
-                }}
-                items={fields.map(field => {
-                  const store = getOrCreateStore(field.key);
-                  const name =
-                    pairNames[field.name] ?? `Pair ${field.name + 1}`;
-
-                  return {
-                    key: String(field.key),
-                    label: (
-                      <TabLabel
-                        name={name}
-                        fieldName={field.name}
-                        store={store}
-                        firstStore={firstStore}
-                        onRename={val => handleRename(field.name, val)}
-                      />
-                    ),
-                    children: (
-                      <PairStoreContext.Provider value={store}>
-                        <DataColList
-                          pairFieldName={field.name}
-                          onTitleChange={val => handleRename(field.name, val)}
-                        />
-                      </PairStoreContext.Provider>
-                    )
-                  };
-                })}
-              />
-            </>
-          );
-        }}
+        {(fields, { add, remove }) => (
+          <PairListBody fields={fields} add={add} remove={remove} />
+        )}
       </Form.List>
     </Form>
   );
