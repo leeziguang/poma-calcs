@@ -86,7 +86,6 @@ const TabLabel = observer(
 
 const PokemonList = () => {
   const [form] = Form.useForm();
-  const [pairName, setPairName] = useState<string | undefined>(undefined);
   const [pairNames, setPairNames] = useState<string[]>([]);
   const storesRef = useRef<Map<React.Key, PairStore>>(new Map());
 
@@ -113,9 +112,7 @@ const PokemonList = () => {
             <>
               <ActionTopbar
                 add={add}
-                pairName={pairName}
-                setPairName={setPairName}
-                setPairNames={setPairNames}
+                onAdd={name => setPairNames(prev => [...prev, name])}
               />
 
               <Tabs

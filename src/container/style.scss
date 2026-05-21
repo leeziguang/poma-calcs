@@ -4,7 +4,6 @@
   .pairList {
     &-actions-row-wrapper {
       display: flex;
-      justify-content: space-between;
       padding: 0 24px 12px 24px;
       
       &-delete-wrapper {
@@ -15,12 +14,12 @@
 
       &-add-wrapper {
         display: flex;
-        // max-width: 300px;
+        max-width: 500px;
+        margin-left: 250px;
         flex: 1;
 
         .ant-select {
           flex: 1;
-          // max-width: 200px;
 
           &-selection-placeholder {
             text-align: left;
