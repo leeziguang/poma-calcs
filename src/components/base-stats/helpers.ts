@@ -3,8 +3,9 @@ import { STAT_BOOSTS_MAP } from "./constants";
 import { isValidNumber } from "src/lib/helpers";
 import { configStore } from "src/store/config";
 import { MOVE_LEVEL_STAT_BOOST_MAP } from "../action-topbar/constants";
-import { EMonsterFields } from "src/types/monster";
+import { EMonsterFields, EMonsterVariationFields } from "src/types/monster";
 import { monsterStore } from "src/store/monster";
+import { EMoveCategory } from "src/types/move";
 
 export const RAW_STAT_MAP = (
   statType: EMonsterFields.ATK_VALUES | EMonsterFields.SPA_VALUES
@@ -27,6 +28,7 @@ interface ICalcBaseStatArg {
   statBoost: EStatBoost;
   defDrops: EStatDrops;
   moveLvl: string;
+  category: EMoveCategory;
 }
 
 export const calcBaseStat = ({
@@ -34,13 +36,32 @@ export const calcBaseStat = ({
   grid,
   statBoost,
   defDrops,
-  moveLvl
+  moveLvl,
+  category
 }: ICalcBaseStatArg) => {
   if (!isValidNumber(stat) || !isValidNumber(grid)) return -11037;
+  let megaMult = 1;
+  const monsterId = monsterStore.selectedMonster?.monsterId;
+  const monsterVariant = monsterStore.monsterVariations.find(
+    v => v[EMonsterVariationFields.MONSTER_ID] === monsterId
+  );
+
+  if (monsterVariant) {
+    // Mega SCALE is in range [100 - x00]
+    const scaleField =
+      category === EMoveCategory.PHYSICAL
+        ? EMonsterVariationFields.ATK_SCALE
+        : EMonsterVariationFields.SPA_SCALE;
+    megaMult = monsterVariant[scaleField] / 100;
+  }
+
+  //
+  // TODO: figure out how to get which ex role the pair has then map to stat
+  const exrStat = 0;
+  const supAwMult = MOVE_LEVEL_STAT_BOOST_MAP[moveLvl];
 
   const realStat = Math.floor(
-    (stat * MOVE_LEVEL_STAT_BOOST_MAP[moveLvl] + grid) *
-      STAT_BOOSTS_MAP[statBoost]
+    (stat * supAwMult + exrStat + grid) * megaMult * STAT_BOOSTS_MAP[statBoost]
   );
 
   return (

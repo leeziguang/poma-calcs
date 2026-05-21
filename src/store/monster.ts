@@ -2,20 +2,24 @@ import { action, computed, makeObservable, observable } from "mobx";
 import {
   fetchMonster,
   fetchMonsterBase,
-  fetchMonsterNamesEn
+  fetchMonsterNamesEn,
+  fetchMonsterVariation
 } from "src/service/monster";
 import {
   EMonsterBaseFields,
   EMonsterFields,
+  EMonsterVariationFields,
   IMonster,
   IMonsterBase,
-  IMonsterMapVal
+  IMonsterMapVal,
+  IMonsterVariation
 } from "src/types/monster";
 
 export class MonsterStore {
   monsters: IMonster[] = [];
   monsterBase: IMonsterBase[] = [];
   monsterNamesEn: Record<string, string> = {};
+  monsterVariations: IMonsterVariation[] = [];
   selectedMonsterBaseId = "";
 
   constructor() {
@@ -23,12 +27,15 @@ export class MonsterStore {
       monsters: observable,
       monsterBase: observable,
       monsterNamesEn: observable,
+      monsterVariations: observable,
       selectedMonsterBaseId: observable,
       setMonsters: action,
       setMonsterBase: action,
       setMonsterNamesEn: action,
+      setMonsterVariations: action,
       setSelectedMonsterBaseId: action,
-      monsterMapById: computed
+      monsterMapById: computed,
+      selectedMonsterVariation: computed
     });
   }
 
@@ -42,6 +49,10 @@ export class MonsterStore {
 
   setMonsterNamesEn(names: Record<string, string>) {
     this.monsterNamesEn = names;
+  }
+
+  setMonsterVariations(monsterVariations: IMonsterVariation[]) {
+    this.monsterVariations = monsterVariations;
   }
 
   setSelectedMonsterBaseId(monsterId: string) {
@@ -65,6 +76,7 @@ export class MonsterStore {
       if (monsterBase && monsterName) {
         map[monsterId] = {
           monsterName,
+          monsterId: monster[EMonsterFields.MONSTER_ID],
           monsterBaseId: monsterBase[EMonsterBaseFields.MONSTER_BASE_ID],
           atkValues: monster[EMonsterFields.ATK_VALUES].slice(-2),
           spaValues: monster[EMonsterFields.SPA_VALUES].slice(-2),
@@ -78,6 +90,12 @@ export class MonsterStore {
 
   get selectedMonster() {
     return this.monsterMapById[this.selectedMonsterBaseId];
+  }
+
+  get selectedMonsterVariation() {
+    return this.monsterVariations.find(
+      v => v[EMonsterVariationFields.MONSTER_ID] === this.selectedMonsterBaseId
+    );
   }
 
   getMonsters() {
@@ -98,11 +116,18 @@ export class MonsterStore {
     });
   }
 
+  getMonsterVariations() {
+    return fetchMonsterVariation().then(data => {
+      this.setMonsterVariations(data.entries);
+    });
+  }
+
   initApiCalls() {
     return Promise.all([
       this.getMonsters(),
       this.getMonsterBase(),
-      this.getMonsterNamesEn()
+      this.getMonsterNamesEn(),
+      this.getMonsterVariations()
     ]);
   }
 
@@ -110,6 +135,7 @@ export class MonsterStore {
     this.monsters = [];
     this.monsterBase = [];
     this.monsterNamesEn = {};
+    this.monsterVariations = [];
   }
 }
 

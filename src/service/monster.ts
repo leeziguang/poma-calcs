@@ -1,6 +1,7 @@
 import {
   IMonsterApiResponse,
-  IMonsterBaseApiResponse
+  IMonsterBaseApiResponse,
+  IMonsterVariationApiResponse
 } from "src/types/monster";
 
 export const fetchMonster = (): Promise<IMonsterApiResponse> =>
@@ -16,4 +17,9 @@ export const fetchMonsterBase = (): Promise<IMonsterBaseApiResponse> =>
 export const fetchMonsterNamesEn = (): Promise<Record<string, string>> =>
   fetch(
     "https://pokemon.brybry.ch/masters/data/lsd/monster_name_en.json"
+  ).then(rsp => rsp.json());
+
+export const fetchMonsterVariation = (): Promise<IMonsterVariationApiResponse> =>
+  fetch(
+    "https://pokemon.brybry.ch/masters/data/proto/MonsterVariation.json"
   ).then(rsp => rsp.json());

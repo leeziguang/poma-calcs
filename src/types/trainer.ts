@@ -120,6 +120,15 @@ export enum ETrainerKind {
   GACHA = 2
 }
 
+export enum ETrainerRole {
+  STRIKE = 1,
+  SUPPORT = 2,
+  TECH = 2,
+  FIELD = 2,
+  SPRINT = 2,
+  ARC = 2
+}
+
 export interface ITrainerOption extends DefaultOptionType {
   monsterId: string;
   monsterBaseId: number;

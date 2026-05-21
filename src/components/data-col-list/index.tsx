@@ -87,7 +87,8 @@ export const DataColList = observer(
 
                   add({
                     ...DEFAULT_COL,
-                    ...genAutoFillMovePower(move)
+                    ...genAutoFillMovePower(move),
+                    [EMovePowerFormFields.MOVE_ID]: selectedMoveId
                   });
 
                   setColumnTitles(prev => ({

@@ -80,8 +80,73 @@ export interface IMonsterBaseApiResponse {
 
 export interface IMonsterMapVal {
   monsterName: string;
+  monsterId: string;
   monsterBaseId: number;
   atkValues: number[];
   spaValues: number[];
   syncMoveId: number;
+}
+
+export enum EMonsterVariationFields {
+  MONSTER_ID = "monsterId",
+  FORM = "form",
+  ACTOR_ID = "actorId",
+  ATK_SCALE = "atkScale",
+  DEF_SCALE = "defScale",
+  SPA_SCALE = "spaScale",
+  SPD_SCALE = "spdScale",
+  SPE_SCALE = "speScale",
+  MOVE1_ID = "move1Id",
+  MOVE2_ID = "move2Id",
+  MOVE3_ID = "move3Id",
+  MOVE4_ID = "move4Id",
+  TYPE = "type",
+  WEAKNESS = "weakness",
+  PASSIVE1_ID = "passive1Id",
+  PASSIVE2_ID = "passive2Id",
+  PASSIVE3_ID = "passive3Id",
+  PASSIVE4_ID = "passive4Id",
+  PASSIVE5_ID = "passive5Id",
+  FORM_ID = "formId",
+  SYNC_MOVE_ID = "syncMoveId",
+  MOVE_DYNAMAX1_ID = "moveDynamax1Id",
+  MOVE_DYNAMAX2_ID = "moveDynamax2Id",
+  MOVE_DYNAMAX3_ID = "moveDynamax3Id",
+  MOVE_DYNAMAX4_ID = "moveDynamax4Id",
+  SCHEDULE_ID = "scheduleId",
+  TERASTAL_MOVE_ID = "terastalMoveId"
+}
+
+export interface IMonsterVariation {
+  [EMonsterVariationFields.MONSTER_ID]: string;
+  [EMonsterVariationFields.FORM]: number;
+  [EMonsterVariationFields.ACTOR_ID]: string;
+  [EMonsterVariationFields.ATK_SCALE]: number;
+  [EMonsterVariationFields.DEF_SCALE]: number;
+  [EMonsterVariationFields.SPA_SCALE]: number;
+  [EMonsterVariationFields.SPD_SCALE]: number;
+  [EMonsterVariationFields.SPE_SCALE]: number;
+  [EMonsterVariationFields.MOVE1_ID]: string;
+  [EMonsterVariationFields.MOVE2_ID]: string;
+  [EMonsterVariationFields.MOVE3_ID]: string;
+  [EMonsterVariationFields.MOVE4_ID]: string;
+  [EMonsterVariationFields.TYPE]: string;
+  [EMonsterVariationFields.WEAKNESS]: string;
+  [EMonsterVariationFields.PASSIVE1_ID]: number;
+  [EMonsterVariationFields.PASSIVE2_ID]: number;
+  [EMonsterVariationFields.PASSIVE3_ID]: number;
+  [EMonsterVariationFields.PASSIVE4_ID]: number;
+  [EMonsterVariationFields.PASSIVE5_ID]: number;
+  [EMonsterVariationFields.FORM_ID]: number;
+  [EMonsterVariationFields.SYNC_MOVE_ID]: number;
+  [EMonsterVariationFields.MOVE_DYNAMAX1_ID]: number;
+  [EMonsterVariationFields.MOVE_DYNAMAX2_ID]: number;
+  [EMonsterVariationFields.MOVE_DYNAMAX3_ID]: number;
+  [EMonsterVariationFields.MOVE_DYNAMAX4_ID]: number;
+  [EMonsterVariationFields.SCHEDULE_ID]: string;
+  [EMonsterVariationFields.TERASTAL_MOVE_ID]: number;
+}
+
+export interface IMonsterVariationApiResponse {
+  entries: IMonsterVariation[];
 }

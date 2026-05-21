@@ -1,4 +1,5 @@
 export enum EMovePowerFormFields {
+  MOVE_ID = "MOVE_ID",
   BASE_MOVE = "BASE_MOVE",
   MOVE_LVL = "MOVE_LVL",
   GRID = "MOVE_GRID",

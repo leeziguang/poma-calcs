@@ -8,6 +8,9 @@ import { usePairStore } from "src/store/pair-context";
 import { EPairListFormFields } from "src/types";
 import { configStore } from "src/store/config";
 import { EMonsterFields } from "src/types/monster";
+import { moveStore } from "src/store/move";
+import { EMoveCategory, EMoveFields } from "src/types/move";
+import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 
 import "./style.scss";
 
@@ -31,9 +34,16 @@ export const BaseStats = observer(
     const defDrops = colData?.[EBaseStatFormFields.DEF_DROPS];
     const monsterId = pairData?.[EPairListFormFields.MONSTER_ID];
     const level = pairData?.[EPairListFormFields.LVL];
+    const moveId = colData?.[EMovePowerFormFields.MOVE_ID];
+    const category =
+      (moveStore.moveMap[moveId]?.[EMoveFields.CATEGORY] as EMoveCategory) ??
+      EMoveCategory.PHYSICAL;
+    const statType =
+      category === EMoveCategory.SPECIAL
+        ? EMonsterFields.SPA_VALUES
+        : EMonsterFields.ATK_VALUES;
 
-    // TODO: differentiate phys/spec split through move
-    const autoStat = RAW_STAT_MAP(EMonsterFields.ATK_VALUES)[level];
+    const autoStat = RAW_STAT_MAP(statType)[level];
 
     useEffect(() => {
       if (!configStore.isCustomMode) {
@@ -46,7 +56,8 @@ export const BaseStats = observer(
       grid,
       statBoost,
       defDrops,
-      moveLvl
+      moveLvl,
+      category
     });
 
     useEffect(() => {
