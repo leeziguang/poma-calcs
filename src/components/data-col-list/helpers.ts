@@ -79,7 +79,7 @@ export const genMoveOptions = (trainerId: string): IMoveOption[] => {
   return uniqBy(res, "label");
 };
 
-export const genAutoFillMovePower = (move: IMove) => {
+export const genAutoFillMovePower = (move: IMove, isTera = false) => {
   return {
     [EMovePowerFormFields.BASE_MOVE]: move.power,
     [EMovePowerFormFields.GRID]: 0,
@@ -88,6 +88,7 @@ export const genAutoFillMovePower = (move: IMove) => {
     [EMovePowerFormFields.MULTIS]: 0,
     [EMovePowerFormFields.INNATE_MULTIS]: 0,
     [EMovePowerFormFields.OPTIONS]: [
+      isTera && EMovePowerFormFields.IS_TERA,
       move[EMoveFields.GROUP] === EMoveGroup.SYNC &&
         EMovePowerFormFields.IS_SYNC,
       move[EMoveFields.TARGET] === EMoveTarget.ALL &&

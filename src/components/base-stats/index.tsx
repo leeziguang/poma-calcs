@@ -84,7 +84,7 @@ export const BaseStats = observer(
             {configStore.isCustomMode ? (
               <InputNumber min={0} />
             ) : (
-              <InputNumber disabled />
+              <InputNumber />
             )}
           </Form.Item>
 

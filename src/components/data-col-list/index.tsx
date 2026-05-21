@@ -10,7 +10,9 @@ import { DEFAULT_COL } from "./constants";
 import { FieldEffect } from "../field-effects";
 import { usePairStore } from "src/store/pair-context";
 import { configStore } from "src/store/config";
+import { monsterStore } from "src/store/monster";
 import { moveStore } from "src/store/move";
+import { EMonsterVariationFields } from "src/types/monster";
 import { MoveDamageDisplay } from "../damage-display/move";
 import { TotalDamageDisplay } from "../damage-display/total";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -56,6 +58,8 @@ export const DataColList = observer(
       moveStore.moveNamesEn
     ]);
 
+    const isCustomMode = configStore.isCustomMode;
+
     return (
       <Card className="dataColList-card">
         <div className="dataColList-level-and-damage-bar">
@@ -82,12 +86,20 @@ export const DataColList = observer(
           <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>
             {(fields, { add, remove }) => {
               const handleAdd = () => {
-                if (!configStore.isCustomMode) {
+                if (!isCustomMode) {
                   const move = moveStore.moveMap[selectedMoveId ?? ""];
+                  const teraId =
+                    monsterStore.selectedMonsterVariation?.[
+                      EMonsterVariationFields.TERASTAL_MOVE_ID
+                    ];
+                  const isTera =
+                    teraId !== undefined &&
+                    teraId !== 0 &&
+                    String(selectedMoveId) === String(teraId);
 
                   add({
                     ...DEFAULT_COL,
-                    ...genAutoFillMovePower(move),
+                    ...genAutoFillMovePower(move, isTera),
                     [EMovePowerFormFields.MOVE_ID]: selectedMoveId
                   });
 
@@ -111,7 +123,7 @@ export const DataColList = observer(
                 <>
                   <div className="dataColList-add-move-bar">
                     <div className="dataColList-addCol">
-                      {configStore.isCustomMode ? (
+                      {isCustomMode ? (
                         <Input
                           placeholder="Move Name"
                           value={newTitle}
@@ -135,7 +147,7 @@ export const DataColList = observer(
                       return (
                         <div key={field.key} className="dataColList-col">
                           <div className="dataColList-col-title">
-                            {configStore.isCustomMode ? (
+                            {isCustomMode ? (
                               <RenameableTitle
                                 isEditing={editingCol === field.name}
                                 value={columnTitles?.[field.name] as string}
@@ -150,8 +162,8 @@ export const DataColList = observer(
                               />
                             ) : (
                               <div
-                                className="renameableTitle-title"
                                 title={columnTitles?.[field.name]}
+                                className="dataColList-col-title-value"
                               >
                                 {columnTitles?.[field.name] || "Untitled"}
                               </div>

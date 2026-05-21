@@ -53,9 +53,14 @@ const TabLabel = observer(
               onStartEdit={() => setIsEditing(true)}
               onEndEdit={() => setIsEditing(false)}
               displaySuffix={
-                level !== undefined && moveLevel !== undefined ? (
-                  <span>{` (${level}) ${formatMoveLevel(moveLevel)} EXR`}</span>
-                ) : null
+                <>
+                  {level !== undefined && moveLevel !== undefined && (
+                    <span className="tabLabel-title-levels">
+                      {` (${level}) ${formatMoveLevel(moveLevel)} EXR`}
+                    </span>
+                  )}
+                  <span className="tabLabel-percent">[{percent}]</span>
+                </>
               }
             />
           ) : (
