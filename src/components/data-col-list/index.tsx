@@ -7,6 +7,7 @@ import { EPairListFormFields, EMoveLevelValues } from "../../types";
 import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
+import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";
 import { FieldEffect } from "../field-effects";
 import { usePairStore } from "src/store/pair-context";
 import { configStore } from "src/store/config";
@@ -86,6 +87,25 @@ export const DataColList = observer(
           <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>
             {(fields, { add, remove }) => {
               const handleAdd = () => {
+                const cols: typeof DEFAULT_COL[] =
+                  form.getFieldValue([
+                    ...parentFieldPath,
+                    EPairListFormFields.DATA_COL
+                  ]) ?? [];
+                const lastCol = cols[cols.length - 1];
+                const inheritedBaseStats = lastCol
+                  ? {
+                      [EBaseStatFormFields.STAT]:
+                        lastCol[EBaseStatFormFields.STAT],
+                      [EBaseStatFormFields.GRID]:
+                        lastCol[EBaseStatFormFields.GRID],
+                      [EBaseStatFormFields.STAT_BOOSTS]:
+                        lastCol[EBaseStatFormFields.STAT_BOOSTS],
+                      [EBaseStatFormFields.DEF_DROPS]:
+                        lastCol[EBaseStatFormFields.DEF_DROPS]
+                    }
+                  : {};
+
                 if (!isCustomMode) {
                   const move = moveStore.moveMap[selectedMoveId ?? ""];
                   const teraId =
@@ -99,6 +119,7 @@ export const DataColList = observer(
 
                   add({
                     ...DEFAULT_COL,
+                    ...inheritedBaseStats,
                     ...genAutoFillMovePower(move, isTera),
                     [EMovePowerFormFields.MOVE_ID]: selectedMoveId
                   });
@@ -110,7 +131,7 @@ export const DataColList = observer(
                       : undefined
                   }));
                 } else {
-                  add(DEFAULT_COL);
+                  add({ ...DEFAULT_COL, ...inheritedBaseStats });
                   setColumnTitles(prev => ({
                     ...prev,
                     [fields.length]: newTitle

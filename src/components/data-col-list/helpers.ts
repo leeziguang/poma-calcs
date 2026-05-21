@@ -1,5 +1,8 @@
 import uniqBy from "lodash/uniqBy";
-import { INVALID_MOVE } from "src/container/constants";
+import {
+  IGNORE_AOE_PENALTY_MOVE_DESC_ID,
+  INVALID_MOVE
+} from "src/container/constants";
 import { monsterStore } from "src/store/monster";
 import { moveStore } from "src/store/move";
 import { trainerStore } from "src/store/trainer";
@@ -80,6 +83,11 @@ export const genMoveOptions = (trainerId: string): IMoveOption[] => {
 };
 
 export const genAutoFillMovePower = (move: IMove, isTera = false) => {
+  const descParts =
+    moveStore.moveDescriptionMap[String(move[EMoveFields.MOVE_ID])];
+  const ignoresAoePenalty =
+    descParts !== undefined && IGNORE_AOE_PENALTY_MOVE_DESC_ID in descParts;
+
   return {
     [EMovePowerFormFields.BASE_MOVE]: move.power,
     [EMovePowerFormFields.GRID]: 0,
@@ -92,7 +100,8 @@ export const genAutoFillMovePower = (move: IMove, isTera = false) => {
       move[EMoveFields.GROUP] === EMoveGroup.SYNC &&
         EMovePowerFormFields.IS_SYNC,
       move[EMoveFields.TARGET] === EMoveTarget.ALL &&
-        EMovePowerFormFields.IS_AOE
+        EMovePowerFormFields.IS_AOE,
+      ignoresAoePenalty && EMovePowerFormFields.IGNORE_AOE_PENALTY
     ].filter(Boolean)
   };
 };
