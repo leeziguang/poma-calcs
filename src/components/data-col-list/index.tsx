@@ -11,9 +11,7 @@ import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";
 import { FieldEffect } from "../field-effects";
 import { usePairStore } from "src/store/pair-context";
 import { configStore } from "src/store/config";
-import { monsterStore } from "src/store/monster";
 import { moveStore } from "src/store/move";
-import { EMonsterVariationFields } from "src/types/monster";
 import { MoveDamageDisplay } from "../damage-display/move";
 import { TotalDamageDisplay } from "../damage-display/total";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -108,19 +106,11 @@ export const DataColList = observer(
 
                 if (!isCustomMode) {
                   const move = moveStore.moveMap[selectedMoveId ?? ""];
-                  const teraId =
-                    monsterStore.selectedMonsterVariation?.[
-                      EMonsterVariationFields.TERASTAL_MOVE_ID
-                    ];
-                  const isTera =
-                    teraId !== undefined &&
-                    teraId !== 0 &&
-                    String(selectedMoveId) === String(teraId);
 
                   add({
                     ...DEFAULT_COL,
                     ...inheritedBaseStats,
-                    ...genAutoFillMovePower(move, isTera),
+                    ...genAutoFillMovePower(move),
                     [EMovePowerFormFields.MOVE_ID]: selectedMoveId
                   });
 

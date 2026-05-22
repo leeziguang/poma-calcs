@@ -1,10 +1,11 @@
 import { EStatBoost, EStatDrops } from "src/types/data-col-list/base-stats";
-import { STAT_BOOSTS_MAP } from "./constants";
+import { EX_ROLE_STAT_MAP, STAT_BOOSTS_MAP } from "./constants";
 import { isValidNumber } from "src/lib/helpers";
 import { configStore } from "src/store/config";
 import { MOVE_LEVEL_STAT_BOOST_MAP } from "../global-toolbar/constants";
 import { EMonsterFields, EMonsterVariationFields } from "src/types/monster";
 import { monsterStore } from "src/store/monster";
+import { trainerStore } from "src/store/trainer";
 import { EMoveCategory } from "src/types/move";
 
 export const RAW_STAT_MAP = (
@@ -55,9 +56,13 @@ export const calcBaseStat = ({
     megaMult = monsterVariant[scaleField] / 100;
   }
 
-  //
-  // TODO: figure out how to get which ex role the pair has then map to stat
-  const exrStat = 0;
+  const exRoleStats =
+    EX_ROLE_STAT_MAP[trainerStore.selectedTrainer?.exRole?.role ?? -1];
+  const exrStat =
+    category === EMoveCategory.PHYSICAL
+      ? exRoleStats?.atk ?? 0
+      : exRoleStats?.spa ?? 0;
+
   const supAwMult = MOVE_LEVEL_STAT_BOOST_MAP[moveLvl];
 
   const realStat = Math.floor(

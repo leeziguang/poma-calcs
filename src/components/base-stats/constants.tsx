@@ -1,4 +1,5 @@
 import { EStatBoost, EStatDrops } from "../../types/data-col-list/base-stats";
+import { ETrainerRole } from "src/types/trainer";
 
 export const STAT_BOOST_LABEL = {
   [EStatBoost.ZERO]: "0",
@@ -49,3 +50,9 @@ export const statDropOptions = (Object.keys(EStatDrops) as EStatDrops[]).map(
     value: boost
   })
 );
+
+export const EX_ROLE_STAT_MAP: Record<number, { atk: number; spa: number }> = {
+  [ETrainerRole.STRIKE]: { atk: 40, spa: 40 },
+  [ETrainerRole.TECH]: { atk: 20, spa: 20 },
+  [ETrainerRole.SPRINT]: { atk: 20, spa: 20 }
+};

@@ -7,6 +7,7 @@ import { monsterStore } from "src/store/monster";
 import { moveStore } from "src/store/move";
 import { trainerStore } from "src/store/trainer";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
+import { trainerHasRole } from "src/lib/helpers";
 import { EMonsterVariationFields } from "src/types/monster";
 import {
   EMoveCategory,
@@ -16,7 +17,7 @@ import {
   IMove,
   IMoveOption
 } from "src/types/move";
-import { ETrainerFields } from "src/types/trainer";
+import { ETrainerFields, ETrainerRole } from "src/types/trainer";
 
 const pushMoveOption = (moveId: number | string, res: IMoveOption[]) => {
   const move = moveStore.moveMap[String(moveId)];
@@ -82,11 +83,22 @@ export const genMoveOptions = (trainerId: string): IMoveOption[] => {
   return uniqBy(res, "label");
 };
 
-export const genAutoFillMovePower = (move: IMove, isTera = false) => {
+export const genAutoFillMovePower = (move: IMove) => {
   const descParts =
     moveStore.moveDescriptionMap[String(move[EMoveFields.MOVE_ID])];
   const ignoresAoePenalty =
     descParts !== undefined && IGNORE_AOE_PENALTY_MOVE_DESC_ID in descParts;
+  const isSync = move[EMoveFields.GROUP] === EMoveGroup.SYNC;
+  const isTech = trainerHasRole(ETrainerRole.TECH);
+  const isStrike = trainerHasRole(ETrainerRole.STRIKE);
+  const teraId =
+    monsterStore.selectedMonsterVariation?.[
+      EMonsterVariationFields.TERASTAL_MOVE_ID
+    ];
+  const isTera =
+    teraId !== undefined &&
+    teraId !== 0 &&
+    String(move[EMoveFields.MOVE_ID]) === String(teraId);
 
   return {
     [EMovePowerFormFields.BASE_MOVE]: move.power,
@@ -97,9 +109,9 @@ export const genAutoFillMovePower = (move: IMove, isTera = false) => {
     [EMovePowerFormFields.INNATE_MULTIS]: 0,
     [EMovePowerFormFields.OPTIONS]: [
       isTera && EMovePowerFormFields.IS_TERA,
-      move[EMoveFields.GROUP] === EMoveGroup.SYNC &&
-        EMovePowerFormFields.IS_SYNC,
-      move[EMoveFields.TARGET] === EMoveTarget.ALL &&
+      isSync && EMovePowerFormFields.IS_SYNC,
+      isSync && isTech && EMovePowerFormFields.IS_TECH,
+      (move[EMoveFields.TARGET] === EMoveTarget.ALL || isStrike) &&
         EMovePowerFormFields.IS_AOE,
       ignoresAoePenalty && EMovePowerFormFields.IGNORE_AOE_PENALTY
     ].filter(Boolean)

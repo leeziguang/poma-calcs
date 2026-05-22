@@ -1,4 +1,6 @@
 import { isNumber, isNaN, isFinite } from "lodash";
+import { trainerStore } from "src/store/trainer";
+import { ETrainerRole } from "src/types/trainer";
 
 export function toSafeNumber(number: number, dp = 2) {
   if (!isValidNumber(number)) return 0;
@@ -30,4 +32,9 @@ export function getPercent(num: number, denom: number) {
 
 export function formatMoveLevel(ml: string) {
   return ml?.startsWith("SA") ? ml.replace(" ", "") : `${ml}/5`;
+}
+
+export function trainerHasRole(role: ETrainerRole): boolean {
+  const trainer = trainerStore.selectedTrainer;
+  return trainer?.role === role || trainer?.exRole?.role === role;
 }

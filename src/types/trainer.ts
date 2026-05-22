@@ -123,10 +123,10 @@ export enum ETrainerKind {
 export enum ETrainerRole {
   STRIKE = 1,
   SUPPORT = 2,
-  TECH = 2,
-  FIELD = 2,
-  SPRINT = 2,
-  ARC = 2
+  TECH = 3,
+  SPRINT = 4,
+  FIELD = 5,
+  ARC = 6
 }
 
 export interface ITrainerOption extends DefaultOptionType {
@@ -137,9 +137,29 @@ export interface ITrainerOption extends DefaultOptionType {
 export interface ITrainerInfoListVal {
   trainerName: string;
   trainerId: string;
+  role: number;
   move1Id: number;
   move2Id: number;
   move3Id: number;
   move4Id: number;
   monsterId: string;
+  exRole?: ITrainerExRole;
+}
+
+export enum ETrainerExRoleFields {
+  TRAINER_ID = "trainerId",
+  ROLE = "role",
+  SCHEDULE_ID = "scheduleId",
+  U4 = "u4"
+}
+
+export interface ITrainerExRole {
+  [ETrainerExRoleFields.TRAINER_ID]: string;
+  [ETrainerExRoleFields.ROLE]: number;
+  [ETrainerExRoleFields.SCHEDULE_ID]: string;
+  [ETrainerExRoleFields.U4]: string;
+}
+
+export interface ITrainerExRoleApiResponse {
+  entries: ITrainerExRole[];
 }

@@ -121,7 +121,7 @@ export const GlobalToolbar = observer(
                     status={saveError ? "error" : undefined}
                   />
                 </Tooltip>
-                <Button type="primary" size="small" onClick={handleSave}>
+                <Button danger onClick={handleSave}>
                   Save
                 </Button>
               </div>
@@ -140,14 +140,12 @@ export const GlobalToolbar = observer(
                   okText="Delete"
                   cancelText="Cancel"
                 >
-                  <Button danger size="small">
-                    Delete
-                  </Button>
+                  <Button danger>Delete</Button>
                 </Popconfirm>
               )}
             </div>
 
-            <div className="globalToolbar-section">
+            <div className="globalToolbar-section globalToolbar-exportRow">
               <Button size="small" onClick={onExportJson}>
                 Export JSON
               </Button>

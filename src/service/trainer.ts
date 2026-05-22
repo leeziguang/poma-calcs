@@ -1,6 +1,7 @@
 import {
   ITrainerApiResponse,
-  ITrainerBaseApiResponse
+  ITrainerBaseApiResponse,
+  ITrainerExRoleApiResponse
 } from "src/types/trainer";
 
 export const fetchTrainer = (): Promise<ITrainerApiResponse> =>
@@ -21,4 +22,9 @@ export const fetchTrainerNamesEn = (): Promise<Record<string, string>> =>
 export const fetchVerboseTrainerNamesEn = (): Promise<Record<string, string>> =>
   fetch(
     "https://pokemon.brybry.ch/masters/data/lsd/trainer_verbose_name_en.json"
+  ).then(rsp => rsp.json());
+
+export const fetchTrainerExRole = (): Promise<ITrainerExRoleApiResponse> =>
+  fetch(
+    "https://pokemon.brybry.ch/masters/data/proto/TrainerExRole.json"
   ).then(rsp => rsp.json());

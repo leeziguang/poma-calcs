@@ -3,6 +3,7 @@ import { SCRAPPED_MON_ID_PREFIX, MC_BASE_ID } from "src/container/constants";
 import {
   fetchTrainer,
   fetchTrainerBase,
+  fetchTrainerExRole,
   fetchTrainerNamesEn,
   fetchVerboseTrainerNamesEn
 } from "src/service/trainer";
@@ -11,6 +12,7 @@ import {
   ETrainerKind,
   ITrainer,
   ITrainerBasePicked,
+  ITrainerExRole,
   ITrainerInfoListVal
 } from "src/types/trainer";
 
@@ -28,6 +30,7 @@ export class TrainerStore {
   trainerNamesEn: Record<string, string> = {};
   verboseTrainerNamesEn: Record<string, string> = {};
   trainerOptionsList: ITrainerOption[] = [];
+  trainerExRoles: ITrainerExRole[] = [];
   selectedTrainerId = "";
 
   constructor() {
@@ -37,12 +40,14 @@ export class TrainerStore {
       trainerNamesEn: observable,
       verboseTrainerNamesEn: observable,
       trainerOptionsList: observable,
+      trainerExRoles: observable,
       selectedTrainerId: observable,
       setTrainers: action,
       setTrainerBase: action,
       setTrainerNamesEn: action,
       setVerboseTrainerNamesEn: action,
       setTrainerOptionsList: action,
+      setTrainerExRoles: action,
       setSelectedTrainerId: action,
       trainerInfoMap: computed,
       selectedTrainer: computed
@@ -67,6 +72,10 @@ export class TrainerStore {
 
   setTrainerOptionsList(options: ITrainerOption[]) {
     this.trainerOptionsList = options;
+  }
+
+  setTrainerExRoles(exRoles: ITrainerExRole[]) {
+    this.trainerExRoles = exRoles;
   }
 
   setSelectedTrainerId(id: string) {
@@ -102,6 +111,12 @@ export class TrainerStore {
     });
   }
 
+  getTrainerExRoles() {
+    return fetchTrainerExRole().then(data => {
+      this.setTrainerExRoles(data.entries);
+    });
+  }
+
   get trainerInfoMap(): Record<string, ITrainerInfoListVal> {
     const map: Record<string, ITrainerInfoListVal> = {};
 
@@ -126,11 +141,15 @@ export class TrainerStore {
         map[t[ETrainerFields.TRAINER_ID]] = {
           trainerName,
           trainerId: t?.[ETrainerFields.TRAINER_ID],
+          role: t?.[ETrainerFields.ROLE],
           move1Id: t?.move1Id,
           move2Id: t?.move2Id,
           move3Id: t?.move3Id,
           move4Id: t?.move4Id,
-          monsterId: t?.monsterId
+          monsterId: t?.monsterId,
+          exRole: this.trainerExRoles.find(
+            e => e.trainerId === t?.[ETrainerFields.TRAINER_ID]
+          )
         };
       });
 
@@ -146,7 +165,8 @@ export class TrainerStore {
       this.getTrainers(),
       this.getTrainerBase(),
       this.getTrainerNamesEn(),
-      this.getVerboseTrainerNamesEn()
+      this.getVerboseTrainerNamesEn(),
+      this.getTrainerExRoles()
     ]);
   }
 
@@ -156,6 +176,7 @@ export class TrainerStore {
     this.trainerNamesEn = {};
     this.verboseTrainerNamesEn = {};
     this.trainerOptionsList = [];
+    this.trainerExRoles = [];
   }
 }
 
