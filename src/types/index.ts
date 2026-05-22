@@ -11,7 +11,8 @@ export enum EPairListFormFields {
   LVL = "LVL",
   MONSTER_ID = "MONSTER_ID",
   MOVE_ID = "MOVE_ID",
-  TRAINER_ID = "TRAINER_ID"
+  TRAINER_ID = "TRAINER_ID",
+  MOVES = "MOVES"
 }
 
 export interface IPairListFormValues {

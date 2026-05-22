@@ -8,6 +8,7 @@ import { MOVE_LEVEL_OPTIONS } from "../global-toolbar/constants";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
 import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";
+import { EFieldEffectFormFields } from "src/types/data-col-list/field-effect";
 import { FieldEffect } from "../field-effects";
 import { usePairStore } from "src/store/pair-context";
 import { configStore } from "src/store/config";
@@ -50,6 +51,8 @@ export const DataColList = observer(
 
     const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
     const trainerId = pairs?.[pairFieldName]?.[EPairListFormFields.TRAINER_ID];
+    const moves: number =
+      pairs?.[pairFieldName]?.[EPairListFormFields.MOVES] ?? 1;
 
     const moveOptions = useMemo(() => genMoveOptions(trainerId), [
       trainerId,
@@ -78,7 +81,15 @@ export const DataColList = observer(
             <Select options={MOVE_LEVEL_OPTIONS} />
           </Form.Item>
 
-          <TotalDamageDisplay />
+          <Form.Item
+            label="Moves"
+            name={[pairFieldName, EPairListFormFields.MOVES]}
+            initialValue={18}
+          >
+            <InputNumber min={1} />
+          </Form.Item>
+
+          <TotalDamageDisplay moves={moves} />
         </div>
 
         <div className="dataColList-colWrapper">
@@ -104,12 +115,28 @@ export const DataColList = observer(
                     }
                   : {};
 
+                const inheritedFieldEffects = lastCol
+                  ? {
+                      [EFieldEffectFormFields.SYNC_BOOSTS]:
+                        lastCol[EFieldEffectFormFields.SYNC_BOOSTS],
+                      [EFieldEffectFormFields.WTZ]:
+                        lastCol[EFieldEffectFormFields.WTZ],
+                      [EFieldEffectFormFields.CIRCLE]:
+                        lastCol[EFieldEffectFormFields.CIRCLE],
+                      [EFieldEffectFormFields.REBUFF]:
+                        lastCol[EFieldEffectFormFields.REBUFF],
+                      [EFieldEffectFormFields.SEUN]:
+                        lastCol[EFieldEffectFormFields.SEUN]
+                    }
+                  : {};
+
                 if (!isCustomMode) {
                   const move = moveStore.moveMap[selectedMoveId ?? ""];
 
                   add({
                     ...DEFAULT_COL,
                     ...inheritedBaseStats,
+                    ...inheritedFieldEffects,
                     ...genAutoFillMovePower(move),
                     [EMovePowerFormFields.MOVE_ID]: selectedMoveId
                   });
@@ -121,7 +148,11 @@ export const DataColList = observer(
                       : undefined
                   }));
                 } else {
-                  add({ ...DEFAULT_COL, ...inheritedBaseStats });
+                  add({
+                    ...DEFAULT_COL,
+                    ...inheritedBaseStats,
+                    ...inheritedFieldEffects
+                  });
                   setColumnTitles(prev => ({
                     ...prev,
                     [fields.length]: newTitle
@@ -205,7 +236,10 @@ export const DataColList = observer(
                             </div>
                           </div>
 
-                          <MoveDamageDisplay moveColName={String(field.name)} />
+                          <MoveDamageDisplay
+                            moveColName={String(field.name)}
+                            moves={moves}
+                          />
 
                           <BaseStats
                             name={String(field.name)}

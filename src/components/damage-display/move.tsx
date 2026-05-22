@@ -5,7 +5,7 @@ import { numberToDisplayString, getPercent } from "src/lib/helpers";
 import { usePairStore } from "src/store/pair-context";
 
 export const MoveDamageDisplay = observer(
-  ({ moveColName }: { moveColName: string }) => {
+  ({ moveColName, moves: _moves }: { moveColName: string; moves: number }) => {
     const pairStore = usePairStore();
     const moveDamageString = numberToDisplayString(
       pairStore.moveDamageRec?.[moveColName]?.finalDamage,
