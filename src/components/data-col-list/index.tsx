@@ -4,7 +4,7 @@ import { Button, Card, Form, Input, InputNumber, Select } from "antd";
 import { BaseStats } from "../base-stats";
 import { RenameableTitle } from "../renameable-title";
 import { EPairListFormFields, EMoveLevelValues } from "../../types";
-import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
+import { MOVE_LEVEL_OPTIONS } from "../global-toolbar/constants";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
 import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";

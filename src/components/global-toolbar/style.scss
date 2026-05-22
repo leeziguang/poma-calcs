@@ -1,0 +1,66 @@
+.globalToolbar-collapse {
+  margin-bottom: 8px;
+
+  .ant-collapse-content-box {
+    padding: 6px 12px !important;
+  }
+}
+
+.globalToolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  &-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 12px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:not(:last-child) {
+      border-right: 1px solid #d9d9d9;
+    }
+  }
+
+  &-saveRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &-nameInput {
+    width: 140px;
+  }
+
+  &-trainerSelect {
+    min-width: 350px !important;
+    max-width: 350px !important;
+  }
+
+  &-loadSelect {
+    width: 160px;
+  }
+
+  &-enemyDef {
+    width: 72px;
+  }
+
+  &-label {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.65);
+    white-space: nowrap;
+  }
+
+  &-collapse {
+    .ant-collapse-header {
+      text-align: left;
+      background-color: white;
+    }
+  }
+}

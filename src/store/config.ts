@@ -23,6 +23,15 @@ export class ConfigStore {
     this.isCustomMode = val;
   }
 
+  serialize(): { enemyDef: number; isCustomMode: boolean } {
+    return { enemyDef: this.enemyDef, isCustomMode: this.isCustomMode };
+  }
+
+  hydrate(data: { enemyDef: number; isCustomMode: boolean }) {
+    this.setEnemyDef(data.enemyDef);
+    this.setIsCustomMode(data.isCustomMode);
+  }
+
   reset() {
     this.setEnemyDef(50);
     this.setIsCustomMode(false);

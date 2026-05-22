@@ -13,9 +13,6 @@ export const MOVE_LEVEL_MOVE_BOOST_MAP = {
   "SA 5": 1.2 + 0.1 + 0.3
 } as Record<string, number>;
 
-/**
- * @description Increase in sync damage based on move level, from 1/5 to SA5, includes MAX moves
- */
 export const MOVE_LEVEL_SYNC_BOOST_MAP = {
   "1": 1,
   "2": 1.05,

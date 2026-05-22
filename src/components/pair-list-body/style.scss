@@ -1,11 +1,9 @@
-
-
 .form {
   .pairList {
     &-actions-row-wrapper {
       display: flex;
       padding: 0 24px 12px 24px;
-      
+
       &-delete-wrapper {
         display: flex;
         gap: 8px;
@@ -32,13 +30,13 @@
   .ant-tabs-nav {
     .tabLabel {
       cursor: default;
-      
+
       &-title {
         max-width: 200px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-  
+
         &-name {
           font-weight: 600;
           overflow: hidden;
@@ -52,7 +50,7 @@
     }
     .ant-tabs-tab {
       padding: 4px 8px;
-      
+
       .ant-tabs-tab-remove {
         margin: 0;
       }
@@ -82,7 +80,7 @@
 
   .ant-collapse-header.ant-collapse-header {
     padding: 4px 12px;
-    
+
     .ant-collapse-expand-icon {
       .ant-collapse-arrow.ant-collapse-arrow {
         margin-right: 8px;

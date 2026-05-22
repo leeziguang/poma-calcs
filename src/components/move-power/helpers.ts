@@ -8,7 +8,7 @@ import { AOE_PENALTY_MAP, SM_PMUN_MULTI, SYUN_MULTI } from "./constants";
 import {
   MOVE_LEVEL_MOVE_BOOST_MAP,
   MOVE_LEVEL_SYNC_BOOST_MAP
-} from "../action-topbar/constants";
+} from "../global-toolbar/constants";
 
 export const formToCalcArgAdaptor = (
   formVal: Partial<IMovePowerFormValues>

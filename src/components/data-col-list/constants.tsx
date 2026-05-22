@@ -9,7 +9,7 @@ import {
   EFieldEffectFormFields
 } from "src/types/data-col-list/field-effect";
 import { REBUFF_MULTI_MAP, WTZ_MULTI_MAP } from "../field-effects/constants";
-import { MOVE_LEVEL_OPTIONS } from "../action-topbar/constants";
+import { MOVE_LEVEL_OPTIONS } from "../global-toolbar/constants";
 import { EMoveLevelValues } from "src/types";
 
 export const DEFAULT_COL = {

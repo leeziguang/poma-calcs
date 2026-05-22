@@ -2,7 +2,7 @@ import { EStatBoost, EStatDrops } from "src/types/data-col-list/base-stats";
 import { STAT_BOOSTS_MAP } from "./constants";
 import { isValidNumber } from "src/lib/helpers";
 import { configStore } from "src/store/config";
-import { MOVE_LEVEL_STAT_BOOST_MAP } from "../action-topbar/constants";
+import { MOVE_LEVEL_STAT_BOOST_MAP } from "../global-toolbar/constants";
 import { EMonsterFields, EMonsterVariationFields } from "src/types/monster";
 import { monsterStore } from "src/store/monster";
 import { EMoveCategory } from "src/types/move";

@@ -29,6 +29,14 @@ export class PairStore {
     );
   }
 
+  serialize(): Record<string, IMoveInfo> {
+    return { ...this.moveDamageRec };
+  }
+
+  hydrate(data: Record<string, IMoveInfo>) {
+    this.moveDamageRec = { ...data };
+  }
+
   init() {
     this.moveDamageRec = {};
   }
