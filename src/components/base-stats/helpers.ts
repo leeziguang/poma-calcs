@@ -7,6 +7,7 @@ import { EMonsterFields, EMonsterVariationFields } from "src/types/monster";
 import { monsterStore } from "src/store/monster";
 import { trainerStore } from "src/store/trainer";
 import { EMoveCategory } from "src/types/move";
+import { EX_STAT_BONUS } from "src/container/constants";
 
 export const RAW_STAT_MAP = (
   statType: EMonsterFields.ATK_VALUES | EMonsterFields.SPA_VALUES
@@ -66,7 +67,9 @@ export const calcBaseStat = ({
   const supAwMult = MOVE_LEVEL_STAT_BOOST_MAP[moveLvl];
 
   const realStat = Math.floor(
-    (stat * supAwMult + exrStat + grid) * megaMult * STAT_BOOSTS_MAP[statBoost]
+    (stat * supAwMult + exrStat + EX_STAT_BONUS + grid) *
+      megaMult *
+      STAT_BOOSTS_MAP[statBoost]
   );
 
   return (
