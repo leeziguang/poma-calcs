@@ -1,159 +1,176 @@
 import React, { useEffect } from "react";
-import { Checkbox, Collapse, Form, Input, InputNumber } from "antd";
+import { Checkbox, Collapse, Form, Input, InputNumber, TreeSelect } from "antd";
+import { observer } from "mobx-react";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
-import { calcMovePower, calcSyncPower, formToCalcArgAdaptor } from "./helpers";
+import {
+  calcMovePower,
+  calcSyncPower,
+  formToCalcArgAdaptor,
+  genPassiveOptions
+} from "./helpers";
 import "./style.scss";
 import { usePairStore } from "src/store/pair-context";
 import { EPairListFormFields } from "src/types";
+import { passiveStore } from "src/store/passive";
 
 interface IMovePowerProps {
   name: string;
   pairFieldName: number;
 }
 
-export const MovePower = ({ name, pairFieldName }: IMovePowerProps) => {
-  const pairStore = usePairStore();
-  const form = Form.useFormInstance();
-  const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
-  const pairData = pairs?.[pairFieldName];
-  const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
-  const baseMove = colData?.[EMovePowerFormFields.BASE_MOVE];
-  const moveLvl = pairData?.[EPairListFormFields.MOVE_LVL];
-  const grid = colData?.[EMovePowerFormFields.GRID];
-  const smPmun = colData?.[EMovePowerFormFields.SM_PMUN];
-  const syun = colData?.[EMovePowerFormFields.SYUN];
-  const multis = colData?.[EMovePowerFormFields.MULTIS];
-  const innateMultis = colData?.[EMovePowerFormFields.INNATE_MULTIS];
-  const optionsValue = colData?.[EMovePowerFormFields.OPTIONS];
+export const MovePower = observer(
+  ({ name, pairFieldName }: IMovePowerProps) => {
+    const pairStore = usePairStore();
+    const form = Form.useFormInstance();
+    const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
+    const pairData = pairs?.[pairFieldName];
+    const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
+    const optionsValue = colData?.[EMovePowerFormFields.OPTIONS];
+    const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
+    const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
+    const passiveOptions = genPassiveOptions(
+      trainerId,
+      passiveStore.passiveSkillNamesEn,
+      passiveStore.passiveSkillNamePartsEn,
+      passiveStore.passiveSkillChildren
+    );
 
-  const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
+    const args = formToCalcArgAdaptor({
+      ...colData,
+      [EMovePowerFormFields.MOVE_LVL]: pairData?.[EPairListFormFields.MOVE_LVL]
+    });
+    const headerVal = isSync ? calcSyncPower(args) : calcMovePower(args);
 
-  const args = formToCalcArgAdaptor({
-    [EMovePowerFormFields.BASE_MOVE]: baseMove,
-    [EMovePowerFormFields.MOVE_LVL]: moveLvl,
-    [EMovePowerFormFields.GRID]: grid,
-    [EMovePowerFormFields.SM_PMUN]: smPmun,
-    [EMovePowerFormFields.SYUN]: syun,
-    [EMovePowerFormFields.MULTIS]: multis,
-    [EMovePowerFormFields.INNATE_MULTIS]: innateMultis,
-    [EMovePowerFormFields.OPTIONS]: optionsValue
-  });
-  const headerVal = isSync ? calcSyncPower(args) : calcMovePower(args);
+    useEffect(() => {
+      pairStore.updateMoveInfo(name, { movePower: headerVal });
+    }, [name, headerVal]);
 
-  useEffect(() => {
-    pairStore.updateMoveInfo(name, { movePower: headerVal });
-  }, [name, headerVal]);
-
-  return (
-    <Collapse
-      className="movePower-collapse"
-      defaultActiveKey={["move-power-panel"]}
-    >
-      <Collapse.Panel
-        key="move-power-panel"
-        header={
-          <>
-            <div>Move Power</div>
-            {headerVal?.toLocaleString(undefined, {
-              maximumFractionDigits: 6
-            })}
-          </>
-        }
+    return (
+      <Collapse
+        className="movePower-collapse"
+        defaultActiveKey={["move-power-panel"]}
       >
-        <Form.Item
-          name={[name, EMovePowerFormFields.OPTIONS]}
-          normalize={(values: EMovePowerFormFields[]) => {
-            let result = values;
-            if (result?.includes(EMovePowerFormFields.IS_SYNC)) {
-              result = result.filter(v => v !== EMovePowerFormFields.IS_TERA);
-            }
-
-            const showIgnoreAoe =
-              result?.includes(EMovePowerFormFields.IS_AOE) &&
-              !result?.includes(EMovePowerFormFields.IS_SYNC);
-            if (!showIgnoreAoe) {
-              result = result?.filter(
-                v => v !== EMovePowerFormFields.IGNORE_AOE_PENALTY
-              );
-            }
-
-            return result;
-          }}
+        <Collapse.Panel
+          key="move-power-panel"
+          header={
+            <>
+              <div>Move Power</div>
+              {headerVal?.toLocaleString(undefined, {
+                maximumFractionDigits: 6
+              })}
+            </>
+          }
         >
-          <Checkbox.Group className="movePower-checkbox-group">
-            <Checkbox value={EMovePowerFormFields.IS_SYNC}>Sync Move</Checkbox>
-
-            {optionsValue?.includes(EMovePowerFormFields.IS_SYNC) ? (
-              <Checkbox value={EMovePowerFormFields.IS_TECH}>Tech</Checkbox>
-            ) : (
-              <></>
-            )}
-
-            <Checkbox
-              value={EMovePowerFormFields.IS_TERA}
-              disabled={optionsValue?.includes(EMovePowerFormFields.IS_SYNC)}
-            >
-              Tera
-            </Checkbox>
-
-            <Checkbox value={EMovePowerFormFields.IS_AOE}>AOE</Checkbox>
-
-            {optionsValue?.includes(EMovePowerFormFields.IS_AOE) &&
-            !optionsValue?.includes(EMovePowerFormFields.IS_SYNC) ? (
-              <Checkbox value={EMovePowerFormFields.IGNORE_AOE_PENALTY}>
-                Ignore AOE Penalty
-              </Checkbox>
-            ) : (
-              <></>
-            )}
-          </Checkbox.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="Base Power"
-          name={[name, EMovePowerFormFields.BASE_MOVE]}
-        >
-          <InputNumber min={0} />
-        </Form.Item>
-
-        <Form.Item label="Grid Boost" name={[name, EMovePowerFormFields.GRID]}>
-          <InputNumber min={0} />
-        </Form.Item>
-
-        {isSync ? (
-          <Form.Item label="SyUN" name={[name, EMovePowerFormFields.SYUN]}>
-            <InputNumber min={0} max={10} precision={0} />
-          </Form.Item>
-        ) : (
           <Form.Item
-            label="SM/PMUN"
-            name={[name, EMovePowerFormFields.SM_PMUN]}
+            name={[name, EMovePowerFormFields.OPTIONS]}
+            normalize={(values: EMovePowerFormFields[]) => {
+              let result = values;
+              if (result?.includes(EMovePowerFormFields.IS_SYNC)) {
+                result = result.filter(v => v !== EMovePowerFormFields.IS_TERA);
+              }
+
+              const showIgnoreAoe =
+                result?.includes(EMovePowerFormFields.IS_AOE) &&
+                !result?.includes(EMovePowerFormFields.IS_SYNC);
+              if (!showIgnoreAoe) {
+                result = result?.filter(
+                  v => v !== EMovePowerFormFields.IGNORE_AOE_PENALTY
+                );
+              }
+
+              return result;
+            }}
           >
-            <InputNumber min={0} max={10} precision={0} />
+            <Checkbox.Group className="movePower-checkbox-group">
+              <Checkbox value={EMovePowerFormFields.IS_SYNC}>
+                Sync Move
+              </Checkbox>
+
+              {optionsValue?.includes(EMovePowerFormFields.IS_SYNC) ? (
+                <Checkbox value={EMovePowerFormFields.IS_TECH}>Tech</Checkbox>
+              ) : (
+                <></>
+              )}
+
+              <Checkbox
+                value={EMovePowerFormFields.IS_TERA}
+                disabled={optionsValue?.includes(EMovePowerFormFields.IS_SYNC)}
+              >
+                Tera
+              </Checkbox>
+
+              <Checkbox value={EMovePowerFormFields.IS_AOE}>AOE</Checkbox>
+
+              {optionsValue?.includes(EMovePowerFormFields.IS_AOE) &&
+              !optionsValue?.includes(EMovePowerFormFields.IS_SYNC) ? (
+                <Checkbox value={EMovePowerFormFields.IGNORE_AOE_PENALTY}>
+                  Ignore AOE Penalty
+                </Checkbox>
+              ) : (
+                <></>
+              )}
+            </Checkbox.Group>
           </Form.Item>
-        )}
 
-        <Form.Item
-          label="Passive & Grid Multis"
-          name={[name, EMovePowerFormFields.MULTIS]}
-        >
-          <InputNumber step={0.1} min={0} />
-        </Form.Item>
+          <Form.Item
+            label="Base Power"
+            name={[name, EMovePowerFormFields.BASE_MOVE]}
+          >
+            <InputNumber min={0} />
+          </Form.Item>
 
-        <Form.Item
-          label="Innate Multis"
-          name={[name, EMovePowerFormFields.INNATE_MULTIS]}
-        >
-          <InputNumber step={0.1} min={0} />
-        </Form.Item>
+          <Form.Item
+            label="Grid Boost"
+            name={[name, EMovePowerFormFields.GRID]}
+          >
+            <InputNumber min={0} />
+          </Form.Item>
 
-        <Form.Item
-          label="Extra Notes"
-          name={[name, EMovePowerFormFields.EXTRA_NOTES]}
-        >
-          <Input.TextArea rows={2} />
-        </Form.Item>
-      </Collapse.Panel>
-    </Collapse>
-  );
-};
+          {isSync ? (
+            <Form.Item label="SyUN" name={[name, EMovePowerFormFields.SYUN]}>
+              <InputNumber min={0} max={10} precision={0} />
+            </Form.Item>
+          ) : (
+            <Form.Item
+              label="SM/PMUN"
+              name={[name, EMovePowerFormFields.SM_PMUN]}
+            >
+              <InputNumber min={0} max={10} precision={0} />
+            </Form.Item>
+          )}
+
+          <Form.Item label="Passives">
+            <TreeSelect
+              multiple
+              treeDefaultExpandAll
+              treeData={passiveOptions}
+              showCheckedStrategy={TreeSelect.SHOW_ALL}
+              dropdownMatchSelectWidth={false}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Passive & Grid Multis"
+            name={[name, EMovePowerFormFields.MULTIS]}
+          >
+            <InputNumber step={0.1} min={0} />
+          </Form.Item>
+
+          <Form.Item
+            label="Innate Multis"
+            name={[name, EMovePowerFormFields.INNATE_MULTIS]}
+          >
+            <InputNumber step={0.1} min={0} />
+          </Form.Item>
+
+          <Form.Item
+            label="Extra Notes"
+            name={[name, EMovePowerFormFields.EXTRA_NOTES]}
+          >
+            <Input.TextArea rows={2} />
+          </Form.Item>
+        </Collapse.Panel>
+      </Collapse>
+    );
+  }
+);

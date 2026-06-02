@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import moment from "moment";
 import { autorun } from "mobx";
 import { Modal, notification } from "antd";
 import { FormInstance } from "antd/lib/form";
@@ -9,6 +10,7 @@ import { IMoveInfo } from "src/types/pair";
 import { configStore } from "src/store/config";
 import { monsterStore } from "src/store/monster";
 import { trainerStore } from "src/store/trainer";
+import { moveStore } from "src/store/move";
 import { sessionStore } from "src/store/session";
 import { ISavedSession } from "src/types/session";
 import { buildTsvRows, triggerDownload } from "src/lib/export";
@@ -55,9 +57,24 @@ export function usePairSession({
       return {
         version: 1,
         name,
-        savedAt: new Date().toISOString(),
+        savedAt: moment().toISOString(),
         config: configStore.serialize(),
-        formValues: form.getFieldsValue(),
+        formValues: (() => {
+          const raw = form.getFieldsValue();
+          return {
+            ...raw,
+            PAIR: (raw.PAIR ?? []).map((pair: Record<string, unknown>) => ({
+              ...pair,
+              DATA_COL: (
+                (pair.DATA_COL as Record<string, unknown>[]) ?? []
+              ).map(col => ({
+                ...col,
+                MOVE_NAME:
+                  moveStore.moveNamesEn[String(col.MOVE_ID)] ?? undefined
+              }))
+            }))
+          };
+        })(),
         pairNames: [...pairNamesRef.current],
         activeKey: activeIdx >= 0 ? String(activeIdx) : undefined,
         pairStores: pairStores as Record<string, Record<string, IMoveInfo>>
@@ -179,13 +196,13 @@ export function usePairSession({
     const snapshot = buildSnapshot(sessionStore.activeSessionName ?? "export");
     triggerDownload(
       JSON.stringify(snapshot, null, 2),
-      `poma-calcs-${Date.now()}.json`,
+      `poma-calcs-${moment().format("DDMMMYYYY-HHmm")}.json`,
       "application/json"
     );
   }, [buildSnapshot]);
 
   const handleImportJson = useCallback(
-    (file: File) => {
+    (file: File, onName: (name: string) => void) => {
       const reader = new FileReader();
       reader.onload = e => {
         try {
@@ -197,6 +214,7 @@ export function usePairSession({
             title: "Import will replace current session. Continue?",
             onOk: () => {
               applySessionState(parsed);
+              onName(parsed.name);
               notification.success({ message: "Session imported" });
             }
           });
@@ -220,7 +238,7 @@ export function usePairSession({
     );
     triggerDownload(
       rows.map(row => row.join("\t")).join("\n"),
-      `poma-calcs-${Date.now()}.tsv`,
+      `poma-calcs-${moment().format("DDMMMYY")}.tsv`,
       "text/tab-separated-values"
     );
   }, [form, fieldsRef, pairNamesRef, storesRef]);

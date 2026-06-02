@@ -28,7 +28,7 @@ interface IGlobalToolbarProps {
   onDelete: (name: string) => void;
   onExportJson: () => void;
   onExportTsv: () => void;
-  onImport: (file: File) => void;
+  onImport: (file: File, onName: (name: string) => void) => void;
   add: FormListOperations["add"];
   onAdd: (name: string) => void;
 }
@@ -69,7 +69,7 @@ export const GlobalToolbar = observer(
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
-      if (file) onImport(file);
+      if (file) onImport(file, setSaveInput);
       if (fileInputRef.current) fileInputRef.current.value = "";
     };
 
@@ -130,7 +130,10 @@ export const GlobalToolbar = observer(
                 placeholder="Load session…"
                 value={activeSession ?? undefined}
                 options={sessionNames.map(n => ({ label: n, value: n }))}
-                onChange={onLoad}
+                onChange={name => {
+                  onLoad(name);
+                  setSaveInput(name);
+                }}
                 allowClear
               />
               {activeSession && (

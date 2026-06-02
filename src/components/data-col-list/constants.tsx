@@ -6,7 +6,8 @@ import {
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 import {
   EWTZ,
-  EFieldEffectFormFields
+  EFieldEffectFormFields,
+  IFieldEffectFormValues
 } from "src/types/data-col-list/field-effect";
 import { REBUFF_MULTI_MAP, WTZ_MULTI_MAP } from "../field-effects/constants";
 import { MOVE_LEVEL_OPTIONS } from "../global-toolbar/constants";
@@ -27,5 +28,7 @@ export const DEFAULT_COL = {
   [EMovePowerFormFields.INNATE_MULTIS]: 0,
   [EFieldEffectFormFields.SYNC_BOOSTS]: 0,
   [EFieldEffectFormFields.WTZ]: WTZ_MULTI_MAP[EWTZ.NONE],
-  [EFieldEffectFormFields.REBUFF]: REBUFF_MULTI_MAP[0]
+  [EFieldEffectFormFields.REBUFF]: REBUFF_MULTI_MAP[0],
+  [EFieldEffectFormFields.CIRCLE]: [] as IFieldEffectFormValues[EFieldEffectFormFields.CIRCLE],
+  [EFieldEffectFormFields.SEUN]: false
 };

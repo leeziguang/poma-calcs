@@ -142,6 +142,11 @@ export interface ITrainerInfoListVal {
   move2Id: number;
   move3Id: number;
   move4Id: number;
+  passive1Id: number;
+  passive2Id: number;
+  passive3Id: number;
+  passive4Id: number;
+  passive5Id: number;
   monsterId: string;
   exRole?: ITrainerExRole;
 }

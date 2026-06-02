@@ -17,8 +17,8 @@ import { MoveDamageDisplay } from "../damage-display/move";
 import { TotalDamageDisplay } from "../damage-display/total";
 import { DeleteOutlined } from "@ant-design/icons";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
-import "./style.scss";
 import { genAutoFillMovePower, genMoveOptions } from "./helpers";
+import "./style.scss";
 
 export const DataColList = observer(
   ({
@@ -53,6 +53,19 @@ export const DataColList = observer(
     const trainerId = pairs?.[pairFieldName]?.[EPairListFormFields.TRAINER_ID];
     const moves: number =
       pairs?.[pairFieldName]?.[EPairListFormFields.MOVES] ?? 1;
+    const dataCols = (pairs?.[pairFieldName]?.[EPairListFormFields.DATA_COL] ??
+      []) as Array<Record<string, unknown>>;
+
+    const getColTitle = (fieldName: number): string | undefined => {
+      if (columnTitles[fieldName] !== undefined) return columnTitles[fieldName];
+
+      const col = dataCols[fieldName];
+      const moveName = col?.MOVE_NAME as string | undefined;
+      if (moveName) return moveName;
+
+      const moveId = col?.MOVE_ID;
+      return moveId ? moveStore.moveNamesEn[String(moveId)] : undefined;
+    };
 
     const moveOptions = useMemo(() => genMoveOptions(trainerId), [
       trainerId,
@@ -192,7 +205,7 @@ export const DataColList = observer(
                             {isCustomMode ? (
                               <RenameableTitle
                                 isEditing={editingCol === field.name}
-                                value={columnTitles?.[field.name] as string}
+                                value={getColTitle(field.name) as string}
                                 onChange={val =>
                                   setColumnTitles(prev => ({
                                     ...prev,
@@ -204,10 +217,10 @@ export const DataColList = observer(
                               />
                             ) : (
                               <div
-                                title={columnTitles?.[field.name]}
+                                title={getColTitle(field.name)}
                                 className="dataColList-col-title-value"
                               >
-                                {columnTitles?.[field.name] || "Untitled"}
+                                {getColTitle(field.name) || "Untitled"}
                               </div>
                             )}
                             <div className="dataColList-col-title-actions">
@@ -223,7 +236,7 @@ export const DataColList = observer(
                                   add(dupVal || DEFAULT_COL);
                                   setColumnTitles(prev => ({
                                     ...prev,
-                                    [fields.length]: prev[field.name]
+                                    [fields.length]: getColTitle(field.name)
                                   }));
                                 }}
                                 type="link"

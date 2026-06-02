@@ -6,3 +6,6 @@ export const AOE_PENALTY_MAP = {
   [2]: 2 * 0.66,
   [1]: 1
 };
+
+// passive skill ids whose child nodes remain selectable in the tree
+export const PASSIVES_WITH_SELECTABLE_CHILDREN = new Set<string>();

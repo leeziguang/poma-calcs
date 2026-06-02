@@ -22,6 +22,7 @@ import { ETrainerFields, ETrainerRole } from "src/types/trainer";
 const pushMoveOption = (moveId: number | string, res: IMoveOption[]) => {
   const move = moveStore.moveMap[String(moveId)];
   if (move?.[EMoveFields.CATEGORY] === EMoveCategory.STATUS) return;
+
   res.push({
     label: moveStore.moveNamesEn[String(moveId)] ?? "Name not found",
     value: moveId,

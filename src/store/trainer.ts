@@ -146,6 +146,11 @@ export class TrainerStore {
           move2Id: t?.move2Id,
           move3Id: t?.move3Id,
           move4Id: t?.move4Id,
+          passive1Id: t?.passive1Id,
+          passive2Id: t?.passive2Id,
+          passive3Id: t?.passive3Id,
+          passive4Id: t?.passive4Id,
+          passive5Id: t?.passive5Id,
           monsterId: t?.monsterId,
           exRole: this.trainerExRoles.find(
             e => e.trainerId === t?.[ETrainerFields.TRAINER_ID]
