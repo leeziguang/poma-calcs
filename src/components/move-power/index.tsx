@@ -1,12 +1,26 @@
-import React, { useEffect } from "react";
-import { Checkbox, Collapse, Form, Input, InputNumber, TreeSelect } from "antd";
+import React, { useEffect, useMemo } from "react";
+import {
+  Checkbox,
+  Collapse,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Tooltip
+} from "antd";
+import {
+  DeleteOutlined,
+  PlusCircleOutlined,
+  QuestionCircleOutlined
+} from "@ant-design/icons";
 import { observer } from "mobx-react";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 import {
+  calcDefaultMultis,
   calcMovePower,
   calcSyncPower,
   formToCalcArgAdaptor,
-  genPassiveOptions
+  genPassiveList
 } from "./helpers";
 import "./style.scss";
 import { usePairStore } from "src/store/pair-context";
@@ -28,11 +42,37 @@ export const MovePower = observer(
     const optionsValue = colData?.[EMovePowerFormFields.OPTIONS];
     const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
     const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
-    const passiveOptions = genPassiveOptions(
-      trainerId,
-      passiveStore.passiveSkillNamesEn,
-      passiveStore.passiveSkillNamePartsEn,
-      passiveStore.passiveSkillChildren
+
+    const passiveOptions = useMemo(
+      () =>
+        genPassiveList(
+          trainerId,
+          passiveStore.passiveSkillNamesEn,
+          passiveStore.passiveSkillNamePartsEn,
+          passiveStore.passiveSkillChildren
+        ),
+      [
+        trainerId,
+        passiveStore.passiveSkillNamesEn,
+        passiveStore.passiveSkillNamePartsEn,
+        passiveStore.passiveSkillChildren
+      ]
+    );
+
+    const defaultMultis = useMemo(
+      () =>
+        calcDefaultMultis(
+          trainerId,
+          passiveStore.passiveSkillDescriptionEn,
+          passiveStore.passiveSkillChildren,
+          isSync
+        ),
+      [
+        trainerId,
+        passiveStore.passiveSkillDescriptionEn,
+        passiveStore.passiveSkillChildren,
+        isSync
+      ]
     );
 
     const args = formToCalcArgAdaptor({
@@ -44,6 +84,55 @@ export const MovePower = observer(
     useEffect(() => {
       pairStore.updateMoveInfo(name, { movePower: headerVal });
     }, [name, headerVal]);
+
+    useEffect(() => {
+      form.setFieldValue(
+        [
+          EPairListFormFields.PAIR,
+          pairFieldName,
+          EPairListFormFields.DATA_COL,
+          Number(name),
+          EMovePowerFormFields.MULTIS
+        ],
+        defaultMultis || undefined
+      );
+    }, [defaultMultis]);
+
+    const renderDefaultPassive = () => (
+      <Collapse className="movePower-passives-collapse">
+        <Collapse.Panel
+          key="default-passives-panel"
+          header={<span className="movePower-passives-title">Passives</span>}
+        >
+          <div className="movePower-passives-list">
+            {passiveOptions.map(opt => {
+              const desc = (opt.children ?? [])
+                .map((c: { title?: React.ReactNode }) =>
+                  typeof c.title === "string" ? c.title : ""
+                )
+                .filter(Boolean)
+                .join("\n");
+              return (
+                <div
+                  key={String(opt.value)}
+                  className="movePower-passives-default-row"
+                >
+                  {desc ? (
+                    <Tooltip
+                      overlayClassName="movePower-passives-tooltip"
+                      title={desc}
+                    >
+                      <QuestionCircleOutlined />
+                    </Tooltip>
+                  ) : null}
+                  <span>{opt.title}</span>
+                </div>
+              );
+            })}
+          </div>
+        </Collapse.Panel>
+      </Collapse>
+    );
 
     return (
       <Collapse
@@ -139,15 +228,32 @@ export const MovePower = observer(
             </Form.Item>
           )}
 
-          <Form.Item label="Passives">
-            <TreeSelect
-              multiple
-              treeDefaultExpandAll
-              treeData={passiveOptions}
-              showCheckedStrategy={TreeSelect.SHOW_ALL}
-              dropdownMatchSelectWidth={false}
-            />
-          </Form.Item>
+          {renderDefaultPassive()}
+
+          <Form.List name={[name, EMovePowerFormFields.PASSIVES]}>
+            {(fields, { add, remove }) => (
+              <div className="movePower-passives">
+                <div className="movePower-passives-title">
+                  <span>Extra Passives</span>
+                  <PlusCircleOutlined onClick={() => add()} />
+                </div>
+                <div className="movePower-passives-list">
+                  {fields.map(field => (
+                    <div key={field.key} className="movePower-passives-row">
+                      <Form.Item name={field.name} noStyle>
+                        <Select
+                          options={[]}
+                          dropdownMatchSelectWidth={false}
+                          className="movePower-passives-select"
+                        />
+                      </Form.Item>
+                      <DeleteOutlined onClick={() => remove(field.name)} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </Form.List>
 
           <Form.Item
             label="Passive & Grid Multis"

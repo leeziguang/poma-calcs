@@ -24,6 +24,14 @@ export const fetchPassiveSkillDescriptionEn = (): Promise<Record<
     "https://pokemon.brybry.ch/masters/data/lsd/passive_skill_description_en.json"
   ).then(rsp => rsp.json());
 
+export const fetchPassiveSkillDescriptionPartsEn = (): Promise<Record<
+  string,
+  string
+>> =>
+  fetch(
+    "https://pokemon.brybry.ch/masters/data/lsd/passive_skill_description_parts_en.json"
+  ).then(rsp => rsp.json());
+
 export const fetchPassiveSkillChild = (): Promise<IPassiveSkillChildApiResponse> =>
   fetch(
     "https://pokemon.brybry.ch/masters/data/proto/PassiveSkillChild.json"

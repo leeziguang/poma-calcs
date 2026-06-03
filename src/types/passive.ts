@@ -1,3 +1,15 @@
+/**
+ * @description Name of passive = pXXXXXX from passiveSkillDescriptionPartsEn
+ */
+export enum EPassiveSkill {
+  EX_MF = "p997774",
+  SINNOH_FLAG = "p999394"
+}
+
+export interface IPassiveMultiParam {
+  regionMembers?: number;
+}
+
 export type IPassiveSkillNames = Record<string, string>;
 export type IPassiveSkillNameParts = Record<string, string>;
 
@@ -66,4 +78,10 @@ export interface IMoveAndPassiveSkillDigit {
 
 export interface IMoveAndPassiveSkillDigitApiResponse {
   entries: IMoveAndPassiveSkillDigit[];
+}
+
+export interface IDefaultPassiveOption {
+  value: string;
+  title: string;
+  children: { title: string }[];
 }

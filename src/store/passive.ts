@@ -3,6 +3,7 @@ import {
   fetchPassiveSkillNamesEn,
   fetchPassiveSkillNamePartsEn,
   fetchPassiveSkillDescriptionEn,
+  fetchPassiveSkillDescriptionPartsEn,
   fetchPassiveSkillChild,
   fetchMoveAndPassiveSkillDigit
 } from "src/service/passive";
@@ -15,6 +16,7 @@ export class PassiveStore {
   passiveSkillNamesEn: Record<string, string> = {};
   passiveSkillNamePartsEn: Record<string, string> = {};
   passiveSkillDescriptionEn: Record<string, string> = {};
+  passiveSkillDescriptionPartsEn: Record<string, string> = {};
   passiveSkillChildren: IPassiveSkillChild[] = [];
   moveAndPassiveSkillDigits: IMoveAndPassiveSkillDigit[] = [];
 
@@ -23,11 +25,13 @@ export class PassiveStore {
       passiveSkillNamesEn: observable,
       passiveSkillNamePartsEn: observable,
       passiveSkillDescriptionEn: observable,
+      passiveSkillDescriptionPartsEn: observable,
       passiveSkillChildren: observable,
       moveAndPassiveSkillDigits: observable,
       setPassiveSkillNamesEn: action,
       setPassiveSkillNamePartsEn: action,
       setPassiveSkillDescriptionEn: action,
+      setPassiveSkillDescriptionPartsEn: action,
       setPassiveSkillChildren: action,
       setMoveAndPassiveSkillDigits: action,
       moveAndPassiveSkillDigitMap: computed
@@ -53,6 +57,10 @@ export class PassiveStore {
 
   setPassiveSkillDescriptionEn(desc: Record<string, string>) {
     this.passiveSkillDescriptionEn = desc;
+  }
+
+  setPassiveSkillDescriptionPartsEn(parts: Record<string, string>) {
+    this.passiveSkillDescriptionPartsEn = parts;
   }
 
   setPassiveSkillChildren(children: IPassiveSkillChild[]) {
@@ -81,6 +89,12 @@ export class PassiveStore {
     });
   }
 
+  getPassiveSkillDescriptionPartsEn() {
+    return fetchPassiveSkillDescriptionPartsEn().then(data => {
+      this.setPassiveSkillDescriptionPartsEn(data);
+    });
+  }
+
   getPassiveSkillChildren() {
     return fetchPassiveSkillChild().then(data => {
       this.setPassiveSkillChildren(data.entries);
@@ -98,6 +112,7 @@ export class PassiveStore {
       this.getPassiveSkillNamesEn(),
       this.getPassiveSkillNamePartsEn(),
       this.getPassiveSkillDescriptionEn(),
+      this.getPassiveSkillDescriptionPartsEn(),
       this.getPassiveSkillChildren(),
       this.getMoveAndPassiveSkillDigits()
     ]);
@@ -107,6 +122,7 @@ export class PassiveStore {
     this.passiveSkillNamesEn = {};
     this.passiveSkillNamePartsEn = {};
     this.passiveSkillDescriptionEn = {};
+    this.passiveSkillDescriptionPartsEn = {};
     this.passiveSkillChildren = [];
     this.moveAndPassiveSkillDigits = [];
   }

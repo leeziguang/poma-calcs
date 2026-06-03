@@ -3,9 +3,73 @@
     display: flex;
     flex-direction: column;
     padding-left: 36px;
+    // to standardize height across all options
+    min-height: 90px;
 
     .ant-checkbox-wrapper {
       margin: 0;
     }
+  }
+
+  .movePower-passives {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    &-collapse {
+      margin-bottom: 4px;
+      
+      .ant-collapse-content-box {
+        padding: 4px 0px;
+        max-width: 214px;
+      }
+
+      .ant-collapse-header-text {
+        padding-left: 48px;
+      }
+    }
+
+    &-list {
+      max-height: 100px;
+      max-width : 250px;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    &-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 4px;
+      // to align with other rows
+      padding-left: 20px;
+    }
+
+    &-default-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+      padding: 0 8px;
+    }
+
+    &-select {
+      flex: 1;
+    }
+  }
+}
+
+.movePower-passives-tooltip {
+  .ant-tooltip-inner {
+    white-space: pre;
   }
 }
