@@ -1,7 +1,9 @@
 /**
  * @description Name of passive = pXXXXXX from passiveSkillDescriptionPartsEn
  */
-export enum EPassiveSkill {
+export enum EMovePassive {
+  //
+  // regionals
   EX_MF = "p997774",
   REGION_SPEC = "p999234",
   REGION_PHYS = "p999235",
@@ -13,7 +15,36 @@ export enum EPassiveSkill {
   UNOVA_ALL = "p999556",
   ALOLA_SPEC = "p999427",
   ALOLA_ALL = "p999547",
-  GALAR_ALL = "p999563"
+  GALAR_ALL = "p999563",
+
+  //
+  // stat boosts
+  FURIOUS_BRAIN = "p999566",
+  FURIOUS_BRAWN = "p999579",
+  RAMMING_SPEED = "p999585",
+  TOUGH_COOKIE = "p999584",
+  SMART_COOKIE = "p999581",
+  BOB_AND_WEAVE = "p999580",
+  BRUTAL_CLARITY = "p999577",
+  GOOD_FORM = "p999550"
+}
+
+export enum ESyncPassive {
+  //
+  // regionals
+  EX_MF = "p997774",
+
+  //
+  // stat boosts
+  BRAINPOWER = "p999297",
+  HAYMAKER = "p999587",
+  INERTIA = "p999583",
+  TOWERING_FORCE = "p999448",
+  BRUTE_WITS = "p999447",
+  BLIND_SPOT = "p999586",
+  // doesnt exist
+  __ACCURACY__ = "",
+  RISING_TIDE = "p999574"
 }
 
 import { EMoveCategory } from "./move";

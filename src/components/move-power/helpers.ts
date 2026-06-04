@@ -174,6 +174,7 @@ export const passiveHasRegionTag = (
 
   const desc = descriptionMap[String(passiveId)];
   if (!desc) return false;
+
   const re = new RegExp(PASSIVE_DESC_PART_TAG_RE.source, "g");
   let m: RegExpExecArray | null;
   while ((m = re.exec(desc)) !== null) {
