@@ -129,3 +129,9 @@ export interface IDefaultPassiveOption {
   title: string;
   children: { title: string }[];
 }
+
+export interface IPairPassiveState {
+  regionMembers: number;
+  extraPassives: string[];
+  conditionalParams: Record<string, number>;
+}

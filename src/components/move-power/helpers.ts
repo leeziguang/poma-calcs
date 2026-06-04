@@ -6,7 +6,6 @@ import {
 } from "src/types/data-col-list/move-power";
 import {
   AOE_PENALTY_MAP,
-  EXTRA_DESC_TAG_LABELS,
   PASSIVE_MOVE_MULTI_MAP,
   PASSIVE_SYNC_MULTI_MAP,
   SM_PMUN_MULTI,
@@ -17,13 +16,7 @@ import {
   MOVE_LEVEL_SYNC_BOOST_MAP
 } from "../global-toolbar/constants";
 import { trainerStore } from "src/store/trainer";
-import { passiveStore } from "src/store/passive";
-import {
-  IPassiveSkillChild,
-  IMoveAndPassiveSkillDigit,
-  IDefaultPassiveOption,
-  IPassiveMultiParam
-} from "src/types/passive";
+import { IPassiveSkillChild, IPassiveMultiParam } from "src/types/passive";
 
 export const formToCalcArgAdaptor = (
   formVal: Partial<IMovePowerFormValues>
@@ -99,89 +92,7 @@ export const calcSyncPower = ({
   );
 };
 
-const PASSIVE_NAME_PARTS_RE = /\[Name:PassiveSkillNameParts Idx="(\d+)" \]/g;
-const PASSIVE_NAME_DIGIT_RE = /\[Name:PassiveSkillNameDigit \]/g;
 const PASSIVE_DESC_PART_TAG_RE = /\[Name:PassiveSkillDescriptionPartsIdTag Idx="(p\d+)" \]/g;
-const PART_DIGIT_IDX_RE = /\[Digit:\d+digits? (?:Idx="(\d+)" )?\]/;
-
-const resolveNameDigitIdx = (
-  passiveId: string,
-  descriptionMap: Record<string, string>,
-  descriptionPartsMap: Record<string, string>
-): number => {
-  const desc = descriptionMap[passiveId];
-  if (!desc) return 0;
-
-  const re = new RegExp(PASSIVE_DESC_PART_TAG_RE.source, "g");
-  let match: RegExpExecArray | null;
-  while ((match = re.exec(desc)) !== null) {
-    const part = descriptionPartsMap[match[1]];
-    if (!part) continue;
-
-    const digitMatch = part.match(PART_DIGIT_IDX_RE);
-    if (digitMatch) return digitMatch[1] ? Number(digitMatch[1]) : 0;
-  }
-  return 0;
-};
-
-/**
- * @description Extracts the value of the digit at pair `idx` (0-indexed).
- * Pair N is stored at (param{1+N*2}, param{2+N*2}) where the odd-position
- * param is the type and the even-position param is the value.
- * @param digit
- * @param idx pair index (default 0)
- * @returns string value of digit
- */
-const extractDigitValue = (
-  digit: IMoveAndPassiveSkillDigit,
-  idx = 0
-): string => {
-  const key = `param${2 + idx * 2}` as keyof IMoveAndPassiveSkillDigit;
-  return digit[key] ?? "";
-};
-
-const resolvePassiveName = (
-  passiveId: string,
-  template: string,
-  nameParts: Record<string, string>,
-  digit: IMoveAndPassiveSkillDigit | undefined,
-  descriptionMap: Record<string, string>,
-  descriptionPartsMap: Record<string, string>
-) =>
-  template
-    .replace(PASSIVE_NAME_PARTS_RE, (_, idx) => nameParts[idx] ?? idx)
-    .replace(PASSIVE_NAME_DIGIT_RE, () => {
-      if (!digit) return "";
-      const digitIdx = resolveNameDigitIdx(
-        passiveId,
-        descriptionMap,
-        descriptionPartsMap
-      );
-      return extractDigitValue(digit, digitIdx);
-    });
-
-export const passiveHasRegionTag = (
-  passiveId: number,
-  descriptionMap: Record<string, string>,
-  childMap: Record<number, string[]>,
-  regionTags: Set<string>
-): boolean => {
-  if (
-    regionTags.has(`p${passiveId}`) ||
-    childMap[passiveId]?.some(cid => regionTags.has(cid))
-  )
-    return true;
-
-  const desc = descriptionMap[String(passiveId)];
-  if (!desc) return false;
-
-  const re = new RegExp(PASSIVE_DESC_PART_TAG_RE.source, "g");
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(desc)) !== null) {
-    if (regionTags.has(m[1])) return true;
-  }
-  return false;
-};
 
 export const calcDefaultMultis = (
   trainerId: string,
@@ -240,78 +151,4 @@ export const calcDefaultMultis = (
   }
 
   return parseFloat(total.toFixed(2));
-};
-
-export const genPassiveList = (
-  trainerId: string,
-  passiveSkillNamesEn: Record<string, string>,
-  passiveSkillNamePartsEn: Record<string, string>,
-  passiveSkillChildren: IPassiveSkillChild[]
-) => {
-  const trainerInfo = trainerStore.trainerInfoMap[trainerId];
-  if (!trainerInfo) return [];
-
-  const digitMap = passiveStore.moveAndPassiveSkillDigitMap;
-  const descMap = passiveStore.passiveSkillDescriptionEn;
-  const descPartsMap = passiveStore.passiveSkillDescriptionPartsEn;
-
-  const passiveIds = [
-    trainerInfo.passive1Id,
-    trainerInfo.passive2Id,
-    trainerInfo.passive3Id,
-    trainerInfo.passive4Id,
-    trainerInfo.passive5Id
-  ].filter((id): id is number => id !== 0);
-
-  const childMap = passiveSkillChildren.reduce<Record<number, string[]>>(
-    (acc, c) => {
-      acc[c.passiveSkillId] = c.passiveSkillChildIds;
-      return acc;
-    },
-    {}
-  );
-
-  return passiveIds.reduce<IDefaultPassiveOption[]>((acc, id) => {
-    const name = passiveSkillNamesEn[String(id)];
-    if (!name) return acc;
-
-    const children = (childMap[id] ?? [])
-      .map(childId => {
-        const childName = passiveSkillNamesEn[childId];
-        if (!childName) return null;
-        return {
-          title: resolvePassiveName(
-            childId,
-            childName,
-            passiveSkillNamePartsEn,
-            digitMap[childId],
-            descMap,
-            descPartsMap
-          )
-        };
-      })
-      .filter((c): c is { title: string } => c !== null);
-
-    const parentDesc = descMap[String(id)] ?? "";
-    const tagRe = new RegExp(PASSIVE_DESC_PART_TAG_RE.source, "g");
-    let tagMatch: RegExpExecArray | null;
-    while ((tagMatch = tagRe.exec(parentDesc)) !== null) {
-      const label = EXTRA_DESC_TAG_LABELS[tagMatch[1]];
-      if (label) children.push({ title: label });
-    }
-
-    acc.push({
-      value: String(id),
-      title: resolvePassiveName(
-        String(id),
-        name,
-        passiveSkillNamePartsEn,
-        digitMap[String(id)],
-        descMap,
-        descPartsMap
-      ),
-      children
-    });
-    return acc;
-  }, []);
 };

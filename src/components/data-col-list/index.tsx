@@ -18,6 +18,8 @@ import { TotalDamageDisplay } from "../damage-display/total";
 import { DeleteOutlined } from "@ant-design/icons";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 import { genAutoFillMovePower, genMoveOptions } from "./helpers";
+import { PassiveGridModal } from "../passive-grid-modal";
+import { passiveStore } from "src/store/passive";
 import "./style.scss";
 
 export const DataColList = observer(
@@ -33,7 +35,10 @@ export const DataColList = observer(
     useEffect(() => {
       pairStore.init();
 
-      return () => pairStore.init();
+      return () => {
+        pairStore.init();
+        passiveStore.clearPairPassiveState(pairFieldName);
+      };
     }, []);
 
     const [columnTitles, setColumnTitles] = useState<
@@ -48,6 +53,7 @@ export const DataColList = observer(
     const [selectedMoveId, setSelectedMoveId] = useState<string | undefined>(
       undefined
     );
+    const [passiveModalOpen, setPassiveModalOpen] = useState(false);
 
     const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
     const trainerId = pairs?.[pairFieldName]?.[EPairListFormFields.TRAINER_ID];
@@ -102,8 +108,19 @@ export const DataColList = observer(
             <InputNumber min={1} />
           </Form.Item>
 
+          <Button onClick={() => setPassiveModalOpen(true)}>
+            EDIT PASSIVE/GRID
+          </Button>
+
           <TotalDamageDisplay moves={moves} />
         </div>
+
+        <PassiveGridModal
+          pairFieldName={pairFieldName}
+          trainerId={trainerId}
+          open={passiveModalOpen}
+          onClose={() => setPassiveModalOpen(false)}
+        />
 
         <div className="dataColList-colWrapper">
           <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>

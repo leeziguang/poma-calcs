@@ -1,0 +1,47 @@
+.passiveGridModal {
+  &-passives-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &-passive-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &-passive-name {
+    flex: 1;
+  }
+
+  &-conditional-label {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  &-extra-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &-extra-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  &-extra-select {
+    flex: 1;
+  }
+}
+
+.passiveGridModal-tooltip {
+  .ant-tooltip-inner {
+    white-space: pre;
+  }
+}

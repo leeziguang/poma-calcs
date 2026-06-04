@@ -1,4 +1,10 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  ObservableMap
+} from "mobx";
 import {
   fetchPassiveSkillNamesEn,
   fetchPassiveSkillNamePartsEn,
@@ -9,7 +15,8 @@ import {
 } from "src/service/passive";
 import {
   IPassiveSkillChild,
-  IMoveAndPassiveSkillDigit
+  IMoveAndPassiveSkillDigit,
+  IPairPassiveState
 } from "src/types/passive";
 
 export class PassiveStore {
@@ -19,6 +26,7 @@ export class PassiveStore {
   passiveSkillDescriptionPartsEn: Record<string, string> = {};
   passiveSkillChildren: IPassiveSkillChild[] = [];
   moveAndPassiveSkillDigits: IMoveAndPassiveSkillDigit[] = [];
+  pairPassiveState: ObservableMap<number, IPairPassiveState> = observable.map();
 
   constructor() {
     makeObservable(this, {
@@ -28,12 +36,15 @@ export class PassiveStore {
       passiveSkillDescriptionPartsEn: observable,
       passiveSkillChildren: observable,
       moveAndPassiveSkillDigits: observable,
+      pairPassiveState: observable,
       setPassiveSkillNamesEn: action,
       setPassiveSkillNamePartsEn: action,
       setPassiveSkillDescriptionEn: action,
       setPassiveSkillDescriptionPartsEn: action,
       setPassiveSkillChildren: action,
       setMoveAndPassiveSkillDigits: action,
+      setPairPassiveState: action,
+      clearPairPassiveState: action,
       moveAndPassiveSkillDigitMap: computed
     });
   }
@@ -69,6 +80,14 @@ export class PassiveStore {
 
   setMoveAndPassiveSkillDigits(digits: IMoveAndPassiveSkillDigit[]) {
     this.moveAndPassiveSkillDigits = digits;
+  }
+
+  setPairPassiveState(pairFieldName: number, state: IPairPassiveState) {
+    this.pairPassiveState.set(pairFieldName, state);
+  }
+
+  clearPairPassiveState(pairFieldName: number) {
+    this.pairPassiveState.delete(pairFieldName);
   }
 
   getPassiveSkillNamesEn() {

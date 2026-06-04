@@ -1,18 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import {
-  Checkbox,
-  Collapse,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  Tooltip
-} from "antd";
-import {
-  DeleteOutlined,
-  PlusCircleOutlined,
-  QuestionCircleOutlined
-} from "@ant-design/icons";
+import { Checkbox, Collapse, Form, Input, InputNumber } from "antd";
 import { observer } from "mobx-react";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 import { EMoveCategory, EMoveFields } from "src/types/move";
@@ -21,11 +8,8 @@ import {
   calcDefaultMultis,
   calcMovePower,
   calcSyncPower,
-  formToCalcArgAdaptor,
-  genPassiveList,
-  passiveHasRegionTag
+  formToCalcArgAdaptor
 } from "./helpers";
-import { PASSIVE_REGION_TAGS } from "./constants";
 import "./style.scss";
 import { usePairStore } from "src/store/pair-context";
 import { EPairListFormFields } from "src/types";
@@ -49,45 +33,9 @@ export const MovePower = observer(
     const moveCategory = moveId
       ? (moveStore.moveMap[moveId]?.[EMoveFields.CATEGORY] as EMoveCategory)
       : undefined;
-    const regionMembers = colData?.[EMovePowerFormFields.REGION_MEMBERS] ?? 0;
+    const regionMembers =
+      passiveStore.pairPassiveState.get(pairFieldName)?.regionMembers ?? 1;
     const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
-
-    const passiveOptions = useMemo(
-      () =>
-        genPassiveList(
-          trainerId,
-          passiveStore.passiveSkillNamesEn,
-          passiveStore.passiveSkillNamePartsEn,
-          passiveStore.passiveSkillChildren
-        ),
-      [
-        trainerId,
-        passiveStore.passiveSkillNamesEn,
-        passiveStore.passiveSkillNamePartsEn,
-        passiveStore.passiveSkillChildren
-      ]
-    );
-
-    const hasRegionPassive = useMemo(() => {
-      const childMap = passiveStore.passiveSkillChildren.reduce<
-        Record<number, string[]>
-      >((acc, c) => {
-        acc[c.passiveSkillId] = c.passiveSkillChildIds;
-        return acc;
-      }, {});
-      return passiveOptions.some(opt =>
-        passiveHasRegionTag(
-          Number(opt.value),
-          passiveStore.passiveSkillDescriptionEn,
-          childMap,
-          PASSIVE_REGION_TAGS
-        )
-      );
-    }, [
-      passiveOptions,
-      passiveStore.passiveSkillChildren,
-      passiveStore.passiveSkillDescriptionEn
-    ]);
 
     const defaultMultis = useMemo(
       () =>
@@ -130,42 +78,6 @@ export const MovePower = observer(
         defaultMultis || 0
       );
     }, [defaultMultis]);
-
-    const renderDefaultPassive = () => (
-      <Collapse className="movePower-passives-collapse">
-        <Collapse.Panel
-          key="default-passives-panel"
-          header={<span className="movePower-passives-title">Passives</span>}
-        >
-          <div className="movePower-passives-list">
-            {passiveOptions.map(opt => {
-              const desc = (opt.children ?? [])
-                .map((c: { title?: React.ReactNode }) =>
-                  typeof c.title === "string" ? c.title : ""
-                )
-                .filter(Boolean)
-                .join("\n");
-              return (
-                <div
-                  key={String(opt.value)}
-                  className="movePower-passives-default-row"
-                >
-                  {desc ? (
-                    <Tooltip
-                      overlayClassName="movePower-passives-tooltip"
-                      title={desc}
-                    >
-                      <QuestionCircleOutlined />
-                    </Tooltip>
-                  ) : null}
-                  <span>{opt.title}</span>
-                </div>
-              );
-            })}
-          </div>
-        </Collapse.Panel>
-      </Collapse>
-    );
 
     return (
       <Collapse
@@ -260,48 +172,6 @@ export const MovePower = observer(
               <InputNumber min={0} max={10} precision={0} />
             </Form.Item>
           )}
-
-          {renderDefaultPassive()}
-
-          {hasRegionPassive ? (
-            <Form.Item
-              label="Region Members"
-              name={[name, EMovePowerFormFields.REGION_MEMBERS]}
-              initialValue={1}
-            >
-              <Select
-                options={[1, 2, 3].map(n => ({ value: n, label: n }))}
-                allowClear
-              />
-            </Form.Item>
-          ) : (
-            <></>
-          )}
-
-          <Form.List name={[name, EMovePowerFormFields.PASSIVES]}>
-            {(fields, { add, remove }) => (
-              <div className="movePower-passives">
-                <div className="movePower-passives-title">
-                  <span>Extra Passives</span>
-                  <PlusCircleOutlined onClick={() => add()} />
-                </div>
-                <div className="movePower-passives-list">
-                  {fields.map(field => (
-                    <div key={field.key} className="movePower-passives-row">
-                      <Form.Item name={field.name} noStyle>
-                        <Select
-                          options={[]}
-                          dropdownMatchSelectWidth={false}
-                          className="movePower-passives-select"
-                        />
-                      </Form.Item>
-                      <DeleteOutlined onClick={() => remove(field.name)} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </Form.List>
 
           <Form.Item
             label="Passive & Grid Multis"
