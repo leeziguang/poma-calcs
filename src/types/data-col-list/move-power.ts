@@ -9,6 +9,7 @@ export enum EMovePowerFormFields {
   INNATE_MULTIS = "INNATE_MULTIS",
   EXTRA_NOTES = "MOVE_EXTRA_NOTES",
   PASSIVES = "PASSIVES",
+  REGION_MEMBERS = "REGION_MEMBERS",
   OPTIONS = "OPTIONS",
   IS_TECH = "IS_TECH",
   IS_TERA = "IS_TERA",
@@ -43,6 +44,7 @@ export interface IMovePowerFormValues {
   [EMovePowerFormFields.GRID]: number;
   [EMovePowerFormFields.SM_PMUN]?: number;
   [EMovePowerFormFields.SYUN]?: number;
+  [EMovePowerFormFields.REGION_MEMBERS]?: number;
   [EMovePowerFormFields.MULTIS]: number;
   [EMovePowerFormFields.INNATE_MULTIS]: number;
   [EMovePowerFormFields.EXTRA_NOTES]: string;

@@ -160,6 +160,28 @@ const resolvePassiveName = (
       return extractDigitValue(digit, digitIdx);
     });
 
+export const passiveHasRegionTag = (
+  passiveId: number,
+  descriptionMap: Record<string, string>,
+  childMap: Record<number, string[]>,
+  regionTags: Set<string>
+): boolean => {
+  if (
+    regionTags.has(`p${passiveId}`) ||
+    childMap[passiveId]?.some(cid => regionTags.has(cid))
+  )
+    return true;
+
+  const desc = descriptionMap[String(passiveId)];
+  if (!desc) return false;
+  const re = new RegExp(PASSIVE_DESC_PART_TAG_RE.source, "g");
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(desc)) !== null) {
+    if (regionTags.has(m[1])) return true;
+  }
+  return false;
+};
+
 export const calcDefaultMultis = (
   trainerId: string,
   descriptionMap: Record<string, string>,
@@ -201,6 +223,8 @@ export const calcDefaultMultis = (
   };
 
   for (const id of passiveIds) {
+    addTag(`p${id}`);
+
     for (const childId of childMap[id] ?? []) {
       addTag(childId);
     }

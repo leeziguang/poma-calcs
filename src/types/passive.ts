@@ -3,11 +3,24 @@
  */
 export enum EPassiveSkill {
   EX_MF = "p997774",
-  SINNOH_FLAG = "p999394"
+  REGION_SPEC = "p999234",
+  REGION_PHYS = "p999235",
+  REGION_ALL = "p999295",
+  HOENN_SPEC = "p999506",
+  HOENN_PHYS = "p999507",
+  HOENN_ALL = "p999548",
+  SINNOH_ALL = "p999394",
+  UNOVA_ALL = "p999556",
+  ALOLA_SPEC = "p999427",
+  ALOLA_ALL = "p999547",
+  GALAR_ALL = "p999563"
 }
+
+import { EMoveCategory } from "./move";
 
 export interface IPassiveMultiParam {
   regionMembers?: number;
+  moveCategory?: EMoveCategory;
 }
 
 export type IPassiveSkillNames = Record<string, string>;

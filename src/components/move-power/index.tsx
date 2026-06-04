@@ -15,13 +15,17 @@ import {
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
+import { EMoveCategory, EMoveFields } from "src/types/move";
+import { moveStore } from "src/store/move";
 import {
   calcDefaultMultis,
   calcMovePower,
   calcSyncPower,
   formToCalcArgAdaptor,
-  genPassiveList
+  genPassiveList,
+  passiveHasRegionTag
 } from "./helpers";
+import { PASSIVE_REGION_TAGS } from "./constants";
 import "./style.scss";
 import { usePairStore } from "src/store/pair-context";
 import { EPairListFormFields } from "src/types";
@@ -41,6 +45,11 @@ export const MovePower = observer(
     const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
     const optionsValue = colData?.[EMovePowerFormFields.OPTIONS];
     const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
+    const moveId = colData?.[EMovePowerFormFields.MOVE_ID];
+    const moveCategory = moveId
+      ? (moveStore.moveMap[moveId]?.[EMoveFields.CATEGORY] as EMoveCategory)
+      : undefined;
+    const regionMembers = colData?.[EMovePowerFormFields.REGION_MEMBERS] ?? 0;
     const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
 
     const passiveOptions = useMemo(
@@ -59,19 +68,43 @@ export const MovePower = observer(
       ]
     );
 
+    const hasRegionPassive = useMemo(() => {
+      const childMap = passiveStore.passiveSkillChildren.reduce<
+        Record<number, string[]>
+      >((acc, c) => {
+        acc[c.passiveSkillId] = c.passiveSkillChildIds;
+        return acc;
+      }, {});
+      return passiveOptions.some(opt =>
+        passiveHasRegionTag(
+          Number(opt.value),
+          passiveStore.passiveSkillDescriptionEn,
+          childMap,
+          PASSIVE_REGION_TAGS
+        )
+      );
+    }, [
+      passiveOptions,
+      passiveStore.passiveSkillChildren,
+      passiveStore.passiveSkillDescriptionEn
+    ]);
+
     const defaultMultis = useMemo(
       () =>
         calcDefaultMultis(
           trainerId,
           passiveStore.passiveSkillDescriptionEn,
           passiveStore.passiveSkillChildren,
-          isSync
+          isSync,
+          { moveCategory, regionMembers }
         ),
       [
         trainerId,
         passiveStore.passiveSkillDescriptionEn,
         passiveStore.passiveSkillChildren,
-        isSync
+        isSync,
+        moveId,
+        regionMembers
       ]
     );
 
@@ -94,7 +127,7 @@ export const MovePower = observer(
           Number(name),
           EMovePowerFormFields.MULTIS
         ],
-        defaultMultis || undefined
+        defaultMultis || 0
       );
     }, [defaultMultis]);
 
@@ -229,6 +262,21 @@ export const MovePower = observer(
           )}
 
           {renderDefaultPassive()}
+
+          {hasRegionPassive ? (
+            <Form.Item
+              label="Region Members"
+              name={[name, EMovePowerFormFields.REGION_MEMBERS]}
+              initialValue={1}
+            >
+              <Select
+                options={[1, 2, 3].map(n => ({ value: n, label: n }))}
+                allowClear
+              />
+            </Form.Item>
+          ) : (
+            <></>
+          )}
 
           <Form.List name={[name, EMovePowerFormFields.PASSIVES]}>
             {(fields, { add, remove }) => (
