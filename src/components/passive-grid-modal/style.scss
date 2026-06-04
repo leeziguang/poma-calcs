@@ -1,18 +1,63 @@
-.passiveGridModal {
-  &-passives-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.passiveGridSider {
+  min-width: 250px;
+  max-width: 250px;
+  padding: 8px 16px;
+  margin-left: 8px;
+  background-color: white;
+
+  &--collapsed {
+    min-width: 0;
   }
 
-  &-passive-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  &-toggle {
+    background-color: white;
+    border: none;
+    padding: 0;
+    position: sticky;
+    top: 0;
   }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: 30px;
+  }
+
+  &-title {
+    font-weight: 600;
+  }
+
+  &-passives {
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    &-row {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      gap: 4px;
+
+      &-placeholder-icon {
+        width: 16px;
+      }
+    }
+  }
+
 
   &-passive-name {
     flex: 1;
+
+    &-with-regional-select {
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   &-conditional-label {
@@ -40,7 +85,7 @@
   }
 }
 
-.passiveGridModal-tooltip {
+.passiveGridSider-tooltip {
   .ant-tooltip-inner {
     white-space: pre;
   }

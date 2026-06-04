@@ -32,12 +32,15 @@ export const PairListBody = ({
   const pairNamesRef = useRef(pairNames);
   const activeKeyRef = useRef(activeKey);
   const fieldsRef = useRef(fields);
+
   useEffect(() => {
     pairNamesRef.current = pairNames;
   }, [pairNames]);
+
   useEffect(() => {
     activeKeyRef.current = activeKey;
   }, [activeKey]);
+
   useEffect(() => {
     fieldsRef.current = fields;
   }, [fields]);

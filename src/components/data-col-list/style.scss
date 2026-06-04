@@ -8,14 +8,31 @@
 
   &-card {
     background-color: rgba(0, 0, 0, 0.05);
-
+    
     > .ant-card-body {
-      padding: 8px 24px 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 8px 12px 24px;
+
+      &::after, &::before {
+        display: none;
+      }
     }
+  }
+
+  &-bar-col-wrapper {
+    overflow: auto;  
   }
 
   &-colWrapper {
     overflow: auto;
+  }
+
+  &-level-and-damage-bar {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-left: 298px;
   }
 
   &-move-damage {
@@ -88,12 +105,6 @@
     }
   }
 
-  &-level-and-damage-bar {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-left: 298px;
-  }
 
   &-pair-damage {
     display: flex;
