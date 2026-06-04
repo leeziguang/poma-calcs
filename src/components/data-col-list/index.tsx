@@ -56,7 +56,10 @@ export const DataColList = observer(
     const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
     const trainerId = pairs?.[pairFieldName]?.[EPairListFormFields.TRAINER_ID];
     const moves: number =
-      pairs?.[pairFieldName]?.[EPairListFormFields.MOVES] ?? 1;
+      Form.useWatch(
+        [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MOVES],
+        form
+      ) ?? 1;
     const dataCols = (pairs?.[pairFieldName]?.[EPairListFormFields.DATA_COL] ??
       []) as Array<Record<string, unknown>>;
 

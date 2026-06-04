@@ -2,42 +2,43 @@ import {
   IPassiveSkillChildApiResponse,
   IMoveAndPassiveSkillDigitApiResponse
 } from "src/types/passive";
+import { cachedFetch } from "src/cache/cachedFetch";
 
 export const fetchPassiveSkillNamesEn = (): Promise<Record<string, string>> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/passive_skill_name_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchPassiveSkillNamePartsEn = (): Promise<Record<
   string,
   string
 >> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/passive_skill_name_parts_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchPassiveSkillDescriptionEn = (): Promise<Record<
   string,
   string
 >> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/passive_skill_description_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchPassiveSkillDescriptionPartsEn = (): Promise<Record<
   string,
   string
 >> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/passive_skill_description_parts_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchPassiveSkillChild = (): Promise<IPassiveSkillChildApiResponse> =>
-  fetch(
+  cachedFetch<IPassiveSkillChildApiResponse>(
     "https://pokemon.brybry.ch/masters/data/proto/PassiveSkillChild.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchMoveAndPassiveSkillDigit = (): Promise<IMoveAndPassiveSkillDigitApiResponse> =>
-  fetch(
+  cachedFetch<IMoveAndPassiveSkillDigitApiResponse>(
     "https://pokemon.brybry.ch/masters/data/proto/MoveAndPassiveSkillDigit.json"
-  ).then(rsp => rsp.json());
+  );

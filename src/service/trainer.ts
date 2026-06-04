@@ -3,28 +3,29 @@ import {
   ITrainerBaseApiResponse,
   ITrainerExRoleApiResponse
 } from "src/types/trainer";
+import { cachedFetch } from "src/cache/cachedFetch";
 
 export const fetchTrainer = (): Promise<ITrainerApiResponse> =>
-  fetch("https://pokemon.brybry.ch/masters/data/proto/Trainer.json").then(rsp =>
-    rsp.json()
+  cachedFetch<ITrainerApiResponse>(
+    "https://pokemon.brybry.ch/masters/data/proto/Trainer.json"
   );
 
 export const fetchTrainerBase = (): Promise<ITrainerBaseApiResponse> =>
-  fetch(
+  cachedFetch<ITrainerBaseApiResponse>(
     "https://pokemon.brybry.ch/masters/data/proto/TrainerBase.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchTrainerNamesEn = (): Promise<Record<string, string>> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/trainer_name_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchVerboseTrainerNamesEn = (): Promise<Record<string, string>> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/trainer_verbose_name_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchTrainerExRole = (): Promise<ITrainerExRoleApiResponse> =>
-  fetch(
+  cachedFetch<ITrainerExRoleApiResponse>(
     "https://pokemon.brybry.ch/masters/data/proto/TrainerExRole.json"
-  ).then(rsp => rsp.json());
+  );

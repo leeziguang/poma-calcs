@@ -3,23 +3,24 @@ import {
   IMonsterBaseApiResponse,
   IMonsterVariationApiResponse
 } from "src/types/monster";
+import { cachedFetch } from "src/cache/cachedFetch";
 
 export const fetchMonster = (): Promise<IMonsterApiResponse> =>
-  fetch("https://pokemon.brybry.ch/masters/data/proto/Monster.json").then(rsp =>
-    rsp.json()
+  cachedFetch<IMonsterApiResponse>(
+    "https://pokemon.brybry.ch/masters/data/proto/Monster.json"
   );
 
 export const fetchMonsterBase = (): Promise<IMonsterBaseApiResponse> =>
-  fetch(
+  cachedFetch<IMonsterBaseApiResponse>(
     "https://pokemon.brybry.ch/masters/data/proto/MonsterBase.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchMonsterNamesEn = (): Promise<Record<string, string>> =>
-  fetch(
+  cachedFetch<Record<string, string>>(
     "https://pokemon.brybry.ch/masters/data/lsd/monster_name_en.json"
-  ).then(rsp => rsp.json());
+  );
 
 export const fetchMonsterVariation = (): Promise<IMonsterVariationApiResponse> =>
-  fetch(
+  cachedFetch<IMonsterVariationApiResponse>(
     "https://pokemon.brybry.ch/masters/data/proto/MonsterVariation.json"
-  ).then(rsp => rsp.json());
+  );

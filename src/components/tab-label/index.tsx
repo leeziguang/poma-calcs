@@ -26,8 +26,21 @@ export const TabLabel = observer(
     const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
     const level = pairs?.[fieldName]?.[EPairListFormFields.LVL];
     const moveLevel = pairs?.[fieldName]?.[EPairListFormFields.MOVE_LVL];
+    const moves: number =
+      Form.useWatch(
+        [EPairListFormFields.PAIR, fieldName, EPairListFormFields.MOVES],
+        form
+      ) ?? 1;
+    const firstMoves: number =
+      Form.useWatch(
+        [EPairListFormFields.PAIR, 0, EPairListFormFields.MOVES],
+        form
+      ) ?? 1;
     const percent = firstStore
-      ? getPercent(store.totalDamage, firstStore.totalDamage)
+      ? getPercent(
+          store.totalDamage / moves,
+          firstStore.totalDamage / firstMoves
+        )
       : " - %";
 
     return (

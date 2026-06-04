@@ -34,8 +34,11 @@
     "allowSyntheticDefaultImports": true
   },
   "ts-node": {
+    "skipProject": true,
     "compilerOptions": {
-      "module": "CommonJS"
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "resolveJsonModule": true
     }
   },
   "include": ["./src/**/*"]
