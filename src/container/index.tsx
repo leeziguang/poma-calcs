@@ -8,6 +8,7 @@ import { trainerStore } from "src/store/trainer";
 import { monsterStore } from "src/store/monster";
 import { moveStore } from "src/store/move";
 import { passiveStore } from "src/store/passive";
+import { abilityStore } from "src/store/ability";
 import { sessionStore } from "src/store/session";
 import { ISavedSession } from "src/types/session";
 
@@ -60,7 +61,8 @@ export const MainPage = () => {
       trainerStore.initApiCalls(),
       monsterStore.initApiCalls(),
       moveStore.initApiCalls(),
-      passiveStore.initApiCalls()
+      passiveStore.initApiCalls(),
+      abilityStore.initApiCalls()
     ])
       .then(() => {
         runInAction(() => genTrainerOptionList());

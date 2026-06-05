@@ -1,11 +1,14 @@
 import { EXTRA_DESC_TAG_LABELS } from "src/components/move-power/constants";
 import { trainerStore } from "src/store/trainer";
 import { passiveStore } from "src/store/passive";
+import { abilityStore } from "src/store/ability";
+import { moveStore } from "src/store/move";
 import {
   IPassiveSkillChild,
   IMoveAndPassiveSkillDigit,
   IDefaultPassiveOption
 } from "src/types/passive";
+import { EAbilityType, IAbilityCellDisplay } from "src/types/ability";
 
 const PASSIVE_NAME_PARTS_RE = /\[Name:PassiveSkillNameParts Idx="(\d+)" \]/g;
 const PASSIVE_NAME_DIGIT_RE = /\[Name:PassiveSkillNameDigit \]/g;
@@ -81,6 +84,75 @@ export const genAllPassiveOptions = (
         descPartsMap
       )
     }));
+};
+
+const ABILITY_TYPE_LABELS: Record<number, string> = {
+  [EAbilityType.HP]: "HP",
+  [EAbilityType.ATK]: "ATK",
+  [EAbilityType.SPA]: "SPA",
+  [EAbilityType.DEF]: "DEF",
+  [EAbilityType.SPDEF]: "SPDEF",
+  [EAbilityType.SPE]: "SPE",
+  [EAbilityType.PINCH_HEAL]: "PINCH_HEAL",
+  [EAbilityType.MOVE_HEAL]: "MOVE_HEAL",
+  [EAbilityType.MOVE_POWER]: "MOVE_POWER",
+  [EAbilityType.MOVE_ACC]: "MOVE_ACC",
+  [EAbilityType.ACAD_TM]: "ACAD_TM"
+};
+
+export const genAbilityCellDisplayList = (
+  trainerId: string
+): IAbilityCellDisplay[] => {
+  const cells = abilityStore.abilityPanels.filter(
+    p => String(p.trainerId) === trainerId
+  );
+  const abilityMap = abilityStore.abilityMap;
+  const digitMap = passiveStore.moveAndPassiveSkillDigitMap;
+  const descMap = passiveStore.passiveSkillDescriptionEn;
+  const descPartsMap = passiveStore.passiveSkillDescriptionPartsEn;
+  const namesEn = passiveStore.passiveSkillNamesEn;
+  const nameParts = passiveStore.passiveSkillNamePartsEn;
+
+  const moveItems: IAbilityCellDisplay[] = [];
+  const passiveItems: IAbilityCellDisplay[] = [];
+  const valueItems: IAbilityCellDisplay[] = [];
+
+  for (const cell of cells) {
+    const ability = abilityMap[cell.abilityId];
+    if (!ability) continue;
+
+    const typeLabel = ABILITY_TYPE_LABELS[ability.type] ?? String(ability.type);
+    const item: IAbilityCellDisplay = { cellId: cell.cellId, typeLabel };
+
+    if (ability.moveId) {
+      item.moveName = moveStore.moveNamesEn[String(ability.moveId)];
+    }
+
+    if (ability.passiveId) {
+      const passiveIdStr = String(ability.passiveId);
+      const template = namesEn[passiveIdStr];
+      if (template) {
+        item.passiveName = resolvePassiveName(
+          passiveIdStr,
+          template,
+          nameParts,
+          digitMap[passiveIdStr],
+          descMap,
+          descPartsMap
+        );
+      }
+    }
+
+    if (ability.value > 0) {
+      item.value = ability.value;
+    }
+
+    if (item.moveName !== undefined) moveItems.push(item);
+    else if (item.passiveName !== undefined) passiveItems.push(item);
+    else valueItems.push(item);
+  }
+
+  return [...moveItems, ...passiveItems, ...valueItems];
 };
 
 export const passiveHasRegionTag = (

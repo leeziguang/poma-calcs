@@ -2,16 +2,15 @@ import React, { useMemo, useState } from "react";
 import { Button, InputNumber, Select, Tooltip } from "antd";
 import {
   DeleteOutlined,
-  LeftOutlined,
   PlusCircleOutlined,
-  QuestionCircleOutlined,
-  RightOutlined
+  QuestionCircleOutlined
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import { passiveStore } from "src/store/passive";
 import { IPairPassiveState } from "src/types/passive";
 import {
   genAllPassiveOptions,
+  genAbilityCellDisplayList,
   genPassiveList,
   passiveHasRegionTag
 } from "./helpers";
@@ -187,6 +186,43 @@ export const PassiveGridSider = observer(
                 );
               })}
             </div>
+
+            {(() => {
+              const cells = genAbilityCellDisplayList(trainerId ?? "");
+              if (!cells.length) return null;
+              return (
+                <div style={{ marginTop: 12, width: "100%" }}>
+                  <div className="passiveGridSider-extra-header">
+                    <span>Ability Cells</span>
+                  </div>
+                  <div className="passiveGridSider-passives-list">
+                    {cells.map(cell => (
+                      <div
+                        key={cell.cellId}
+                        className="passiveGridSider-passives-row"
+                      >
+                        <span className="passiveGridSider-passive-name">
+                          {cell.typeLabel}
+                        </span>
+                        <span
+                          style={{ fontSize: 12, color: "rgba(0,0,0,0.65)" }}
+                        >
+                          {[
+                            cell.moveName,
+                            cell.passiveName,
+                            cell.value !== undefined
+                              ? `+${cell.value}`
+                              : undefined
+                          ]
+                            .filter(Boolean)
+                            .join(" ")}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
 
             <div style={{ marginTop: 12 }}>
               <div className="passiveGridSider-extra-header">
