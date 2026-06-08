@@ -33,8 +33,10 @@ export const MovePower = observer(
     const moveCategory = moveId
       ? (moveStore.moveMap[moveId]?.[EMoveFields.CATEGORY] as EMoveCategory)
       : undefined;
-    const regionMembers =
-      passiveStore.pairPassiveState.get(pairFieldName)?.regionMembers ?? 1;
+    const pairPassiveState = passiveStore.pairPassiveState.get(pairFieldName);
+    const regionMembers = pairPassiveState?.regionMembers ?? 1;
+    const extraPassives = pairPassiveState?.extraPassives ?? [];
+    const conditionalParams = pairPassiveState?.conditionalParams ?? {};
     const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
 
     const defaultMultis = useMemo(
@@ -44,7 +46,7 @@ export const MovePower = observer(
           passiveStore.passiveSkillDescriptionEn,
           passiveStore.passiveSkillChildren,
           isSync,
-          { moveCategory, regionMembers }
+          { moveCategory, regionMembers, extraPassives, conditionalParams }
         ),
       [
         trainerId,
@@ -52,7 +54,9 @@ export const MovePower = observer(
         passiveStore.passiveSkillChildren,
         isSync,
         moveId,
-        regionMembers
+        regionMembers,
+        extraPassives,
+        conditionalParams
       ]
     );
 

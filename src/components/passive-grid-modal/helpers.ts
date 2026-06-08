@@ -93,8 +93,8 @@ const ABILITY_TYPE_LABELS: Record<number, string> = {
   [EAbilityType.DEF]: "DEF",
   [EAbilityType.SPDEF]: "SPDEF",
   [EAbilityType.SPE]: "SPE",
-  [EAbilityType.PINCH_HEAL]: "PINCH_HEAL",
-  [EAbilityType.MOVE_HEAL]: "MOVE_HEAL",
+  [EAbilityType.PINCH_HEAL]: "YELLOW_CELL",
+  [EAbilityType.MOVE_HEAL]: "RED_CELL",
   [EAbilityType.MOVE_POWER]: "MOVE_POWER",
   [EAbilityType.MOVE_ACC]: "MOVE_ACC",
   [EAbilityType.ACAD_TM]: "ACAD_TM"

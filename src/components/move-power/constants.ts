@@ -58,3 +58,10 @@ export const PASSIVE_SYNC_MULTI_MAP = ({
 }: IPassiveMultiParam): Record<string, number> => ({
   [EMovePassive.EX_MF]: 0.2 + 0.15 * (regionMembers - 1)
 });
+
+export const DUPLICATE_EXCEPTIONS = new Set([
+  EMovePassive.EX_MF,
+  EMovePassive.REGION_ALL,
+  EMovePassive.REGION_PHYS,
+  EMovePassive.REGION_SPEC
+]);

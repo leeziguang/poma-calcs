@@ -6,6 +6,7 @@ import {
 } from "src/types/data-col-list/move-power";
 import {
   AOE_PENALTY_MAP,
+  DUPLICATE_EXCEPTIONS,
   PASSIVE_MOVE_MULTI_MAP,
   PASSIVE_SYNC_MULTI_MAP,
   SM_PMUN_MULTI,
@@ -16,7 +17,11 @@ import {
   MOVE_LEVEL_SYNC_BOOST_MAP
 } from "../global-toolbar/constants";
 import { trainerStore } from "src/store/trainer";
-import { IPassiveSkillChild, IPassiveMultiParam } from "src/types/passive";
+import {
+  EMovePassive,
+  IPassiveSkillChild,
+  IPassiveMultiParam
+} from "src/types/passive";
 
 export const formToCalcArgAdaptor = (
   formVal: Partial<IMovePowerFormValues>
@@ -148,6 +153,22 @@ export const calcDefaultMultis = (
     while ((m = re.exec(desc)) !== null) {
       addTag(m[1]);
     }
+  }
+
+  for (let idx = 0; idx < (params.extraPassives ?? []).length; idx++) {
+    const tag = (params.extraPassives ?? [])[idx] as EMovePassive;
+    if (!tag) continue;
+    if (!DUPLICATE_EXCEPTIONS.has(tag) && seen.has(tag)) continue;
+
+    const count = params.conditionalParams?.[`extra_${idx}`] ?? 1;
+    const individualMap = isSync
+      ? PASSIVE_SYNC_MULTI_MAP({ regionMembers: count })
+      : PASSIVE_MOVE_MULTI_MAP({
+          regionMembers: count,
+          moveCategory: params.moveCategory
+        });
+    const multi = individualMap[tag];
+    if (multi != null) total += multi;
   }
 
   return parseFloat(total.toFixed(2));

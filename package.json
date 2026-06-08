@@ -9,7 +9,8 @@
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "npm run eject",
-    "refresh-cache": ". $NVM_DIR/nvm.sh && nvm use 20 && ts-node --skip-project --compiler-options '{\"module\":\"CommonJS\",\"esModuleInterop\":true,\"resolveJsonModule\":true}' scripts/refresh-cache.ts"
+    "refresh-cache": ". $NVM_DIR/nvm.sh && nvm use 20 && ts-node --skip-project --compiler-options '{\"module\":\"CommonJS\",\"esModuleInterop\":true,\"resolveJsonModule\":true}' scripts/refresh-cache.ts",
+    "generate-txt": "npx ts-node --skip-project --compiler-options '{\"module\":\"CommonJS\",\"esModuleInterop\":true,\"resolveJsonModule\":true}' scripts/generate-txt.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

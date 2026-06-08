@@ -4,10 +4,8 @@
   padding: 8px 16px;
   margin-left: 8px;
   background-color: white;
-
-  &--collapsed {
-    min-width: 0;
-  }
+    position: sticky;
+    top: 0;
 
   &-toggle {
     background-color: white;
@@ -65,24 +63,41 @@
     color: rgba(0, 0, 0, 0.45);
   }
 
-  &-extra-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    margin-bottom: 4px;
+  &-ability {
+    &-header {
+      margin-top: 4px;
+      font-weight: 600;
+    }
   }
 
-  &-extra-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 4px;
+  &-extra {
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    &-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+
+      .ant-input-number {
+        max-width: 56px;
+      }
+    }
+
+    &-select {
+      flex: 1;
+    }
   }
 
-  &-extra-select {
-    flex: 1;
-  }
+
+
 }
 
 .passiveGridSider-tooltip {

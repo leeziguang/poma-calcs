@@ -52,6 +52,8 @@ import { EMoveCategory } from "./move";
 export interface IPassiveMultiParam {
   regionMembers?: number;
   moveCategory?: EMoveCategory;
+  conditionalParams?: Record<string, number>;
+  extraPassives?: string[];
 }
 
 export type IPassiveSkillNames = Record<string, string>;
