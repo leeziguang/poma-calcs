@@ -8,6 +8,9 @@ import { monsterStore } from "src/store/monster";
 import { trainerStore } from "src/store/trainer";
 import { EMoveCategory } from "src/types/move";
 import { EX_STAT_BONUS } from "src/container/constants";
+import { abilityStore } from "src/store/ability";
+import { EAbilityType } from "src/types/ability";
+import { passiveStore } from "src/store/passive";
 
 export const RAW_STAT_MAP = (
   statType: EMonsterFields.ATK_VALUES | EMonsterFields.SPA_VALUES
@@ -24,9 +27,27 @@ export const RAW_STAT_MAP = (
   return res;
 };
 
+export const calcHexGridStatBonus = (
+  trainerId: string,
+  selectedGridCellIds: number[],
+  category: EMoveCategory
+): number => {
+  const targetType =
+    category === EMoveCategory.SPECIAL ? EAbilityType.SPA : EAbilityType.ATK;
+  const selectedSet = new Set(selectedGridCellIds);
+  return abilityStore.abilityPanels
+    .filter(p => String(p.trainerId) === String(trainerId))
+    .filter(p => selectedSet.has(p.cellId))
+    .reduce((sum, p) => {
+      const ability = abilityStore.abilityMap[p.abilityId];
+      return ability?.type === targetType ? sum + (ability.value ?? 0) : sum;
+    }, 0);
+};
+
 interface ICalcBaseStatArg {
   stat: number;
-  grid: number;
+  trainerId: string;
+  pairFieldName: number;
   statBoost: EStatBoost;
   defDrops: EStatDrops;
   moveLvl: string;
@@ -35,13 +56,17 @@ interface ICalcBaseStatArg {
 
 export const calcBaseStat = ({
   stat,
-  grid,
+  trainerId,
+  pairFieldName,
   statBoost,
   defDrops,
   moveLvl,
   category
 }: ICalcBaseStatArg) => {
-  if (!isValidNumber(stat) || !isValidNumber(grid)) return -11037;
+  const selectedGridCellIds =
+    passiveStore.pairPassiveState.get(pairFieldName)?.selectedGridCellIds ?? [];
+  const grid = calcHexGridStatBonus(trainerId, selectedGridCellIds, category);
+  if (!isValidNumber(stat)) return -11037;
   let megaMult = 1;
   const monsterId = monsterStore.selectedMonster?.monsterId;
   const monsterVariant = monsterStore.monsterVariations.find(

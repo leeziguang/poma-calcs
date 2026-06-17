@@ -38,7 +38,6 @@ export const MovePower = observer(
     const extraPassives = pairPassiveState?.extraPassives ?? [];
     const conditionalParams = pairPassiveState?.conditionalParams ?? {};
     const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
-
     const defaultMultis = useMemo(
       () =>
         calcDefaultMultis(
@@ -60,10 +59,15 @@ export const MovePower = observer(
       ]
     );
 
-    const args = formToCalcArgAdaptor({
-      ...colData,
-      [EMovePowerFormFields.MOVE_LVL]: pairData?.[EPairListFormFields.MOVE_LVL]
-    });
+    const args = formToCalcArgAdaptor(
+      {
+        ...colData,
+        [EMovePowerFormFields.MOVE_LVL]:
+          pairData?.[EPairListFormFields.MOVE_LVL]
+      },
+      trainerId,
+      pairFieldName
+    );
     const headerVal = isSync ? calcSyncPower(args) : calcMovePower(args);
 
     useEffect(() => {
@@ -153,13 +157,6 @@ export const MovePower = observer(
           <Form.Item
             label="Base Power"
             name={[name, EMovePowerFormFields.BASE_MOVE]}
-          >
-            <InputNumber min={0} />
-          </Form.Item>
-
-          <Form.Item
-            label="Grid Boost"
-            name={[name, EMovePowerFormFields.GRID]}
           >
             <InputNumber min={0} />
           </Form.Item>

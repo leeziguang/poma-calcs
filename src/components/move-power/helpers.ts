@@ -22,13 +22,37 @@ import {
   IPassiveSkillChild,
   IPassiveMultiParam
 } from "src/types/passive";
+import { abilityStore } from "src/store/ability";
+import { EAbilityType } from "src/types/ability";
+import { passiveStore } from "src/store/passive";
+
+const calcHexGridMovePowerBonus = (
+  trainerId: string,
+  pairFieldName: number
+): number => {
+  const selectedGridCellIds =
+    passiveStore.pairPassiveState.get(pairFieldName)?.selectedGridCellIds ?? [];
+  const selectedSet = new Set(selectedGridCellIds);
+  return abilityStore.abilityPanels
+    .filter(p => String(p.trainerId) === String(trainerId))
+    .filter(p => selectedSet.has(p.cellId))
+    .reduce((sum, p) => {
+      const ability = abilityStore.abilityMap[p.abilityId];
+      return ability?.type === EAbilityType.MOVE_POWER
+        ? sum + (ability.value ?? 0)
+        : sum;
+    }, 0);
+};
 
 export const formToCalcArgAdaptor = (
-  formVal: Partial<IMovePowerFormValues>
+  formVal: Partial<IMovePowerFormValues>,
+  trainerId: string,
+  pairFieldName: number
 ): ICalcMovePowerArgs | ICalcSyncPowerArgs => ({
   base: formVal?.[EMovePowerFormFields.BASE_MOVE] as number,
   moveLvl: formVal?.[EMovePowerFormFields.MOVE_LVL] as string,
-  grid: formVal?.[EMovePowerFormFields.GRID],
+  trainerId,
+  pairFieldName,
   options: formVal?.[EMovePowerFormFields.OPTIONS],
   smpmun: formVal?.[EMovePowerFormFields.SM_PMUN],
   syun: formVal?.[EMovePowerFormFields.SYUN],
@@ -39,12 +63,14 @@ export const formToCalcArgAdaptor = (
 export const calcMovePower = ({
   base,
   moveLvl,
-  grid,
+  trainerId,
+  pairFieldName,
   options,
   smpmun,
   multis,
   innate
 }: ICalcMovePowerArgs) => {
+  const grid = calcHexGridMovePowerBonus(trainerId, pairFieldName);
   //
   // each multiplication for move power is rounded to 0 d.p.
   const realMovePower = Math.floor(
@@ -52,7 +78,7 @@ export const calcMovePower = ({
       Math.floor(
         base * (options?.includes(EMovePowerFormFields.IS_TERA) ? 1.5 : 1)
       ) * MOVE_LEVEL_MOVE_BOOST_MAP[moveLvl]
-    ) + (grid as number)
+    ) + grid
   );
 
   const moveMulti = 1 + (multis as number) + (smpmun as number) * SM_PMUN_MULTI;
@@ -70,12 +96,14 @@ export const calcMovePower = ({
 export const calcSyncPower = ({
   base,
   moveLvl,
-  grid,
+  trainerId,
+  pairFieldName,
   options,
   syun,
   multis,
   innate
 }: ICalcSyncPowerArgs) => {
+  const grid = calcHexGridMovePowerBonus(trainerId, pairFieldName);
   //
   // each multiplication for move power is rounded to 0 d.p.
   const realMovePower = Math.floor(
@@ -83,7 +111,7 @@ export const calcSyncPower = ({
       Math.floor(
         base * (options?.includes(EMovePowerFormFields.IS_TECH) ? 1.5 : 1)
       ) * MOVE_LEVEL_SYNC_BOOST_MAP[moveLvl]
-    ) + (grid as number)
+    ) + grid
   );
 
   const moveMulti = 1 + (multis as number) + (syun as number) * SYUN_MULTI;

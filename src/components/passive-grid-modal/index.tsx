@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { InputNumber, Select, Tooltip } from "antd";
 import {
   DeleteOutlined,
@@ -27,7 +27,8 @@ interface IPassiveGridSiderProps {
 const DEFAULT_STATE: IPairPassiveState = {
   regionMembers: 1,
   extraPassives: [],
-  conditionalParams: {}
+  conditionalParams: {},
+  selectedGridCellIds: []
 };
 
 export const PassiveGridSider = observer(
@@ -75,6 +76,19 @@ export const PassiveGridSider = observer(
     const gridTiles = useMemo(
       () => genAbilityCellDisplayList(trainerId ?? ""),
       [trainerId]
+    );
+
+    const handleGridSelectionChange = useCallback(
+      (ids: Set<number>) => {
+        const current = passiveStore.pairPassiveState.get(pairFieldName) ?? {
+          ...DEFAULT_STATE
+        };
+        passiveStore.setPairPassiveState(pairFieldName, {
+          ...current,
+          selectedGridCellIds: Array.from(ids)
+        });
+      },
+      [pairFieldName]
     );
 
     return (
@@ -170,7 +184,11 @@ export const PassiveGridSider = observer(
               <div className="passiveGridSider-ability-header">
                 <span>Grid</span>
               </div>
-              <HexAbilityGrid cells={gridTiles} moveLvl={moveLvl} />
+              <HexAbilityGrid
+                cells={gridTiles}
+                moveLvl={moveLvl}
+                onSelectionChange={handleGridSelectionChange}
+              />
             </div>
 
             <div className="passiveGridSider-extra">

@@ -4,23 +4,16 @@
   padding: 8px 16px;
   margin-left: 8px;
   background-color: white;
-    position: sticky;
-    top: 0;
-
-  &-toggle {
-    background-color: white;
-    border: none;
-    padding: 0;
-    position: sticky;
-    top: 0;
-  }
+  position: sticky;
+  top: 0;
 
   &-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: sticky;
-    top: 30px;
+    top: 0;
+
   }
 
   &-title {

@@ -29,7 +29,6 @@ export const BaseStats = observer(
     const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
     const stat = colData?.[EBaseStatFormFields.STAT];
     const moveLvl = pairData?.[EPairListFormFields.MOVE_LVL];
-    const grid = colData?.[EBaseStatFormFields.GRID];
     const statBoost = colData?.[EBaseStatFormFields.STAT_BOOSTS];
     const defDrops = colData?.[EBaseStatFormFields.DEF_DROPS];
     const monsterId = pairData?.[EPairListFormFields.MONSTER_ID];
@@ -45,6 +44,8 @@ export const BaseStats = observer(
 
     const autoStat = RAW_STAT_MAP(statType)[level];
 
+    const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
+
     useEffect(() => {
       if (!configStore.isCustomMode) {
         form.setFieldValue([...fieldPath, EBaseStatFormFields.STAT], autoStat);
@@ -53,7 +54,8 @@ export const BaseStats = observer(
 
     const headerVal = calcBaseStat({
       stat,
-      grid,
+      trainerId,
+      pairFieldName,
       statBoost,
       defDrops,
       moveLvl,
@@ -86,10 +88,6 @@ export const BaseStats = observer(
             ) : (
               <InputNumber />
             )}
-          </Form.Item>
-
-          <Form.Item name={[name, EBaseStatFormFields.GRID]} label="Grid Boost">
-            <InputNumber min={0} />
           </Form.Item>
 
           <Form.Item
