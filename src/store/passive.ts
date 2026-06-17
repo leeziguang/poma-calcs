@@ -27,6 +27,7 @@ export class PassiveStore {
   passiveSkillChildren: IPassiveSkillChild[] = [];
   moveAndPassiveSkillDigits: IMoveAndPassiveSkillDigit[] = [];
   pairPassiveState: ObservableMap<number, IPairPassiveState> = observable.map();
+  selectedGridCellIds: ObservableMap<number, number[]> = observable.map();
 
   constructor() {
     makeObservable(this, {
@@ -37,6 +38,7 @@ export class PassiveStore {
       passiveSkillChildren: observable,
       moveAndPassiveSkillDigits: observable,
       pairPassiveState: observable,
+      selectedGridCellIds: observable,
       setPassiveSkillNamesEn: action,
       setPassiveSkillNamePartsEn: action,
       setPassiveSkillDescriptionEn: action,
@@ -44,6 +46,7 @@ export class PassiveStore {
       setPassiveSkillChildren: action,
       setMoveAndPassiveSkillDigits: action,
       setPairPassiveState: action,
+      setSelectedGridCellIds: action,
       clearPairPassiveState: action,
       moveAndPassiveSkillDigitMap: computed
     });
@@ -86,8 +89,13 @@ export class PassiveStore {
     this.pairPassiveState.set(pairFieldName, state);
   }
 
+  setSelectedGridCellIds(pairFieldName: number, ids: number[]) {
+    this.selectedGridCellIds.set(pairFieldName, ids);
+  }
+
   clearPairPassiveState(pairFieldName: number) {
     this.pairPassiveState.delete(pairFieldName);
+    this.selectedGridCellIds.delete(pairFieldName);
   }
 
   getPassiveSkillNamesEn() {

@@ -9,6 +9,9 @@ import { trainerStore } from "src/store/trainer";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
 import { trainerHasRole } from "src/lib/helpers";
 import { EMonsterVariationFields } from "src/types/monster";
+import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";
+import { EFieldEffectFormFields } from "src/types/data-col-list/field-effect";
+import { DEFAULT_COL } from "./constants";
 import {
   EMoveCategory,
   EMoveFields,
@@ -118,3 +121,20 @@ export const genAutoFillMovePower = (move: IMove) => {
     ].filter(Boolean)
   };
 };
+
+type ColData = typeof DEFAULT_COL;
+
+export const inheritBaseStats = (lastCol: ColData) => ({
+  [EBaseStatFormFields.STAT]: lastCol[EBaseStatFormFields.STAT],
+  [EBaseStatFormFields.STAT_BOOSTS]: lastCol[EBaseStatFormFields.STAT_BOOSTS],
+  [EBaseStatFormFields.DEF_DROPS]: lastCol[EBaseStatFormFields.DEF_DROPS]
+});
+
+export const inheritFieldEffects = (lastCol: ColData) => ({
+  [EFieldEffectFormFields.SYNC_BOOSTS]:
+    lastCol[EFieldEffectFormFields.SYNC_BOOSTS],
+  [EFieldEffectFormFields.WTZ]: lastCol[EFieldEffectFormFields.WTZ],
+  [EFieldEffectFormFields.CIRCLE]: lastCol[EFieldEffectFormFields.CIRCLE],
+  [EFieldEffectFormFields.REBUFF]: lastCol[EFieldEffectFormFields.REBUFF],
+  [EFieldEffectFormFields.SEUN]: lastCol[EFieldEffectFormFields.SEUN]
+});

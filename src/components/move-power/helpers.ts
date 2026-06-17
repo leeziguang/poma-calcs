@@ -31,7 +31,7 @@ const calcHexGridMovePowerBonus = (
   pairFieldName: number
 ): number => {
   const selectedGridCellIds =
-    passiveStore.pairPassiveState.get(pairFieldName)?.selectedGridCellIds ?? [];
+    passiveStore.selectedGridCellIds.get(pairFieldName) ?? [];
   const selectedSet = new Set(selectedGridCellIds);
   return abilityStore.abilityPanels
     .filter(p => String(p.trainerId) === String(trainerId))

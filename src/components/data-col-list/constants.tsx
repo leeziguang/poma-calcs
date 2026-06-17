@@ -15,7 +15,6 @@ import { EMoveLevelValues } from "src/types";
 
 export const DEFAULT_COL = {
   [EBaseStatFormFields.STAT]: 0,
-  [EBaseStatFormFields.GRID]: 0,
   [EBaseStatFormFields.STAT_BOOSTS]: EStatBoost.PLUS_6,
   [EBaseStatFormFields.DEF_DROPS]: EStatDrops.ZERO,
   [EMovePowerFormFields.MOVE_LVL]: MOVE_LEVEL_OPTIONS[EMoveLevelValues.ONE],

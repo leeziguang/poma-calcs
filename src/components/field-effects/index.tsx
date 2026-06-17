@@ -17,26 +17,32 @@ import { EPairListFormFields } from "src/types";
 import {
   CIRCLE_MULTI_MAP,
   CIRCLE_OPTIONS,
-  MEMBER_OPTIONS,
   REBUFF_OPTIONS,
   WTZ_OPTIONS
 } from "./constants";
 import "./style.scss";
 import { calcFieldEffect } from "./helpers";
+import { MemberNumSelect } from "src/components/member-num-select";
 import { usePairStore } from "src/store/pair-context";
 
 interface IFieldEffectProps {
   name: string;
-  fieldPath: (string | number)[];
+  pairFieldName: number;
 }
 
-export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
+export const FieldEffect = ({ name, pairFieldName }: IFieldEffectProps) => {
   const pairStore = usePairStore();
   const form = Form.useFormInstance();
-  const pairFieldName = fieldPath[1] as number;
-  const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
-  const colData =
-    pairs?.[pairFieldName]?.[EPairListFormFields.DATA_COL]?.[Number(name)];
+  const colIndex = Number(name);
+  const colData = Form.useWatch(
+    [
+      EPairListFormFields.PAIR,
+      pairFieldName,
+      EPairListFormFields.DATA_COL,
+      colIndex
+    ],
+    form
+  );
   const syncBoosts = colData?.[EFieldEffectFormFields.SYNC_BOOSTS];
   const wtz = colData?.[EFieldEffectFormFields.WTZ];
   const circle = colData?.[EFieldEffectFormFields.CIRCLE];
@@ -105,10 +111,7 @@ export const FieldEffect = ({ name, fieldPath }: IFieldEffectProps) => {
                       name={[field.name, EFieldEffectFormFields.MEMBERS]}
                       initialValue={1}
                     >
-                      <Select
-                        options={MEMBER_OPTIONS}
-                        className="fieldEffect-circle-members"
-                      />
+                      <MemberNumSelect className="fieldEffect-circle-members" />
                     </Form.Item>
                     <DeleteOutlined onClick={() => remove(field.name)} />
                   </div>

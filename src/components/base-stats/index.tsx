@@ -24,16 +24,36 @@ export const BaseStats = observer(
   ({ name, fieldPath, pairFieldName }: IBaseStatsProps) => {
     const pairStore = usePairStore();
     const form = Form.useFormInstance();
-    const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
-    const pairData = pairs?.[pairFieldName];
-    const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
+    const colIndex = Number(name);
+    const colData = Form.useWatch(
+      [
+        EPairListFormFields.PAIR,
+        pairFieldName,
+        EPairListFormFields.DATA_COL,
+        colIndex
+      ],
+      form
+    );
     const stat = colData?.[EBaseStatFormFields.STAT];
-    const moveLvl = pairData?.[EPairListFormFields.MOVE_LVL];
     const statBoost = colData?.[EBaseStatFormFields.STAT_BOOSTS];
     const defDrops = colData?.[EBaseStatFormFields.DEF_DROPS];
-    const monsterId = pairData?.[EPairListFormFields.MONSTER_ID];
-    const level = pairData?.[EPairListFormFields.LVL];
     const moveId = colData?.[EMovePowerFormFields.MOVE_ID];
+    const moveLvl = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MOVE_LVL],
+      form
+    );
+    const monsterId = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MONSTER_ID],
+      form
+    );
+    const level = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.LVL],
+      form
+    );
+    const trainerId = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.TRAINER_ID],
+      form
+    );
     const category =
       (moveStore.moveMap[moveId]?.[EMoveFields.CATEGORY] as EMoveCategory) ??
       EMoveCategory.PHYSICAL;
@@ -43,8 +63,6 @@ export const BaseStats = observer(
         : EMonsterFields.ATK_VALUES;
 
     const autoStat = RAW_STAT_MAP(statType)[level];
-
-    const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
 
     useEffect(() => {
       if (!configStore.isCustomMode) {

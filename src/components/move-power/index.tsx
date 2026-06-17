@@ -24,12 +24,32 @@ export const MovePower = observer(
   ({ name, pairFieldName }: IMovePowerProps) => {
     const pairStore = usePairStore();
     const form = Form.useFormInstance();
-    const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
-    const pairData = pairs?.[pairFieldName];
-    const colData = pairData?.[EPairListFormFields.DATA_COL]?.[Number(name)];
+    const colIndex = Number(name);
+    const colData = Form.useWatch(
+      [
+        EPairListFormFields.PAIR,
+        pairFieldName,
+        EPairListFormFields.DATA_COL,
+        colIndex
+      ],
+      form
+    );
     const optionsValue = colData?.[EMovePowerFormFields.OPTIONS];
     const isSync = optionsValue?.includes(EMovePowerFormFields.IS_SYNC);
     const moveId = colData?.[EMovePowerFormFields.MOVE_ID];
+    const basePower = colData?.[EMovePowerFormFields.BASE_MOVE];
+    const smpmun = colData?.[EMovePowerFormFields.SM_PMUN];
+    const syun = colData?.[EMovePowerFormFields.SYUN];
+    const multis = colData?.[EMovePowerFormFields.MULTIS];
+    const innate = colData?.[EMovePowerFormFields.INNATE_MULTIS];
+    const moveLvl = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MOVE_LVL],
+      form
+    );
+    const trainerId = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.TRAINER_ID],
+      form
+    );
     const moveCategory = moveId
       ? (moveStore.moveMap[moveId]?.[EMoveFields.CATEGORY] as EMoveCategory)
       : undefined;
@@ -37,7 +57,6 @@ export const MovePower = observer(
     const regionMembers = pairPassiveState?.regionMembers ?? 1;
     const extraPassives = pairPassiveState?.extraPassives ?? [];
     const conditionalParams = pairPassiveState?.conditionalParams ?? {};
-    const trainerId = pairData?.[EPairListFormFields.TRAINER_ID];
     const defaultMultis = useMemo(
       () =>
         calcDefaultMultis(
@@ -61,9 +80,13 @@ export const MovePower = observer(
 
     const args = formToCalcArgAdaptor(
       {
-        ...colData,
-        [EMovePowerFormFields.MOVE_LVL]:
-          pairData?.[EPairListFormFields.MOVE_LVL]
+        [EMovePowerFormFields.BASE_MOVE]: basePower,
+        [EMovePowerFormFields.MOVE_LVL]: moveLvl,
+        [EMovePowerFormFields.OPTIONS]: optionsValue,
+        [EMovePowerFormFields.SM_PMUN]: smpmun,
+        [EMovePowerFormFields.SYUN]: syun,
+        [EMovePowerFormFields.MULTIS]: multis,
+        [EMovePowerFormFields.INNATE_MULTIS]: innate
       },
       trainerId,
       pairFieldName

@@ -64,7 +64,7 @@ export const calcBaseStat = ({
   category
 }: ICalcBaseStatArg) => {
   const selectedGridCellIds =
-    passiveStore.pairPassiveState.get(pairFieldName)?.selectedGridCellIds ?? [];
+    passiveStore.selectedGridCellIds.get(pairFieldName) ?? [];
   const grid = calcHexGridStatBonus(trainerId, selectedGridCellIds, category);
   if (!isValidNumber(stat)) return -11037;
   let megaMult = 1;

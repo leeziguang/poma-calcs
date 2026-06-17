@@ -136,5 +136,4 @@ export interface IPairPassiveState {
   regionMembers: number;
   extraPassives: string[];
   conditionalParams: Record<string, number>;
-  selectedGridCellIds: number[];
 }

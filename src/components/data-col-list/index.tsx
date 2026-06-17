@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import { observer } from "mobx-react";
 import { Button, Card, Form, Input, InputNumber, Select } from "antd";
 import { BaseStats } from "../base-stats";
@@ -7,8 +13,6 @@ import { EPairListFormFields, EMoveLevelValues } from "../../types";
 import { MOVE_LEVEL_OPTIONS } from "../global-toolbar/constants";
 import { MovePower } from "../move-power";
 import { DEFAULT_COL } from "./constants";
-import { EBaseStatFormFields } from "src/types/data-col-list/base-stats";
-import { EFieldEffectFormFields } from "src/types/data-col-list/field-effect";
 import { FieldEffect } from "../field-effects";
 import { usePairStore } from "src/store/pair-context";
 import { configStore } from "src/store/config";
@@ -17,10 +21,89 @@ import { MoveDamageDisplay } from "../damage-display/move";
 import { TotalDamageDisplay } from "../damage-display/total";
 import { DeleteOutlined } from "@ant-design/icons";
 import { EMovePowerFormFields } from "src/types/data-col-list/move-power";
-import { genAutoFillMovePower, genMoveOptions } from "./helpers";
-import { PassiveGridSider } from "../passive-grid-modal";
+import {
+  genAutoFillMovePower,
+  genMoveOptions,
+  inheritBaseStats,
+  inheritFieldEffects
+} from "./helpers";
+import { PassiveGridSider } from "../passive-grid-sider";
 import { passiveStore } from "src/store/passive";
 import "./style.scss";
+
+interface IDataColItemProps {
+  fieldKey: number;
+  fieldName: number;
+  pairFieldName: number;
+  isCustomMode: boolean;
+  isEditing: boolean;
+  colTitle: string | undefined;
+  onTitleChange: (fieldName: number, val: string) => void;
+  onStartEdit: (fieldName: number) => void;
+  onEndEdit: () => void;
+  onDuplicate: (fieldName: number) => void;
+  onRemove: (fieldName: number) => void;
+}
+
+const DataColItem = React.memo(
+  ({
+    fieldKey,
+    fieldName,
+    pairFieldName,
+    isCustomMode,
+    isEditing,
+    colTitle,
+    onTitleChange,
+    onStartEdit,
+    onEndEdit,
+    onDuplicate,
+    onRemove
+  }: IDataColItemProps) => {
+    const name = String(fieldName);
+    return (
+      <div key={fieldKey} className="dataColList-col">
+        <div className="dataColList-col-title">
+          {isCustomMode ? (
+            <RenameableTitle
+              isEditing={isEditing}
+              value={colTitle as string}
+              onChange={val => onTitleChange(fieldName, val)}
+              onStartEdit={() => onStartEdit(fieldName)}
+              onEndEdit={onEndEdit}
+            />
+          ) : (
+            <div title={colTitle} className="dataColList-col-title-value">
+              {colTitle || "Untitled"}
+            </div>
+          )}
+          <div className="dataColList-col-title-actions">
+            <Button onClick={() => onDuplicate(fieldName)} type="link">
+              Duplicate
+            </Button>
+            <DeleteOutlined onClick={() => onRemove(fieldName)} />
+          </div>
+        </div>
+
+        <MoveDamageDisplay moveColName={name} />
+
+        <BaseStats
+          name={name}
+          fieldPath={[
+            EPairListFormFields.PAIR,
+            pairFieldName,
+            EPairListFormFields.DATA_COL,
+            fieldName
+          ]}
+          pairFieldName={pairFieldName}
+        />
+
+        <MovePower name={name} pairFieldName={pairFieldName} />
+
+        <FieldEffect name={name} pairFieldName={pairFieldName} />
+      </div>
+    );
+  }
+);
 
 export const DataColList = observer(
   ({
@@ -53,26 +136,64 @@ export const DataColList = observer(
     const [selectedMoveId, setSelectedMoveId] = useState<string | undefined>(
       undefined
     );
-    const pairs = Form.useWatch(EPairListFormFields.PAIR, form);
-    const trainerId = pairs?.[pairFieldName]?.[EPairListFormFields.TRAINER_ID];
-    const moves: number =
-      Form.useWatch(
-        [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.MOVES],
-        form
-      ) ?? 1;
-    const dataCols = (pairs?.[pairFieldName]?.[EPairListFormFields.DATA_COL] ??
-      []) as Array<Record<string, unknown>>;
+    const trainerId = Form.useWatch(
+      [EPairListFormFields.PAIR, pairFieldName, EPairListFormFields.TRAINER_ID],
+      form
+    );
 
-    const getColTitle = (fieldName: number): string | undefined => {
-      if (columnTitles[fieldName] !== undefined) return columnTitles[fieldName];
+    // Refs so stable callbacks can always access the latest add/remove/fieldsLength
+    const addRef = useRef<((defaultValue?: unknown) => void) | null>(null);
+    const removeRef = useRef<((index: number) => void) | null>(null);
+    const fieldsLengthRef = useRef<number>(0);
 
-      const col = dataCols[fieldName];
-      const moveName = col?.MOVE_NAME as string | undefined;
-      if (moveName) return moveName;
+    const getColTitle = useCallback(
+      (fieldName: number): string | undefined => {
+        if (columnTitles[fieldName] !== undefined)
+          return columnTitles[fieldName];
+        const col = form.getFieldValue([
+          EPairListFormFields.PAIR,
+          pairFieldName,
+          EPairListFormFields.DATA_COL,
+          fieldName
+        ]) as Record<string, unknown> | undefined;
+        const moveName = col?.MOVE_NAME as string | undefined;
+        if (moveName) return moveName;
+        const moveId = col?.MOVE_ID;
+        return moveId ? moveStore.moveNamesEn[String(moveId)] : undefined;
+      },
+      [columnTitles, form, pairFieldName]
+    );
 
-      const moveId = col?.MOVE_ID;
-      return moveId ? moveStore.moveNamesEn[String(moveId)] : undefined;
-    };
+    const handleTitleChange = useCallback((fieldName: number, val: string) => {
+      setColumnTitles(prev => ({ ...prev, [fieldName]: val }));
+    }, []);
+
+    const handleStartEdit = useCallback((fieldName: number) => {
+      setEditingCol(fieldName);
+    }, []);
+
+    const handleEndEdit = useCallback(() => {
+      setEditingCol(null);
+    }, []);
+
+    const handleDuplicate = useCallback(
+      (fieldName: number) => {
+        const dupVal = form.getFieldValue([
+          ...parentFieldPath,
+          EPairListFormFields.DATA_COL
+        ])?.[fieldName];
+        addRef.current?.(dupVal || DEFAULT_COL);
+        setColumnTitles(prev => ({
+          ...prev,
+          [fieldsLengthRef.current]: getColTitle(fieldName)
+        }));
+      },
+      [form, parentFieldPath, getColTitle]
+    );
+
+    const handleRemove = useCallback((fieldName: number) => {
+      removeRef.current?.(fieldName);
+    }, []);
 
     const moveOptions = useMemo(() => genMoveOptions(trainerId), [
       trainerId,
@@ -110,12 +231,16 @@ export const DataColList = observer(
               <InputNumber min={1} />
             </Form.Item>
 
-            <TotalDamageDisplay moves={moves} />
+            <TotalDamageDisplay pairFieldName={pairFieldName} />
           </div>
 
           <div className="dataColList-colWrapper">
             <Form.List name={[pairFieldName, EPairListFormFields.DATA_COL]}>
               {(fields, { add, remove }) => {
+                addRef.current = add;
+                removeRef.current = remove;
+                fieldsLengthRef.current = fields.length;
+
                 const handleAdd = () => {
                   const cols: typeof DEFAULT_COL[] =
                     form.getFieldValue([
@@ -124,31 +249,10 @@ export const DataColList = observer(
                     ]) ?? [];
                   const lastCol = cols[cols.length - 1];
                   const inheritedBaseStats = lastCol
-                    ? {
-                        [EBaseStatFormFields.STAT]:
-                          lastCol[EBaseStatFormFields.STAT],
-                        [EBaseStatFormFields.GRID]:
-                          lastCol[EBaseStatFormFields.GRID],
-                        [EBaseStatFormFields.STAT_BOOSTS]:
-                          lastCol[EBaseStatFormFields.STAT_BOOSTS],
-                        [EBaseStatFormFields.DEF_DROPS]:
-                          lastCol[EBaseStatFormFields.DEF_DROPS]
-                      }
+                    ? inheritBaseStats(lastCol)
                     : {};
-
                   const inheritedFieldEffects = lastCol
-                    ? {
-                        [EFieldEffectFormFields.SYNC_BOOSTS]:
-                          lastCol[EFieldEffectFormFields.SYNC_BOOSTS],
-                        [EFieldEffectFormFields.WTZ]:
-                          lastCol[EFieldEffectFormFields.WTZ],
-                        [EFieldEffectFormFields.CIRCLE]:
-                          lastCol[EFieldEffectFormFields.CIRCLE],
-                        [EFieldEffectFormFields.REBUFF]:
-                          lastCol[EFieldEffectFormFields.REBUFF],
-                        [EFieldEffectFormFields.SEUN]:
-                          lastCol[EFieldEffectFormFields.SEUN]
-                      }
+                    ? inheritFieldEffects(lastCol)
                     : {};
 
                   if (!isCustomMode) {
@@ -206,90 +310,24 @@ export const DataColList = observer(
                     </div>
 
                     <div className="dataColList-body">
-                      {fields.map(field => {
-                        return (
-                          <div key={field.key} className="dataColList-col">
-                            <div className="dataColList-col-title">
-                              {isCustomMode ? (
-                                <RenameableTitle
-                                  isEditing={editingCol === field.name}
-                                  value={getColTitle(field.name) as string}
-                                  onChange={val =>
-                                    setColumnTitles(prev => ({
-                                      ...prev,
-                                      [field.name]: val
-                                    }))
-                                  }
-                                  onStartEdit={() => setEditingCol(field.name)}
-                                  onEndEdit={() => setEditingCol(null)}
-                                />
-                              ) : (
-                                <div
-                                  title={getColTitle(field.name)}
-                                  className="dataColList-col-title-value"
-                                >
-                                  {getColTitle(field.name) || "Untitled"}
-                                </div>
-                              )}
-                              <div className="dataColList-col-title-actions">
-                                <Button
-                                  onClick={() => {
-                                    const dupVal = form
-                                      .getFieldValue([
-                                        ...parentFieldPath,
-                                        EPairListFormFields.DATA_COL
-                                      ])
-                                      ?.slice(field.name)[0];
-
-                                    add(dupVal || DEFAULT_COL);
-                                    setColumnTitles(prev => ({
-                                      ...prev,
-                                      [fields.length]: getColTitle(field.name)
-                                    }));
-                                  }}
-                                  type="link"
-                                >
-                                  Duplicate
-                                </Button>
-                                <DeleteOutlined
-                                  onClick={() => remove(field.name)}
-                                />
-                              </div>
-                            </div>
-
-                            <MoveDamageDisplay
-                              moveColName={String(field.name)}
-                              moves={moves}
-                            />
-
-                            <BaseStats
-                              name={String(field.name)}
-                              fieldPath={[
-                                EPairListFormFields.PAIR,
-                                pairFieldName,
-                                EPairListFormFields.DATA_COL,
-                                field.name
-                              ]}
-                              pairFieldName={pairFieldName}
-                            />
-
-                            <MovePower
-                              name={String(field.name)}
-                              pairFieldName={pairFieldName}
-                            />
-
-                            <FieldEffect
-                              name={String(field.name)}
-                              fieldPath={[
-                                EPairListFormFields.PAIR,
-                                pairFieldName,
-                                EPairListFormFields.DATA_COL,
-                                field.name
-                              ]}
-                            />
-                          </div>
-                        );
-                      })}
+                      {fields.map(field => (
+                        <DataColItem
+                          key={field.key}
+                          fieldKey={field.key}
+                          fieldName={field.name}
+                          pairFieldName={pairFieldName}
+                          isCustomMode={isCustomMode}
+                          isEditing={editingCol === field.name}
+                          colTitle={
+                            columnTitles[field.name] ?? getColTitle(field.name)
+                          }
+                          onTitleChange={handleTitleChange}
+                          onStartEdit={handleStartEdit}
+                          onEndEdit={handleEndEdit}
+                          onDuplicate={handleDuplicate}
+                          onRemove={handleRemove}
+                        />
+                      ))}
                     </div>
                   </>
                 );
@@ -297,11 +335,7 @@ export const DataColList = observer(
             </Form.List>
           </div>
         </div>
-        <PassiveGridSider
-          pairFieldName={pairFieldName}
-          trainerId={trainerId}
-          moveLvl={pairs?.[pairFieldName]?.[EPairListFormFields.MOVE_LVL]}
-        />
+        <PassiveGridSider pairFieldName={pairFieldName} trainerId={trainerId} />
       </Card>
     );
   }

@@ -39,8 +39,3 @@ export const REBUFF_OPTIONS = [0, 1, 2, 3, 4, 5, 6].map(opt => ({
   label: `-${opt}`,
   value: REBUFF_MULTI_MAP[opt]
 }));
-
-export const MEMBER_OPTIONS = [1, 2, 3].map(opt => ({
-  label: opt,
-  value: opt
-}));
