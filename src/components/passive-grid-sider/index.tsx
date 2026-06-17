@@ -282,6 +282,7 @@ export const PassiveGridSider = observer(
             <HexAbilityGrid
               cells={gridTiles}
               moveLvl={moveLvl}
+              selectedIds={passiveStore.selectedGridCellIds.get(pairFieldName)}
               onSelectionChange={handleGridSelectionChange}
             />
           </div>

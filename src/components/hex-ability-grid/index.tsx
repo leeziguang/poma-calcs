@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { observable, ObservableMap } from "mobx";
 import { observer } from "mobx-react";
 import { Tooltip } from "antd";
@@ -12,6 +12,7 @@ const HEX_H = SIZE * Math.sqrt(3);
 interface IHexAbilityGridProps {
   cells: IAbilityCellDisplay[];
   moveLvl?: string;
+  selectedIds?: number[];
   onSelectionChange: (selectedIds: Set<number>) => void;
 }
 
@@ -116,9 +117,22 @@ const SelectedList = observer(({ cells, selectedMap }: ISelectedListProps) => {
 const HexAbilityGridInner = ({
   cells,
   moveLvl,
+  selectedIds,
   onSelectionChange
 }: IHexAbilityGridProps) => {
   const selectedMap = useMemo(() => observable.map<number, true>(), []);
+
+  useEffect(() => {
+    const incoming = new Set(selectedIds ?? []);
+    const current = new Set(selectedMap.keys());
+    if (
+      incoming.size === current.size &&
+      [...incoming].every(id => current.has(id))
+    )
+      return;
+    selectedMap.clear();
+    incoming.forEach(id => selectedMap.set(id, true));
+  }, [selectedIds]);
   const moveLevel = parseMoveLevel(moveLvl);
 
   const { positions, containerW, containerH } = useMemo(() => {

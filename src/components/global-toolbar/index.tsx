@@ -24,7 +24,7 @@ import "./style.scss";
 
 interface IGlobalToolbarProps {
   onSave: (name: string) => void;
-  onLoad: (name: string) => void;
+  onLoad: (name: string, onConfirm?: () => void) => void;
   onDelete: (name: string) => void;
   onExportJson: () => void;
   onExportTsv: () => void;
@@ -131,8 +131,7 @@ export const GlobalToolbar = observer(
                 value={activeSession ?? undefined}
                 options={sessionNames.map(n => ({ label: n, value: n }))}
                 onChange={name => {
-                  onLoad(name);
-                  setSaveInput(name);
+                  onLoad(name, () => setSaveInput(name));
                 }}
                 allowClear
               />

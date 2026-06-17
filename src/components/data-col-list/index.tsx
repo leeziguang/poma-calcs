@@ -28,7 +28,6 @@ import {
   inheritFieldEffects
 } from "./helpers";
 import { PassiveGridSider } from "../passive-grid-sider";
-import { passiveStore } from "src/store/passive";
 import "./style.scss";
 
 interface IDataColItemProps {
@@ -120,7 +119,6 @@ export const DataColList = observer(
 
       return () => {
         pairStore.init();
-        passiveStore.clearPairPassiveState(pairFieldName);
       };
     }, []);
 

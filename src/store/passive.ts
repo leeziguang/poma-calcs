@@ -48,6 +48,7 @@ export class PassiveStore {
       setPairPassiveState: action,
       setSelectedGridCellIds: action,
       clearPairPassiveState: action,
+      clearAllPairState: action,
       moveAndPassiveSkillDigitMap: computed
     });
   }
@@ -96,6 +97,11 @@ export class PassiveStore {
   clearPairPassiveState(pairFieldName: number) {
     this.pairPassiveState.delete(pairFieldName);
     this.selectedGridCellIds.delete(pairFieldName);
+  }
+
+  clearAllPairState() {
+    this.pairPassiveState.clear();
+    this.selectedGridCellIds.clear();
   }
 
   getPassiveSkillNamesEn() {

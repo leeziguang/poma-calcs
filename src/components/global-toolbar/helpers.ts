@@ -12,6 +12,7 @@ import { monsterStore } from "src/store/monster";
 import { trainerStore } from "src/store/trainer";
 import { moveStore } from "src/store/move";
 import { sessionStore } from "src/store/session";
+import { passiveStore } from "src/store/passive";
 import { ISavedSession } from "src/types/session";
 import { buildTsvRows, triggerDownload } from "src/lib/export";
 
@@ -41,14 +42,21 @@ export function usePairSession({
   pendingSession
 }: IPairSessionDeps) {
   const pendingRestoreRef = useRef<ISavedSession | null>(null);
+  const isRestoringRef = useRef(false);
 
   const buildSnapshot = useCallback(
     (name = ""): ISavedSession => {
       const currentFields = fieldsRef.current;
       const pairStores: Record<string, Record<string, unknown>> = {};
+      const passiveStates: Record<string, unknown> = {};
+      const gridCellIds: Record<string, number[]> = {};
       currentFields.forEach((field, i) => {
         const store = storesRef.current.get(field.key);
         pairStores[String(i)] = store?.serialize() ?? {};
+        const ps = passiveStore.pairPassiveState.get(field.name);
+        if (ps) passiveStates[String(i)] = ps;
+        const gc = passiveStore.selectedGridCellIds.get(field.name);
+        if (gc) gridCellIds[String(i)] = gc;
       });
       const currentActiveKey = activeKeyRef.current;
       const activeIdx = currentFields.findIndex(
@@ -77,7 +85,9 @@ export function usePairSession({
         })(),
         pairNames: [...pairNamesRef.current],
         activeKey: activeIdx >= 0 ? String(activeIdx) : undefined,
-        pairStores: pairStores as Record<string, Record<string, IMoveInfo>>
+        pairStores: pairStores as Record<string, Record<string, IMoveInfo>>,
+        passiveStates: passiveStates as ISavedSession["passiveStates"],
+        gridCellIds
       };
     },
     [form, fieldsRef, storesRef, activeKeyRef, pairNamesRef]
@@ -86,6 +96,7 @@ export function usePairSession({
   const debouncedAutoSave = useMemo(
     () =>
       debounce(() => {
+        if (isRestoringRef.current) return;
         sessionStore.writeAutoSave(buildSnapshot());
       }, 500),
     [buildSnapshot]
@@ -95,6 +106,8 @@ export function usePairSession({
     const dispose = autorun(() => {
       void configStore.enemyDef;
       void configStore.isCustomMode;
+      void [...passiveStore.pairPassiveState.values()];
+      void [...passiveStore.selectedGridCellIds.values()];
       debouncedAutoSave();
     });
     return () => {
@@ -110,12 +123,26 @@ export function usePairSession({
     const expectedCount = Math.max(pending.pairNames.length, 1);
     if (fields.length !== expectedCount) return;
 
+    passiveStore.clearAllPairState();
+
     Object.entries(pending.pairStores).forEach(([indexStr, storeData]) => {
       const i = parseInt(indexStr, 10);
       const field = fields[i];
       if (field) {
         getOrCreateStore(field.key).hydrate(storeData);
       }
+    });
+
+    Object.entries(pending.passiveStates ?? {}).forEach(([indexStr, ps]) => {
+      const i = parseInt(indexStr, 10);
+      const field = fields[i];
+      if (field) passiveStore.setPairPassiveState(field.name, ps);
+    });
+
+    Object.entries(pending.gridCellIds ?? {}).forEach(([indexStr, ids]) => {
+      const i = parseInt(indexStr, 10);
+      const field = fields[i];
+      if (field) passiveStore.setSelectedGridCellIds(field.name, ids);
     });
 
     if (pending.activeKey !== undefined) {
@@ -127,11 +154,14 @@ export function usePairSession({
     }
 
     pendingRestoreRef.current = null;
-  }, [fields, getOrCreateStore, setActiveKey]);
+    isRestoringRef.current = false;
+    sessionStore.writeAutoSave(buildSnapshot());
+  }, [fields, getOrCreateStore, setActiveKey, buildSnapshot]);
 
   const applySessionState = useCallback(
     (saved: ISavedSession) => {
       if (saved.pairNames.length === 0) return;
+      isRestoringRef.current = true;
 
       const savedPairs = (saved.formValues as Record<string, unknown>)?.PAIR as
         | Array<Record<string, string>>
@@ -170,7 +200,7 @@ export function usePairSession({
   );
 
   const handleLoadSession = useCallback(
-    (name: string) => {
+    (name: string, onConfirm?: () => void) => {
       const saved = sessionStore.namedSessions[name];
       if (!saved) return;
       Modal.confirm({
@@ -179,6 +209,7 @@ export function usePairSession({
         onOk: () => {
           applySessionState(saved);
           sessionStore.setActiveSessionName(name);
+          onConfirm?.();
         }
       });
     },

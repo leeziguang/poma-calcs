@@ -8,6 +8,7 @@ import { usePairSession } from "src/components/global-toolbar/helpers";
 import { TabLabel } from "src/components/tab-label";
 import { useStoreMap } from "./useStoreMap";
 import { ISavedSession } from "src/types/session";
+import { passiveStore } from "src/store/passive";
 
 import "./style.scss";
 
@@ -109,6 +110,7 @@ export const PairListBody = ({
           const field = fields.find(f => String(f.key) === String(targetKey));
           if (!field) return;
           storesRef.current.delete(field.key);
+          passiveStore.clearPairPassiveState(field.name);
           remove(field.name);
           setPairNames(prev => prev.filter((_, i) => i !== field.name));
           setTimeout(debouncedAutoSave, 0);
