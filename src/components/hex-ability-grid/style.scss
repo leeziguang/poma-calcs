@@ -1,0 +1,70 @@
+@import "../../styles/colours";
+
+.hexAbilityGrid {
+  overflow: auto;
+
+  &-energy {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 4px;
+  }
+
+  &-selected-list {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &-selected-item {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+}
+
+.hexCell {
+  position: absolute;
+  width: 40px;
+  height: 34.64px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.85);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background-color: $blue5;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+  }
+
+  &--unselected::before {
+    opacity: 0.2;
+  }
+
+  &--selected::before {
+    opacity: 1;
+  }
+
+  &--red::before {
+    background-color: $red5;
+  }
+
+  &--yellow::before {
+    background-color: $yellow5;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+
+    &::before {
+      background-color: #c8c8c8;
+      opacity: 1;
+    }
+  }
+}

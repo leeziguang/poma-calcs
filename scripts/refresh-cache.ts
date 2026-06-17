@@ -86,6 +86,14 @@ const ENDPOINTS: Array<{ url: string; slug: string }> = [
   {
     url: "https://pokemon.brybry.ch/masters/data/proto/TrainerExRole.json",
     slug: "proto__TrainerExRole.json"
+  },
+  {
+    url: "https://pokemon.brybry.ch/masters/data/proto/Ability.json",
+    slug: "proto__Ability.json"
+  },
+  {
+    url: "https://pokemon.brybry.ch/masters/data/proto/AbilityPanel.json",
+    slug: "proto__AbilityPanel.json"
   }
 ];
 

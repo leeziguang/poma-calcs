@@ -297,7 +297,11 @@ export const DataColList = observer(
             </Form.List>
           </div>
         </div>
-        <PassiveGridSider pairFieldName={pairFieldName} trainerId={trainerId} />
+        <PassiveGridSider
+          pairFieldName={pairFieldName}
+          trainerId={trainerId}
+          moveLvl={pairs?.[pairFieldName]?.[EPairListFormFields.MOVE_LVL]}
+        />
       </Card>
     );
   }

@@ -13,6 +13,7 @@ import {
   genPassiveList,
   passiveHasRegionTag
 } from "./helpers";
+import { HexAbilityGrid } from "src/components/hex-ability-grid";
 import { PASSIVE_REGION_TAGS } from "src/components/move-power/constants";
 import { CONDITIONAL_PASSIVE_INPUTS, EXTRA_PASSIVE_OPT } from "./constants";
 import "./style.scss";
@@ -20,6 +21,7 @@ import "./style.scss";
 interface IPassiveGridSiderProps {
   pairFieldName: number;
   trainerId: string | undefined;
+  moveLvl: string | undefined;
 }
 
 const DEFAULT_STATE: IPairPassiveState = {
@@ -29,7 +31,7 @@ const DEFAULT_STATE: IPairPassiveState = {
 };
 
 export const PassiveGridSider = observer(
-  ({ pairFieldName, trainerId }: IPassiveGridSiderProps) => {
+  ({ pairFieldName, trainerId, moveLvl }: IPassiveGridSiderProps) => {
     const state =
       passiveStore.pairPassiveState.get(pairFieldName) ?? DEFAULT_STATE;
 
@@ -166,29 +168,9 @@ export const PassiveGridSider = observer(
 
             <div className="passiveGridSider-ability">
               <div className="passiveGridSider-ability-header">
-                <span>Ability Cells</span>
+                <span>Grid</span>
               </div>
-              <div className="passiveGridSider-passives-list">
-                {gridTiles?.map(tile => (
-                  <div
-                    key={tile.cellId}
-                    className="passiveGridSider-passives-row"
-                  >
-                    <span className="passiveGridSider-passive-name">
-                      {tile.typeLabel}
-                    </span>
-                    <span style={{ fontSize: 12, color: "rgba(0,0,0,0.65)" }}>
-                      {[
-                        tile.moveName,
-                        tile.passiveName,
-                        tile.value !== undefined ? `+${tile.value}` : undefined
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <HexAbilityGrid cells={gridTiles} moveLvl={moveLvl} />
             </div>
 
             <div className="passiveGridSider-extra">

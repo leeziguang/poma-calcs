@@ -19,9 +19,9 @@ const resolveNameDigitIdx = (
   passiveId: string,
   descriptionMap: Record<string, string>,
   descriptionPartsMap: Record<string, string>
-): number => {
+): number | null => {
   const desc = descriptionMap[passiveId];
-  if (!desc) return 0;
+  if (!desc) return null;
 
   const re = new RegExp(PASSIVE_DESC_PART_TAG_RE.source, "g");
   let match: RegExpExecArray | null;
@@ -32,7 +32,7 @@ const resolveNameDigitIdx = (
     const digitMatch = part.match(PART_DIGIT_IDX_RE);
     if (digitMatch) return digitMatch[1] ? Number(digitMatch[1]) : 0;
   }
-  return 0;
+  return null;
 };
 
 const extractDigitValue = (
@@ -54,14 +54,18 @@ const resolvePassiveName = (
   template
     .replace(PASSIVE_NAME_PARTS_RE, (_, idx) => nameParts[idx] ?? idx)
     .replace(PASSIVE_NAME_DIGIT_RE, () => {
-      if (!digit) return "";
       const digitIdx = resolveNameDigitIdx(
         passiveId,
         descriptionMap,
         descriptionPartsMap
       );
+      // No [Digit:] placeholder in the description means the name digit is the
+      // passive rank (last two digits of the id), not a value from digit params.
+      if (digitIdx === null) return String(Number(passiveId) % 100);
+      if (!digit) return "";
       return extractDigitValue(digit, digitIdx);
-    });
+    })
+    .trim();
 
 export const genAllPassiveOptions = (
   passiveSkillNamesEn: Record<string, string>,
@@ -93,8 +97,8 @@ const ABILITY_TYPE_LABELS: Record<number, string> = {
   [EAbilityType.DEF]: "DEF",
   [EAbilityType.SPDEF]: "SPDEF",
   [EAbilityType.SPE]: "SPE",
-  [EAbilityType.PINCH_HEAL]: "YELLOW_CELL",
-  [EAbilityType.MOVE_HEAL]: "RED_CELL",
+  [EAbilityType.YELLOW]: "YELLOW_CELL",
+  [EAbilityType.RED]: "RED_CELL",
   [EAbilityType.MOVE_POWER]: "MOVE_POWER",
   [EAbilityType.MOVE_ACC]: "MOVE_ACC",
   [EAbilityType.ACAD_TM]: "ACAD_TM"
@@ -122,7 +126,21 @@ export const genAbilityCellDisplayList = (
     if (!ability) continue;
 
     const typeLabel = ABILITY_TYPE_LABELS[ability.type] ?? String(ability.type);
-    const item: IAbilityCellDisplay = { cellId: cell.cellId, typeLabel };
+    const item: IAbilityCellDisplay = {
+      cellId: cell.cellId,
+      typeLabel,
+      x: cell.x,
+      y: cell.y,
+      z: cell.z,
+      energyCost: cell.energyCost,
+      conditionIds: cell.conditionIds.map(Number)
+    };
+
+    if (ability.type === EAbilityType.RED) {
+      item.cellColor = "red";
+    } else if (ability.type === EAbilityType.YELLOW) {
+      item.cellColor = "yellow";
+    }
 
     if (ability.moveId) {
       item.moveName = moveStore.moveNamesEn[String(ability.moveId)];
@@ -147,9 +165,24 @@ export const genAbilityCellDisplayList = (
       item.value = ability.value;
     }
 
-    if (item.moveName !== undefined) moveItems.push(item);
-    else if (item.passiveName !== undefined) passiveItems.push(item);
-    else valueItems.push(item);
+    if (item.moveName !== undefined) {
+      item.description =
+        ability.value > 0
+          ? `${item.moveName} +${ability.value}`
+          : item.moveName;
+      moveItems.push(item);
+    } else if (item.passiveName !== undefined) {
+      item.description =
+        ability.value > 0
+          ? `${item.passiveName} +${ability.value}`
+          : item.passiveName;
+      passiveItems.push(item);
+    } else {
+      if (ability.value > 0) {
+        item.description = `${typeLabel} +${ability.value}`;
+      }
+      valueItems.push(item);
+    }
   }
 
   return [...moveItems, ...passiveItems, ...valueItems];

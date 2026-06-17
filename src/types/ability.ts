@@ -1,12 +1,12 @@
 export enum EAbilityType {
   HP = 1,
   ATK = 2,
-  SPA = 3,
-  DEF = 4,
+  DEF = 3,
+  SPA = 4,
   SPDEF = 5,
   SPE = 6,
-  PINCH_HEAL = 7,
-  MOVE_HEAL = 8,
+  YELLOW = 7,
+  RED = 8,
   MOVE_POWER = 9,
   MOVE_ACC = 10,
   ACAD_TM = 11
@@ -49,4 +49,11 @@ export interface IAbilityCellDisplay {
   moveName?: string;
   passiveName?: string;
   value?: number;
+  x: number;
+  y: number;
+  z: number;
+  energyCost: number;
+  cellColor?: "red" | "yellow";
+  description?: string;
+  conditionIds: number[];
 }
