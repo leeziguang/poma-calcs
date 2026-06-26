@@ -1,6 +1,6 @@
 import uniqBy from "lodash/uniqBy";
 import {
-  IGNORE_AOE_PENALTY_MOVE_DESC_ID,
+  IGNORE_AOE_PENALTY_MOVE_DESC_IDS,
   INVALID_MOVE
 } from "src/container/constants";
 import { monsterStore } from "src/store/monster";
@@ -91,7 +91,8 @@ export const genAutoFillMovePower = (move: IMove) => {
   const descParts =
     moveStore.moveDescriptionMap[String(move[EMoveFields.MOVE_ID])];
   const ignoresAoePenalty =
-    descParts !== undefined && IGNORE_AOE_PENALTY_MOVE_DESC_ID in descParts;
+    descParts !== undefined &&
+    IGNORE_AOE_PENALTY_MOVE_DESC_IDS.some(id => id in descParts);
   const isSync = move[EMoveFields.GROUP] === EMoveGroup.SYNC;
   const isTech = trainerHasRole(ETrainerRole.TECH);
   const isStrike = trainerHasRole(ETrainerRole.STRIKE);

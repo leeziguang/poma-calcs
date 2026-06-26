@@ -3,7 +3,7 @@ import { EX_ROLE_STAT_MAP, STAT_BOOSTS_MAP } from "./constants";
 import { isValidNumber } from "src/lib/helpers";
 import { configStore } from "src/store/config";
 import { MOVE_LEVEL_STAT_BOOST_MAP } from "../global-toolbar/constants";
-import { EMonsterFields, EMonsterVariationFields } from "src/types/monster";
+import { EMonsterFields } from "src/types/monster";
 import { monsterStore } from "src/store/monster";
 import { trainerStore } from "src/store/trainer";
 import { EMoveCategory } from "src/types/move";
@@ -67,23 +67,11 @@ export const calcBaseStat = ({
     passiveStore.selectedGridCellIds.get(pairFieldName) ?? [];
   const grid = calcHexGridStatBonus(trainerId, selectedGridCellIds, category);
   if (!isValidNumber(stat)) return -11037;
-  let megaMult = 1;
-  const monsterId = monsterStore.selectedMonster?.monsterId;
-  const monsterVariant = monsterStore.monsterVariations.find(
-    v => v[EMonsterVariationFields.MONSTER_ID] === monsterId
-  );
-
-  if (monsterVariant) {
-    // Mega SCALE is in range [100 - x00]
-    const scaleField =
-      category === EMoveCategory.PHYSICAL
-        ? EMonsterVariationFields.ATK_SCALE
-        : EMonsterVariationFields.SPA_SCALE;
-    megaMult = monsterVariant[scaleField] / 100;
-  }
 
   const exRoleStats =
-    EX_ROLE_STAT_MAP[trainerStore.selectedTrainer?.exRole?.role ?? -1];
+    EX_ROLE_STAT_MAP[
+      trainerStore.trainerInfoMap[trainerId]?.exRole?.role ?? -1
+    ];
   const exrStat =
     category === EMoveCategory.PHYSICAL
       ? exRoleStats?.atk ?? 0
@@ -91,9 +79,17 @@ export const calcBaseStat = ({
 
   const supAwMult = MOVE_LEVEL_STAT_BOOST_MAP[moveLvl];
 
+  // const realStat = Math.floor(
+  //   (Math.floor(
+  //     (Math.floor(stat * supAwMult) + exrStat + EX_STAT_BONUS) * megaMult
+  //   ) +
+  //     grid) *
+  //     STAT_BOOSTS_MAP[statBoost]
+  // );
+
   const realStat = Math.floor(
-    (stat * supAwMult + exrStat + EX_STAT_BONUS + grid) *
-      megaMult *
+    (Math.floor(Math.floor(stat * supAwMult) + exrStat + EX_STAT_BONUS) +
+      grid) *
       STAT_BOOSTS_MAP[statBoost]
   );
 
