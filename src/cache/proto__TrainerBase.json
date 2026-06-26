@@ -4966,6 +4966,21 @@
       "altTrainerNameId": ""
     },
     {
+      "id": "10015890",
+      "actorId": "ch0158_90_carnet",
+      "trainerNameId": "ch0158",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_chara_carnet_03",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
       "id": "10015900",
       "actorId": "ch0159_00_kokuran",
       "trainerNameId": "ch0159",
@@ -6901,6 +6916,21 @@
       "altTrainerNameId": ""
     },
     {
+      "id": "10029140",
+      "actorId": "ch0291_40_sho",
+      "trainerNameId": "ch0291",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_trainer_hisui",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
       "id": "10029300",
       "actorId": "ch0293_00_button",
       "trainerNameId": "ch0293",
@@ -6942,6 +6972,21 @@
       "pokeballId": "ob0204_00_monsterball",
       "isGeneric": 0,
       "battleBgmId": "bgm_btl_chara_omodaka",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
+      "id": "10029590",
+      "actorId": "ch0295_90_omodaka",
+      "trainerNameId": "ch0295",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_chara_omodaka_02",
       "resultBgmId": "bgm_btlrslt_normal",
       "altTrainerNameId": ""
     },
@@ -7188,6 +7233,21 @@
     {
       "id": "10031200",
       "actorId": "ch0312_00_hinatsu",
+      "trainerNameId": "ch0312",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_captain_hisui",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
+      "id": "10031240",
+      "actorId": "ch0312_40_hinatsu",
       "trainerNameId": "ch0312",
       "u4": 1,
       "u5": "",
@@ -12631,6 +12691,21 @@
       "altTrainerNameId": ""
     },
     {
+      "id": "11015890",
+      "actorId": "ch0158_90_carnet_01",
+      "trainerNameId": "ch0158",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_chara_carnet_03",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
       "id": "11015900",
       "actorId": "ch0159_00_kokuran_01",
       "trainerNameId": "ch0159",
@@ -14296,6 +14371,21 @@
       "altTrainerNameId": ""
     },
     {
+      "id": "11029140",
+      "actorId": "ch0291_40_sho_01",
+      "trainerNameId": "ch0291",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_trainer_hisui",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
       "id": "11029300",
       "actorId": "ch0293_00_button_01",
       "trainerNameId": "ch0293",
@@ -14337,6 +14427,21 @@
       "pokeballId": "ob0204_00_monsterball",
       "isGeneric": 0,
       "battleBgmId": "bgm_btl_chara_omodaka",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
+      "id": "11029590",
+      "actorId": "ch0295_90_omodaka_01",
+      "trainerNameId": "ch0295",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_chara_omodaka_02",
       "resultBgmId": "bgm_btlrslt_normal",
       "altTrainerNameId": ""
     },
@@ -14568,6 +14673,21 @@
     {
       "id": "11031200",
       "actorId": "ch0312_00_hinatsu_01",
+      "trainerNameId": "ch0312",
+      "u4": 1,
+      "u5": "",
+      "u6": 1,
+      "u7": 1,
+      "gender": 2,
+      "pokeballId": "ob0204_00_monsterball",
+      "isGeneric": 0,
+      "battleBgmId": "bgm_btl_captain_hisui",
+      "resultBgmId": "bgm_btlrslt_normal",
+      "altTrainerNameId": ""
+    },
+    {
+      "id": "11031240",
+      "actorId": "ch0312_40_hinatsu_01",
       "trainerNameId": "ch0312",
       "u4": 1,
       "u5": "",

@@ -153484,6 +153484,736 @@
       "scheduleId": "FOREVER"
     },
     {
+      "cellId": 1009800300,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "abilityId": "1100000010",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800301,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": -1,
+      "z": 0,
+      "abilityId": "1200000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800302,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": -1,
+      "z": 1,
+      "abilityId": "1300000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800303,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "abilityId": "1200000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800304,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800305,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "abilityId": "1600000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800306,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800307,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800308,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 2,
+      "z": -3,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800309,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 3,
+      "y": 1,
+      "z": -4,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800310,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": 2,
+      "z": -4,
+      "abilityId": "2100029004",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800311,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": 3,
+      "z": -4,
+      "abilityId": "2100029004",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800312,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": 2,
+      "z": -5,
+      "abilityId": "2100029004",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800313,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": 3,
+      "z": -5,
+      "abilityId": "1202090100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800314,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": 4,
+      "z": -5,
+      "abilityId": "1706300100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800315,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 4,
+      "orbCost": 48,
+      "x": 3,
+      "y": 3,
+      "z": -6,
+      "abilityId": "1500000010",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800316,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": 4,
+      "z": -6,
+      "abilityId": "1809980200104",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800317,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800318,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800319,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": -1,
+      "z": 2,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800320,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -2,
+      "y": -1,
+      "z": 3,
+      "abilityId": "2100029004",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800321,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": -1,
+      "z": 4,
+      "abilityId": "1202010200029",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800322,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": -2,
+      "z": 3,
+      "abilityId": "2100029004",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800323,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 4,
+      "orbCost": 48,
+      "x": -2,
+      "y": -2,
+      "z": 4,
+      "abilityId": "1100000020",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800324,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -3,
+      "y": -2,
+      "z": 5,
+      "abilityId": "2201020100029",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800325,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": -3,
+      "z": 4,
+      "abilityId": "1804830900029",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800326,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": -2,
+      "z": 1,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800327,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -3,
+      "z": 1,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800328,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": -3,
+      "z": 2,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800329,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 3,
+      "y": -4,
+      "z": 1,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800330,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -4,
+      "z": 2,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800331,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 1,
+      "y": -4,
+      "z": 3,
+      "abilityId": "1306020210987",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800332,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 3,
+      "y": -5,
+      "z": 2,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800333,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 9,
+      "orbCost": 108,
+      "x": 2,
+      "y": -5,
+      "z": 3,
+      "abilityId": "1202010900104",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800334,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": -5,
+      "z": 4,
+      "abilityId": "1809230900000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800335,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 4,
+      "orbCost": 48,
+      "x": 3,
+      "y": -6,
+      "z": 3,
+      "abilityId": "1300000010",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800336,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": -6,
+      "z": 4,
+      "abilityId": "1809970200104",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800337,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800338,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800339,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -3,
+      "y": 3,
+      "z": 0,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800340,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800341,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -1,
+      "y": 3,
+      "z": -2,
+      "abilityId": "1802070100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800342,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "abilityId": "1306020219083",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800343,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "abilityId": "1902050100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800344,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "abilityId": "1701170100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800345,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -3,
+      "y": 5,
+      "z": -2,
+      "abilityId": "1101010400000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800346,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 0,
+      "y": 3,
+      "z": -3,
+      "abilityId": "21126900025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1009800347,
+      "version": 0,
+      "trainerId": "10098000003",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 0,
+      "y": -3,
+      "z": 3,
+      "abilityId": "21126900025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
       "cellId": 1009810000,
       "version": 0,
       "trainerId": "10098100000",
@@ -165286,6 +166016,100 @@
         13
       ],
       "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1010200048,
+      "version": 0,
+      "trainerId": "10102000000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "abilityId": "1400000020",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "chara_8060_0725_FOREVER"
+    },
+    {
+      "cellId": 1010200049,
+      "version": 0,
+      "trainerId": "10102000000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -3,
+      "y": 3,
+      "z": 0,
+      "abilityId": "1804090900500",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "chara_8060_0725_FOREVER"
+    },
+    {
+      "cellId": 1010200050,
+      "version": 0,
+      "trainerId": "10102000000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -3,
+      "y": 2,
+      "z": 1,
+      "abilityId": "1804190300000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "chara_8060_0725_FOREVER"
+    },
+    {
+      "cellId": 1010200051,
+      "version": 0,
+      "trainerId": "10102000000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "abilityId": "1600000020",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "chara_8060_0725_FOREVER"
+    },
+    {
+      "cellId": 1010200052,
+      "version": 0,
+      "trainerId": "10102000000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": 0,
+      "z": -3,
+      "abilityId": "1804510200000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "chara_8060_0725_FOREVER"
+    },
+    {
+      "cellId": 1010200053,
+      "version": 0,
+      "trainerId": "10102000000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -1,
+      "z": -2,
+      "abilityId": "1905170300000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "chara_8060_0725_FOREVER"
     },
     {
       "cellId": 1010290000,
@@ -283797,6 +284621,800 @@
       "scheduleId": "FOREVER"
     },
     {
+      "cellId": 1015890000,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "abilityId": "1100000010",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890001,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": -1,
+      "z": 0,
+      "abilityId": "1400000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890002,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": -1,
+      "z": 1,
+      "abilityId": "1300000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890003,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "abilityId": "1400000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890004,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890005,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "abilityId": "1600000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890006,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 2,
+      "z": -2,
+      "abilityId": "1400000020",
+      "conditionIds": [
+        1,
+        16
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890007,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 3,
+      "z": -3,
+      "abilityId": "2165100050",
+      "conditionIds": [
+        1,
+        17
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890008,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 4,
+      "z": -4,
+      "abilityId": "1602120106208",
+      "conditionIds": [
+        1,
+        18
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890009,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 5,
+      "z": -5,
+      "abilityId": "1708310100000",
+      "conditionIds": [
+        1,
+        19
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890010,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890011,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890012,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -1,
+      "z": -2,
+      "abilityId": "1802030100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890013,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "abilityId": "2106207003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890014,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 3,
+      "y": 0,
+      "z": -3,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890015,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": 2,
+      "z": -4,
+      "abilityId": "1201180200000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890016,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": 1,
+      "z": -4,
+      "abilityId": "2106207003",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890017,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 3,
+      "y": 2,
+      "z": -5,
+      "abilityId": "1202010306207",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890018,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": 3,
+      "z": -4,
+      "abilityId": "1708470906207",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890019,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": 3,
+      "z": -5,
+      "abilityId": "1601440100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890020,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890021,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": -1,
+      "z": 2,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890022,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -2,
+      "y": -1,
+      "z": 3,
+      "abilityId": "2106208003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890023,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": -2,
+      "z": 3,
+      "abilityId": "2106208003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890024,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": -3,
+      "z": 4,
+      "abilityId": "2106208003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890025,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "abilityId": "1201080100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890026,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": -1,
+      "z": 4,
+      "abilityId": "1306020219680",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890027,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -2,
+      "y": -2,
+      "z": 4,
+      "abilityId": "1302460200000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890028,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -3,
+      "y": -2,
+      "z": 5,
+      "abilityId": "1906970100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890029,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -2,
+      "y": -3,
+      "z": 5,
+      "abilityId": "1906740500000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890030,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -2,
+      "z": 0,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890031,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": -2,
+      "z": 1,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890032,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": -3,
+      "z": 1,
+      "abilityId": "2106207003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890033,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": -3,
+      "z": 2,
+      "abilityId": "2106207003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890034,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": -4,
+      "z": 3,
+      "abilityId": "2106207003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890035,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 4,
+      "orbCost": 48,
+      "x": 3,
+      "y": -3,
+      "z": 0,
+      "abilityId": "1100000020",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890036,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 3,
+      "y": -4,
+      "z": 1,
+      "abilityId": "1703030100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890037,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 9,
+      "orbCost": 108,
+      "x": 2,
+      "y": -4,
+      "z": 2,
+      "abilityId": "1704310100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890038,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 3,
+      "y": -5,
+      "z": 2,
+      "abilityId": "1812570900000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890039,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": -5,
+      "z": 3,
+      "abilityId": "1301390100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890040,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890041,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890042,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -3,
+      "y": 2,
+      "z": 1,
+      "abilityId": "2401150100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890043,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -3,
+      "y": 3,
+      "z": 0,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890044,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "abilityId": "2106208003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890045,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "abilityId": "2106208003",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890046,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "abilityId": "1708460100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890047,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": 5,
+      "z": -2,
+      "abilityId": "1202010306208",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890048,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "abilityId": "1704860900000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890049,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -2,
+      "y": 5,
+      "z": -3,
+      "abilityId": "1902320100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890050,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -2,
+      "z": -1,
+      "abilityId": "2165100025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1015890051,
+      "version": 0,
+      "trainerId": "10158900000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -3,
+      "y": 1,
+      "z": 2,
+      "abilityId": "2165100025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
       "cellId": 1015900000,
       "version": 0,
       "trainerId": "10159000000",
@@ -385891,6 +387509,736 @@
       "scheduleId": "FOREVER"
     },
     {
+      "cellId": 1029140000,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "abilityId": "1100000010",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140001,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": -1,
+      "z": 0,
+      "abilityId": "1400000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140002,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": -1,
+      "z": 1,
+      "abilityId": "1300000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140003,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "abilityId": "1400000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140004,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140005,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "abilityId": "1600000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140006,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140007,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140008,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 2,
+      "z": -3,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140009,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 3,
+      "y": 1,
+      "z": -4,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140010,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": 2,
+      "z": -4,
+      "abilityId": "2100145004",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140011,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": 3,
+      "z": -4,
+      "abilityId": "2100145004",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140012,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": 2,
+      "z": -5,
+      "abilityId": "2100145004",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140013,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": 3,
+      "z": -5,
+      "abilityId": "1704300112914",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140014,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 1,
+      "y": 4,
+      "z": -5,
+      "abilityId": "1810590900145",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140015,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 3,
+      "y": 3,
+      "z": -6,
+      "abilityId": "2201030900145",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140016,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": 4,
+      "z": -6,
+      "abilityId": "1804830900145",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140017,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140018,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "abilityId": "1802040100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140019,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": -1,
+      "z": 2,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140020,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": -1,
+      "z": 3,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140021,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": -1,
+      "z": 4,
+      "abilityId": "1306020218500",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140022,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -1,
+      "y": -2,
+      "z": 3,
+      "abilityId": "1703030100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140023,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -2,
+      "y": -2,
+      "z": 4,
+      "abilityId": "1201010200000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140024,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -3,
+      "y": -2,
+      "z": 5,
+      "abilityId": "1905200100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140025,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": -3,
+      "z": 4,
+      "abilityId": "1812670200000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140026,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": -2,
+      "z": 1,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140027,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -3,
+      "z": 1,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140028,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": -3,
+      "z": 2,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140029,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -4,
+      "z": 1,
+      "abilityId": "1802020100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140030,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -4,
+      "z": 2,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140031,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 4,
+      "orbCost": 48,
+      "x": 1,
+      "y": -4,
+      "z": 3,
+      "abilityId": "1100000020",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140032,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -5,
+      "z": 2,
+      "abilityId": "1701080100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140033,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 2,
+      "y": -5,
+      "z": 3,
+      "abilityId": "1202010306209",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140034,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": -5,
+      "z": 4,
+      "abilityId": "2101020100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140035,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 3,
+      "y": -6,
+      "z": 3,
+      "abilityId": "1704150100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140036,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": -6,
+      "z": 4,
+      "abilityId": "1101010400000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140037,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140038,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140039,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -3,
+      "y": 3,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140040,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "abilityId": "2100145004",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140041,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -1,
+      "y": 3,
+      "z": -2,
+      "abilityId": "1202010300145",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140042,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "abilityId": "2100145004",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140043,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "abilityId": "1302030200000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140044,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "abilityId": "1308620200000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140045,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -3,
+      "y": 5,
+      "z": -2,
+      "abilityId": "1306210100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140046,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 0,
+      "y": 3,
+      "z": -3,
+      "abilityId": "21126700025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029140047,
+      "version": 0,
+      "trainerId": "10291400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 0,
+      "y": -3,
+      "z": 3,
+      "abilityId": "21126700025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
       "cellId": 1029300000,
       "version": 0,
       "trainerId": "10293000000",
@@ -389726,6 +392074,800 @@
       "y": 3,
       "z": -3,
       "abilityId": "21102700025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590000,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "abilityId": "1100000010",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590001,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": -1,
+      "z": 0,
+      "abilityId": "1200000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590002,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": -1,
+      "z": 1,
+      "abilityId": "1300000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590003,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "abilityId": "1400000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590004,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590005,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "abilityId": "1600000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590006,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 2,
+      "z": -2,
+      "abilityId": "1100000040",
+      "conditionIds": [
+        1,
+        16
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590007,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 3,
+      "z": -3,
+      "abilityId": "21124000050",
+      "conditionIds": [
+        1,
+        17
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590008,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 4,
+      "z": -4,
+      "abilityId": "1902640300000",
+      "conditionIds": [
+        1,
+        18
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590009,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 5,
+      "z": -5,
+      "abilityId": "1709750306206",
+      "conditionIds": [
+        1,
+        19
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590010,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590011,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590012,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 3,
+      "y": -1,
+      "z": -2,
+      "abilityId": "2401080100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590013,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "abilityId": "2106205003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590014,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 3,
+      "y": 0,
+      "z": -3,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590015,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": 2,
+      "z": -4,
+      "abilityId": "1706170906205",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590016,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": 1,
+      "z": -4,
+      "abilityId": "2106205003",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590017,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 3,
+      "y": 2,
+      "z": -5,
+      "abilityId": "1202010306205",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590018,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": 3,
+      "z": -4,
+      "abilityId": "1802090100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590019,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": 3,
+      "z": -5,
+      "abilityId": "1308140200000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590020,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590021,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": -1,
+      "z": 2,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590022,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -2,
+      "y": -1,
+      "z": 3,
+      "abilityId": "2106206003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590023,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": -2,
+      "z": 3,
+      "abilityId": "2106206003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590024,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": -3,
+      "z": 4,
+      "abilityId": "2106206003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590025,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 4,
+      "orbCost": 48,
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "abilityId": "1100000020",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590026,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": -1,
+      "z": 4,
+      "abilityId": "1306020219000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590027,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -2,
+      "y": -2,
+      "z": 4,
+      "abilityId": "1101020119000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590028,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -3,
+      "y": -2,
+      "z": 5,
+      "abilityId": "1101020119000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590029,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -2,
+      "y": -3,
+      "z": 5,
+      "abilityId": "1306020219000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590030,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -2,
+      "z": 0,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590031,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": -2,
+      "z": 1,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590032,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": -3,
+      "z": 1,
+      "abilityId": "2106205003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590033,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": -3,
+      "z": 2,
+      "abilityId": "2106205003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590034,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": -4,
+      "z": 3,
+      "abilityId": "2106205003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590035,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 3,
+      "y": -3,
+      "z": 0,
+      "abilityId": "1306020212959",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590036,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 3,
+      "y": -4,
+      "z": 1,
+      "abilityId": "1101470900000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590037,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": -4,
+      "z": 2,
+      "abilityId": "1810690900000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590038,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 3,
+      "y": -5,
+      "z": 2,
+      "abilityId": "1704210100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590039,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": -5,
+      "z": 3,
+      "abilityId": "1902650100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590040,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590041,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590042,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -3,
+      "y": 2,
+      "z": 1,
+      "abilityId": "1701010100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590043,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -3,
+      "y": 3,
+      "z": 0,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590044,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "abilityId": "2106206003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590045,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "abilityId": "2106206003",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590046,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "abilityId": "1201190200000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590047,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": 5,
+      "z": -2,
+      "abilityId": "1202010306206",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590048,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 9,
+      "orbCost": 108,
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "abilityId": "1701450100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590049,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -2,
+      "y": 5,
+      "z": -3,
+      "abilityId": "1603200300000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590050,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -2,
+      "z": -1,
+      "abilityId": "21124000025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1029590051,
+      "version": 0,
+      "trainerId": "10295900000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -3,
+      "y": 1,
+      "z": 2,
+      "abilityId": "21124000025",
       "conditionIds": [
         1,
         13
@@ -404364,6 +407506,736 @@
       "y": -3,
       "z": 3,
       "abilityId": "21116900025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240000,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "abilityId": "1100000010",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240001,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 1,
+      "y": -1,
+      "z": 0,
+      "abilityId": "1200000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240002,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": -1,
+      "z": 1,
+      "abilityId": "1300000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240003,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "abilityId": "1400000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240004,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "abilityId": "1500000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240005,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 0,
+      "orbCost": 5,
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "abilityId": "1600000005",
+      "conditionIds": [],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240006,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240007,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "abilityId": "1500000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240008,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 1,
+      "y": 2,
+      "z": -3,
+      "abilityId": "1300000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240009,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 3,
+      "y": 1,
+      "z": -4,
+      "abilityId": "2401010100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240010,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": 2,
+      "z": -4,
+      "abilityId": "2100247003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240011,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": 3,
+      "z": -4,
+      "abilityId": "2100247003",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240012,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": 2,
+      "z": -5,
+      "abilityId": "2100247003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240013,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 2,
+      "y": 3,
+      "z": -5,
+      "abilityId": "1202010300182",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240014,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": 4,
+      "z": -5,
+      "abilityId": "2101010100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240015,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": 3,
+      "y": 3,
+      "z": -6,
+      "abilityId": "1703050100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240016,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": 4,
+      "z": -6,
+      "abilityId": "1709760100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240017,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 1,
+      "z": 1,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240018,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -3,
+      "y": 1,
+      "z": 2,
+      "abilityId": "1100000010",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240019,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240020,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "abilityId": "2106210002",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240021,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": -1,
+      "z": 2,
+      "abilityId": "2106210002",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240022,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -2,
+      "y": -1,
+      "z": 3,
+      "abilityId": "1202010306210",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240023,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -3,
+      "y": -1,
+      "z": 4,
+      "abilityId": "1902370913124",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240024,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": -2,
+      "z": 3,
+      "abilityId": "1301340100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240025,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -2,
+      "y": -2,
+      "z": 4,
+      "abilityId": "1704020100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240026,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": 2,
+      "y": -1,
+      "z": -1,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240027,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 3,
+      "y": -2,
+      "z": -1,
+      "abilityId": "1802010100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240028,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 2,
+      "y": -2,
+      "z": 0,
+      "abilityId": "2106210002",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240029,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 1,
+      "y": -2,
+      "z": 1,
+      "abilityId": "2106210002",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240030,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": 3,
+      "y": -3,
+      "z": 0,
+      "abilityId": "2106210002",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240031,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 2,
+      "y": -3,
+      "z": 1,
+      "abilityId": "1701120100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240032,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 1,
+      "y": -3,
+      "z": 2,
+      "abilityId": "1601440100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240033,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": 3,
+      "y": -4,
+      "z": 1,
+      "abilityId": "1704160100000",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240034,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": 2,
+      "y": -4,
+      "z": 2,
+      "abilityId": "1811720900000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240035,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240036,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "abilityId": "1400000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240037,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -1,
+      "y": 3,
+      "z": -2,
+      "abilityId": "1600000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240038,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "abilityId": "1802030100000",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240039,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 2,
+      "orbCost": 24,
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "abilityId": "1200000005",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240040,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -3,
+      "y": 5,
+      "z": -2,
+      "abilityId": "2100247003",
+      "conditionIds": [
+        1
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240041,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 3,
+      "orbCost": 36,
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "abilityId": "2100247003",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240042,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 7,
+      "orbCost": 84,
+      "x": -2,
+      "y": 5,
+      "z": -3,
+      "abilityId": "1202010300247",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240043,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 8,
+      "orbCost": 96,
+      "x": -3,
+      "y": 6,
+      "z": -3,
+      "abilityId": "2201030400247",
+      "conditionIds": [
+        1,
+        12
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240044,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -1,
+      "y": 5,
+      "z": -4,
+      "abilityId": "1804640900247",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240045,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 10,
+      "orbCost": 120,
+      "x": -2,
+      "y": 6,
+      "z": -4,
+      "abilityId": "1501010100000",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240046,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 0,
+      "y": 3,
+      "z": -3,
+      "abilityId": "21126800025",
+      "conditionIds": [
+        1,
+        13
+      ],
+      "scheduleId": "FOREVER"
+    },
+    {
+      "cellId": 1031240047,
+      "version": 0,
+      "trainerId": "10312400000",
+      "energyCost": 5,
+      "orbCost": 60,
+      "x": 0,
+      "y": -3,
+      "z": 3,
+      "abilityId": "21126800025",
       "conditionIds": [
         1,
         13

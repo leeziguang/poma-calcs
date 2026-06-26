@@ -49,6 +49,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10002400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10002900000",
       "role": 4,
       "scheduleId": "chara_8050_0602_FOREVER",
@@ -85,6 +91,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10004410000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10004900000",
       "role": 4,
       "scheduleId": "chara_7110_1130_FOREVER",
@@ -97,9 +109,21 @@
       "u4": ""
     },
     {
+      "trainerId": "10007400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10007410000",
       "role": 3,
       "scheduleId": "chara_6060_0630_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10008400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -154,6 +178,12 @@
       "trainerId": "10015900000",
       "role": 0,
       "scheduleId": "chara_8010_0219_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10016400000",
+      "role": 1,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -241,6 +271,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10020400000",
+      "role": 3,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10020900000",
       "role": 1,
       "scheduleId": "chara_7110_1128_FOREVER",
@@ -295,6 +331,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10026400000",
+      "role": 2,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10027400000",
       "role": 2,
       "scheduleId": "chara_6060_0628_FOREVER",
@@ -310,6 +352,18 @@
       "trainerId": "10029400000",
       "role": 1,
       "scheduleId": "chara_8040_0515_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10030400000",
+      "role": 2,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10031400000",
+      "role": 1,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -421,6 +475,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10089410000",
+      "role": 3,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10089900000",
       "role": 3,
       "scheduleId": "chara_7020_0310_FOREVER",
@@ -436,6 +496,12 @@
       "trainerId": "10090100000",
       "role": 2,
       "scheduleId": "chara_6010_0225_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10090400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -493,6 +559,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10092400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10092410000",
       "role": 5,
       "scheduleId": "chara_7070_0805_FOREVER",
@@ -502,6 +574,18 @@
       "trainerId": "10092800000",
       "role": 4,
       "scheduleId": "chara_6070_0805_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10095400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10096100000",
+      "role": 1,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -541,6 +625,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10101100000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10101420000",
       "role": 4,
       "scheduleId": "chara_7030_0331_FOREVER",
@@ -568,6 +658,12 @@
       "trainerId": "10106110000",
       "role": 1,
       "scheduleId": "chara_7040_0427_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10106400000",
+      "role": 2,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -625,6 +721,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10111400000",
+      "role": 3,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10111900000",
       "role": 3,
       "scheduleId": "chara_6080_0901_FOREVER",
@@ -655,15 +757,33 @@
       "u4": ""
     },
     {
+      "trainerId": "10113410000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10113420000",
       "role": 5,
       "scheduleId": "chara_7100_1114_FOREVER",
       "u4": ""
     },
     {
+      "trainerId": "10114400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10114900000",
       "role": 5,
       "scheduleId": "chara_8030_0403_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10115400000",
+      "role": 3,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -676,6 +796,24 @@
       "trainerId": "10116100000",
       "role": 4,
       "scheduleId": "chara_6020_0307_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10116400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10116410000",
+      "role": 1,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10118400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -769,6 +907,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10124400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10125000001",
       "role": 3,
       "scheduleId": "chara_6040_0509_FOREVER",
@@ -778,6 +922,12 @@
       "trainerId": "10126100000",
       "role": 4,
       "scheduleId": "chara_6030_0405_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10126400000",
+      "role": 2,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -814,6 +964,12 @@
       "trainerId": "10130100000",
       "role": 2,
       "scheduleId": "chara_5080_0925_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10130400000",
+      "role": 2,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -961,6 +1117,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10148400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10148410000",
       "role": 5,
       "scheduleId": "chara_7030_0415_FOREVER",
@@ -994,6 +1156,12 @@
       "trainerId": "10158100000",
       "role": 5,
       "scheduleId": "chara_6070_0805_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10158900000",
+      "role": 1,
+      "scheduleId": "chara_8060_0718_FOREVER",
       "u4": ""
     },
     {
@@ -1036,6 +1204,12 @@
       "trainerId": "10169000000",
       "role": 3,
       "scheduleId": "chara_5090_1016_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10170400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -1159,6 +1333,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10215400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10216000000",
       "role": 3,
       "scheduleId": "chara_6040_0520_FOREVER",
@@ -1186,6 +1366,12 @@
       "trainerId": "10243000000",
       "role": 3,
       "scheduleId": "chara_7040_0503_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10243400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -1249,6 +1435,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10245410000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10245420000",
       "role": 3,
       "scheduleId": "chara_7030_0415_FOREVER",
@@ -1309,6 +1501,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10247400000",
+      "role": 3,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10247800000",
       "role": 4,
       "scheduleId": "chara_6080_0910_FOREVER",
@@ -1324,6 +1522,24 @@
       "trainerId": "10248000000",
       "role": 4,
       "scheduleId": "chara_6110_1205_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10249400000",
+      "role": 0,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10250400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10251400000",
+      "role": 5,
+      "scheduleId": "chara_8060_0707_FOREVER",
       "u4": ""
     },
     {
@@ -1549,6 +1765,12 @@
       "u4": ""
     },
     {
+      "trainerId": "10291400000",
+      "role": 4,
+      "scheduleId": "chara_8060_0630_FOREVER",
+      "u4": ""
+    },
+    {
       "trainerId": "10293000000",
       "role": 1,
       "scheduleId": "chara_5100_1110_FOREVER",
@@ -1570,6 +1792,12 @@
       "trainerId": "10295000000",
       "role": 0,
       "scheduleId": "chara_6020_0228_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10295900000",
+      "role": 2,
+      "scheduleId": "chara_8060_0720_FOREVER",
       "u4": ""
     },
     {
@@ -1678,6 +1906,12 @@
       "trainerId": "10312000000",
       "role": 1,
       "scheduleId": "chara_7090_0930_FOREVER",
+      "u4": ""
+    },
+    {
+      "trainerId": "10312400000",
+      "role": 0,
+      "scheduleId": "chara_8060_0702_FOREVER",
       "u4": ""
     },
     {

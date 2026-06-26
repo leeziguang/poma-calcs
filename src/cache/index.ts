@@ -17,6 +17,8 @@ import proto__TrainerBase from "./proto__TrainerBase.json";
 import lsd__trainer_name_en from "./lsd__trainer_name_en.json";
 import lsd__trainer_verbose_name_en from "./lsd__trainer_verbose_name_en.json";
 import proto__TrainerExRole from "./proto__TrainerExRole.json";
+import proto__Ability from "./proto__Ability.json";
+import proto__AbilityPanel from "./proto__AbilityPanel.json";
 
 export const staticCache: Record<string, unknown> = {
   "proto__Monster.json": proto__Monster,
@@ -37,5 +39,7 @@ export const staticCache: Record<string, unknown> = {
   "proto__TrainerBase.json": proto__TrainerBase,
   "lsd__trainer_name_en.json": lsd__trainer_name_en,
   "lsd__trainer_verbose_name_en.json": lsd__trainer_verbose_name_en,
-  "proto__TrainerExRole.json": proto__TrainerExRole
+  "proto__TrainerExRole.json": proto__TrainerExRole,
+  "proto__Ability.json": proto__Ability,
+  "proto__AbilityPanel.json": proto__AbilityPanel
 };

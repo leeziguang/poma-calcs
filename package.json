@@ -128,6 +128,7 @@
     "gh-pages": "^6.3.0",
     "mobx": "^6.15.3",
     "mobx-react": "^9.2.1",
+    "moment": "^2.30.1",
     "npm": "^6.14.18",
     "openspec": "^0.0.0",
     "react-scripts": "^5.0.1",

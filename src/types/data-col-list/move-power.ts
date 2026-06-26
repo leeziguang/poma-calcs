@@ -23,6 +23,7 @@ export interface ICalcMovePowerArgs {
   moveLvl: string;
   trainerId: string;
   pairFieldName: number;
+  moveId?: number;
   options?: IMovePowerFormValues["OPTIONS"];
   smpmun?: number;
   multis?: number;
@@ -34,6 +35,7 @@ export interface ICalcSyncPowerArgs {
   moveLvl: string;
   trainerId: string;
   pairFieldName: number;
+  moveId?: number;
   options?: IMovePowerFormValues["OPTIONS"];
   syun?: number;
   multis?: number;
@@ -41,6 +43,7 @@ export interface ICalcSyncPowerArgs {
 }
 
 export interface IMovePowerFormValues {
+  [EMovePowerFormFields.MOVE_ID]: number;
   [EMovePowerFormFields.BASE_MOVE]: number;
   [EMovePowerFormFields.MOVE_LVL]: string;
   [EMovePowerFormFields.GRID]: number;

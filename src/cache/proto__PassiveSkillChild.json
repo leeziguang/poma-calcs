@@ -2751,6 +2751,42 @@
       ]
     },
     {
+      "passiveSkillId": 99044001,
+      "passiveSkillChildIds": [
+        "18045106",
+        "18051501",
+        "15015203"
+      ]
+    },
+    {
+      "passiveSkillId": 99044101,
+      "passiveSkillChildIds": [
+        "19069001",
+        "19023103"
+      ]
+    },
+    {
+      "passiveSkillId": 99044201,
+      "passiveSkillChildIds": [
+        "19020903",
+        "11016509"
+      ]
+    },
+    {
+      "passiveSkillId": 99044401,
+      "passiveSkillChildIds": [
+        "17088301",
+        "18096103"
+      ]
+    },
+    {
+      "passiveSkillId": 99044501,
+      "passiveSkillChildIds": [
+        "11016609",
+        "11016702"
+      ]
+    },
+    {
       "passiveSkillId": 99044701,
       "passiveSkillChildIds": [
         "19069101",

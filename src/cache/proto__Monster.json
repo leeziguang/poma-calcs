@@ -15877,6 +15877,69 @@
       "move4ChangeId": -1
     },
     {
+      "monsterId": "20098000003",
+      "monsterBaseId": 20012800,
+      "syncMoveId": 126900,
+      "hpValues": [
+        89,
+        162,
+        231,
+        506,
+        566,
+        626,
+        806
+      ],
+      "atkValues": [
+        19,
+        42,
+        63,
+        151,
+        167,
+        183,
+        231
+      ],
+      "defValues": [
+        18,
+        47,
+        74,
+        184,
+        208,
+        232,
+        304
+      ],
+      "spaValues": [
+        7,
+        24,
+        39,
+        105,
+        117,
+        129,
+        165
+      ],
+      "spdValues": [
+        16,
+        47,
+        74,
+        184,
+        208,
+        232,
+        304
+      ],
+      "speValues": [
+        20,
+        57,
+        93,
+        236,
+        264,
+        292,
+        376
+      ],
+      "move1ChangeId": -1,
+      "move2ChangeId": -1,
+      "move3ChangeId": -1,
+      "move4ChangeId": -1
+    },
+    {
       "monsterId": "20098100000",
       "monsterBaseId": 20083000,
       "syncMoveId": 50403,
@@ -28225,6 +28288,69 @@
       "move4ChangeId": -1
     },
     {
+      "monsterId": "20158900000",
+      "monsterBaseId": 20028201,
+      "syncMoveId": 65100,
+      "hpValues": [
+        95,
+        173,
+        248,
+        545,
+        609,
+        673,
+        865
+      ],
+      "atkValues": [
+        13,
+        47,
+        80,
+        212,
+        240,
+        268,
+        352
+      ],
+      "defValues": [
+        13,
+        37,
+        58,
+        146,
+        166,
+        186,
+        246
+      ],
+      "spaValues": [
+        17,
+        60,
+        99,
+        264,
+        300,
+        336,
+        444
+      ],
+      "spdValues": [
+        19,
+        46,
+        70,
+        169,
+        189,
+        209,
+        269
+      ],
+      "speValues": [
+        14,
+        57,
+        96,
+        261,
+        297,
+        333,
+        441
+      ],
+      "move1ChangeId": -1,
+      "move2ChangeId": -1,
+      "move3ChangeId": -1,
+      "move4ChangeId": -1
+    },
+    {
       "monsterId": "20159000000",
       "monsterBaseId": 20039800,
       "syncMoveId": 84400,
@@ -37675,6 +37801,69 @@
       "move4ChangeId": -1
     },
     {
+      "monsterId": "20291400000",
+      "monsterBaseId": 20049000,
+      "syncMoveId": 126700,
+      "hpValues": [
+        112,
+        190,
+        265,
+        562,
+        626,
+        690,
+        882
+      ],
+      "atkValues": [
+        12,
+        32,
+        50,
+        127,
+        143,
+        159,
+        207
+      ],
+      "defValues": [
+        12,
+        52,
+        91,
+        245,
+        277,
+        309,
+        405
+      ],
+      "spaValues": [
+        12,
+        38,
+        62,
+        161,
+        181,
+        201,
+        261
+      ],
+      "spdValues": [
+        12,
+        52,
+        91,
+        245,
+        277,
+        309,
+        405
+      ],
+      "speValues": [
+        12,
+        59,
+        104,
+        280,
+        316,
+        352,
+        460
+      ],
+      "move1ChangeId": -1,
+      "move2ChangeId": -1,
+      "move3ChangeId": -1,
+      "move4ChangeId": -1
+    },
+    {
       "monsterId": "20293000000",
       "monsterBaseId": 20076701,
       "syncMoveId": 99800,
@@ -37983,6 +38172,69 @@
         263,
         295,
         391
+      ],
+      "move1ChangeId": -1,
+      "move2ChangeId": -1,
+      "move3ChangeId": -1,
+      "move4ChangeId": -1
+    },
+    {
+      "monsterId": "20295900000",
+      "monsterBaseId": 2009700000,
+      "syncMoveId": 124000,
+      "hpValues": [
+        105,
+        183,
+        258,
+        555,
+        619,
+        683,
+        875
+      ],
+      "atkValues": [
+        17,
+        60,
+        99,
+        264,
+        300,
+        336,
+        444
+      ],
+      "defValues": [
+        14,
+        57,
+        96,
+        261,
+        297,
+        333,
+        441
+      ],
+      "spaValues": [
+        15,
+        55,
+        94,
+        248,
+        280,
+        312,
+        408
+      ],
+      "spdValues": [
+        12,
+        55,
+        94,
+        259,
+        295,
+        331,
+        439
+      ],
+      "speValues": [
+        15,
+        58,
+        97,
+        262,
+        298,
+        334,
+        442
       ],
       "move1ChangeId": -1,
       "move2ChangeId": -1,
@@ -39432,6 +39684,69 @@
         314,
         350,
         458
+      ],
+      "move1ChangeId": -1,
+      "move2ChangeId": -1,
+      "move3ChangeId": -1,
+      "move4ChangeId": -1
+    },
+    {
+      "monsterId": "20312400000",
+      "monsterBaseId": 2009021141,
+      "syncMoveId": 126800,
+      "hpValues": [
+        98,
+        174,
+        246,
+        532,
+        592,
+        652,
+        832
+      ],
+      "atkValues": [
+        21,
+        76,
+        127,
+        336,
+        380,
+        424,
+        556
+      ],
+      "defValues": [
+        12,
+        35,
+        56,
+        144,
+        160,
+        176,
+        224
+      ],
+      "spaValues": [
+        17,
+        73,
+        127,
+        336,
+        380,
+        424,
+        556
+      ],
+      "spdValues": [
+        13,
+        38,
+        62,
+        150,
+        170,
+        190,
+        250
+      ],
+      "speValues": [
+        14,
+        54,
+        93,
+        247,
+        279,
+        311,
+        407
       ],
       "move1ChangeId": -1,
       "move2ChangeId": -1,

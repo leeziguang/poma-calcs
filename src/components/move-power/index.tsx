@@ -80,6 +80,7 @@ export const MovePower = observer(
 
     const args = formToCalcArgAdaptor(
       {
+        [EMovePowerFormFields.MOVE_ID]: moveId,
         [EMovePowerFormFields.BASE_MOVE]: basePower,
         [EMovePowerFormFields.MOVE_LVL]: moveLvl,
         [EMovePowerFormFields.OPTIONS]: optionsValue,

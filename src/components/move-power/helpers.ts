@@ -25,10 +25,12 @@ import {
 import { abilityStore } from "src/store/ability";
 import { EAbilityType } from "src/types/ability";
 import { passiveStore } from "src/store/passive";
+import { isValidNumber } from "src/lib/helpers";
 
 const calcHexGridMovePowerBonus = (
   trainerId: string,
-  pairFieldName: number
+  pairFieldName: number,
+  moveId?: number
 ): number => {
   const selectedGridCellIds =
     passiveStore.selectedGridCellIds.get(pairFieldName) ?? [];
@@ -38,9 +40,14 @@ const calcHexGridMovePowerBonus = (
     .filter(p => selectedSet.has(p.cellId))
     .reduce((sum, p) => {
       const ability = abilityStore.abilityMap[p.abilityId];
-      return ability?.type === EAbilityType.MOVE_POWER
-        ? sum + (ability.value ?? 0)
-        : sum;
+      if (ability?.type !== EAbilityType.MOVE_POWER) return sum;
+      if (
+        isValidNumber(moveId as number) &&
+        ability.moveId !== 0 &&
+        ability.moveId !== moveId
+      )
+        return sum;
+      return sum + (ability.value ?? 0);
     }, 0);
 };
 
@@ -53,6 +60,7 @@ export const formToCalcArgAdaptor = (
   moveLvl: formVal?.[EMovePowerFormFields.MOVE_LVL] as string,
   trainerId,
   pairFieldName,
+  moveId: formVal?.[EMovePowerFormFields.MOVE_ID] as number,
   options: formVal?.[EMovePowerFormFields.OPTIONS],
   smpmun: formVal?.[EMovePowerFormFields.SM_PMUN],
   syun: formVal?.[EMovePowerFormFields.SYUN],
@@ -65,12 +73,13 @@ export const calcMovePower = ({
   moveLvl,
   trainerId,
   pairFieldName,
+  moveId,
   options,
   smpmun,
   multis,
   innate
 }: ICalcMovePowerArgs) => {
-  const grid = calcHexGridMovePowerBonus(trainerId, pairFieldName);
+  const grid = calcHexGridMovePowerBonus(trainerId, pairFieldName, moveId);
   //
   // each multiplication for move power is rounded to 0 d.p.
   const realMovePower = Math.floor(
@@ -98,12 +107,13 @@ export const calcSyncPower = ({
   moveLvl,
   trainerId,
   pairFieldName,
+  moveId,
   options,
   syun,
   multis,
   innate
 }: ICalcSyncPowerArgs) => {
-  const grid = calcHexGridMovePowerBonus(trainerId, pairFieldName);
+  const grid = calcHexGridMovePowerBonus(trainerId, pairFieldName, moveId);
   //
   // each multiplication for move power is rounded to 0 d.p.
   const realMovePower = Math.floor(
