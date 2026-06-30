@@ -1,0 +1,43 @@
+---
+description: Guide to how to write and format a types file for typescript, use this when you need to specify types or enums for a feature
+globs: **/*.ts
+alwaysApply: false
+---
+
+# Standard Example
+A majority of the types listed will be obtained from a swagger file maintained externally by the backend team. 
+[swagger-user](../../../../src/_shared/types/swagger-user.ts) - for user portal apis (most commonly used)
+[swagger-sap](../../../../src/_shared/types/swagger-sap.ts) - for SuperAdmin portal apis
+[swagger-starrocks](../../../../src/_shared/types/swagger-starrocks.ts) - for starrocks features
+
+## Generated types vs runtime API
+
+OpenAPI/Swagger unions and enums sometimes **lag** the live API. If the backend accepts a string value that is **not yet** in the generated TypeScript union, you may use a **narrow assertion** (e.g. `as ResourceAndAccessType`) **only** when the value is confirmed valid for the API, and prefer fixing the spec/generator long term. Do not change runtime request shapes just to satisfy outdated types.
+
+## Response types and UI-only fields
+
+- When the BE adds fields the UI needs but swagger is late, extend the **response interface** with **optional** properties (e.g. `password?`, `attuUrl?`) so call sites use **`?.`** instead of unsafe casts.
+- **Request body** types must match the real **HTTP method** and payload (**PUT** vs **POST**, field names). Keep section comments in the types file aligned with the service function they pair with—reviewers should not have to guess.
+
+## Enums for API-facing values
+
+- Prefer **`E`-prefixed enums** for values sent to the API (metric ranges, status filters, etc.) instead of string literals in stores and services, so defaults and resets stay type-safe.
+
+When adding new types to the .ts files, 
+1.  Types and interfaces **MUST** start with an "I" prefix
+    Examples from [kafka](../../src/types/project-management/kafka.ts): **I**ConsumerGrp, **I**ConsumerGrpFilter
+
+2.  Enumerations **MUST** start with an "E" prefix
+    Examples from [hbase](../../src/types/project-management/hbase.ts): **E**ProjectHBaseTableType, **E**ProjectHBaseEnv
+
+When specifying types for a feature, use comments to create blocks to make it easier to find which type corresponds to which feature, for example
+[kafka](../../src/types/project-management/kafka.ts)
+```ts
+// Topic and Quota Subtab Start
+
+// Table Start
+export type IKakfaTopicAndQuotaDetail = components['schemas']['KafkaBigdataAccountTopicVo'];
+// Table End
+
+// Topic and Quota Subtab End
+```

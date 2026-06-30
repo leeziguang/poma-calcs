@@ -1,0 +1,33 @@
+---
+description: CSS Modules class names must use camelCase
+globs: **/*.m.less, **/*.module.less, **/*.module.css, **/*.module.scss
+alwaysApply: false
+---
+
+# CSS Module Class Naming
+
+CSS Module must utilize **camelCase**, do **NOT** kebab-case 或 snake_case。
+
+## 命名规范
+
+```less
+// ❌ BAD
+.table-check-item { }
+.sidebar_wrapper { }
+.TableListHeader { }
+
+// ✅ GOOD
+.tableCheckItem { }
+.sidebarWrapper { }
+.tableListHeader { }
+```
+
+## 在 TSX/JSX 中引用
+
+```tsx
+// ❌ BAD
+<div className={styles['table-check-item']} />
+
+// ✅ GOOD
+<div className={styles.tableCheckItem} />
+```

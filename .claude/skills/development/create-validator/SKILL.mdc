@@ -1,0 +1,126 @@
+---
+name: create-validator
+description: Create a validator file for a corresponding Form. Use this skill when there are simple validators such as required/min/max. Also use this skill when you have inter-field validation across the Form, or when you have a custom validator that can be applied across a majority of the fields. 
+alwaysApply: false
+---
+# Create Validator
+## Validation Implementation
+Place all validation under a new file in the same folder (../{feature-name}/components/filter/validators.tsx)
+All validator error messages are examples, you should still look at the requirements of the feature to determine the correct error message
+
+If the red * is required beside a form label, remember to add the required prop as such
+```tsx
+<Form.Item required></Form.Item>
+```
+
+### Simple Inline Validation
+For validations with <= 2 conditions
+```tsx
+<Form.Item rule={[{required: true, message: 'Required'}, {min: 10, message: 'Minimum 10 char'}]}>{children}</Form.Item>
+```
+
+### Standard Integer Validator
+For validations with > 2 conditions
+```tsx
+fieldNameValidator = (_, value) => {
+  if (!isValidNumber(value)) return Promise.reject('Required');
+
+  if (value < certainValue) return Promise.reject(`${field} cannot be less than ${certainValue}`);
+
+  if (value > certainValue) return Promise.reject(`${field} cannot be more than ${certainValue}`)
+
+  return Promise.resolve();
+}
+```
+
+### Standard String Validator
+```tsx
+fieldNameValidator = (_, value) => {
+  if (!value) return Promise.reject('Required');
+
+  if (value.length < certainValue) return Promise.reject(`Minimum ${certainValue} characters`)
+
+  if (value.length > certainValue) return Promise.reject(`Maximum ${certainValue} characters`)
+
+  return Promise.resolve();
+}
+```
+
+### Complex Validator
+Sometimes validation will require values from other filter fields, in that case, pass in the getFieldValue() function to a curried validator
+In rare cases, you may be required to pass in other functions to a validator
+
+```tsx
+fieldNameValidator = (value, getFieldValue) => {
+  if (!isValidNumber(value)) return Promise.reject('Required');
+
+  if (value < getFieldValue(EFilterField.otherField)) return Promise.reject(`${field} cannot be less than ${EFilterField.otherField}: ${getFieldValue(EFilterField.otherField)}`)
+
+  if (value > getFieldValue(EFilterField.otherField)) return Promise.reject(`${field} cannot be more than ${EFilterField.otherField}: ${getFieldValue(EFilterField.otherField)}`)
+
+  return Promise.resolve();
+
+}
+```
+
+Another use case to create a curried validator is if there is  **total** logic overlap across the fields, where you can reduce code debt.
+Assume the following code block all reference the same certainValue
+```tsx
+firstFieldNameValidator = (_, value) => {
+  if (!isValidNumber(value)) return Promise.reject('Required');
+
+  if (value < certainValue) return Promise.reject(`${field} cannot be less than ${certainValue}`);
+
+  if (value > certainValue) return Promise.reject(`${field} cannot be more than ${certainValue}`)
+
+  return Promise.resolve();
+}
+
+secondFieldNameValidator = (_, value) => {
+  if (!isValidNumber(value)) return Promise.reject('Required');
+
+  if (value < certainValue) return Promise.reject(`${field} cannot be less than ${certainValue}`);
+
+  if (value > certainValue) return Promise.reject(`${field} cannot be more than ${certainValue}`)
+
+  return Promise.resolve();
+}
+
+thirdFieldNameValidator = (_, value) => {
+  if (!isValidNumber(value)) return Promise.reject('Required');
+
+  if (value < certainValue) return Promise.reject(`${field} cannot be less than ${certainValue}`);
+
+  if (value > certainValue) return Promise.reject(`${field} cannot be more than ${certainValue}`)
+
+  return Promise.resolve();
+}
+```
+We can simplify the logic into a singular factory to be used across all matching Form.Items
+You may pass in certainValue here as a prop into the curried validator if it is not a store variable
+**OR** getFieldValue/setFieldValue/validateFields... from Form.Item render functions
+```tsx
+checkCertainValueValidator = (value, certainValue?: any) => {
+  if (!isValidNumber(value)) return Promise.reject('Required');
+
+  if (value < getFieldValue(EFilterField.otherField)) return Promise.reject(`${field} cannot be less than ${certainValue}`)
+
+  if (value > getFieldValue(EFilterField.otherField)) return Promise.reject(`${field} cannot be more than ${certainValue}`)
+
+  return Promise.resolve();
+}
+
+<Form.Item name={EFieldName.first} rule={[validator: (_, value) => checkCertainValueValidator(value, certainValue)]}>
+
+<Form.Item noStyle shouldUpdate>
+  {({ getFieldValue }) => (
+    <Form.Item 
+      name={EFieldName.first} 
+      rule={[validator: (_, value) => 
+        checkCertainValueValidator(value, getFieldValue)]}
+    >{children}
+    </Form.Item>
+    )
+  }
+</Form.Item>
+```

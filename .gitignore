@@ -22,12 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# claude
-.claude
-
-# openspec
-/openspec
-
 # misc
 test*
 tmp*

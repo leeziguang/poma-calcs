@@ -1,0 +1,227 @@
+---
+description: Guide to how to write and format a store, use this when the page needs to store data from API(s) to be used on current page or other pages.
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# Current Store Patterns
+
+## Pattern options
+
+| Scenario | Base Class | Source |
+|------|------|------|------|
+| Base Store | `BaseStore` | `/src/store/base.ts` | 
+| Modal Base Store | `BaseModalStore` | `/src/store/modal.ts` |
+
+## When to use a store (vs local `useState`)
+
+- Prefer a **MobX store** for state that is loaded or mutated via **APIs**, shared across **multiple components**, or needs **`@loading` / `@followUp`** patterns.
+- **Tables and lists** driven by APIs (rows + loading) belong on the **same feature store** as the surrounding context (e.g. cluster-scoped data on the cluster store), not `useState` in the table component.
+- A large feature may use **several store files** (e.g. `cluster.ts`, `utilization.ts`) that each extend `BaseStore`; split by **cohesive slice**, not by “one giant store per page” unless the data is truly one graph.
+- **Tab vs domain stores:** Keep **tab- or page-orchestration** state (e.g. IDC list, **selected IDC region**, URL hydration helpers, shared dropdown options) in a **dedicated store** (often `src/store/.../<feature>/index.ts`). Keep **domain** data (clusters, databases, metrics series) in **focused** stores. Do not duplicate the same concept under two observables (e.g. `idcRegion` and `currentIdcRegion`); use **one** observable, initialise from the URL where needed, then update only from user actions.
+- Keep **presentational** bits (e.g. transient UI toggles) in local state only when they never need to align with server data or sibling components.
+
+## Components and MobX
+
+- Wrap components that **read store observables** in **`observer()`** from `@shopee-data/reaction`. Keep them a **thin** render layer; put fetch and mutations on the store.
+- Typical export shape: `export const MyPanel = observer((props) => { ... });` with normal indentation inside the callback (avoid mixing `React.FC` typing patterns that fight `observer` in this codebase).
+- For **non-observer** leaf components, prefer **`const MyWidget = (props: MyWidgetProps) => { ... }`** over `function MyWidget(...)` so naming matches the prevailing codebase style.
+- **Avoid** extra layout chrome (e.g. **collapse** wrappers) when the **spec / PRD** shows the block as always visible; use a plain wrapper unless collapse is required.
+
+### Do not destructure observables from the store
+
+Avoid `const { list, selectedId } = store` for values that are **MobX observables**. Prefer **`store.list`**, **`store.selectedId`** everywhere so reactivity stays obvious and edge-case tracking issues are avoided.
+
+### Route / parent-provided values
+
+When a value comes from **URL params** or a **parent** but belongs to the same feature (e.g. “cluster id from route”), store it on the **feature store** (observable + `setX` action) and let the parent call the setter. Avoid **prop drilling** plus **`useEffect`** only to sync into local state.
+
+### One-way deep linking (default)
+
+Unless the product explicitly requires **bidirectional** URL sync, treat the URL as **read-only** input: **`useEffect` / mount** reads route params into the store. **Do not** call `history.pushState`, `history.replace`, or router **write** APIs when the user changes IDC, tree selection, tabs, etc. In-page state should not rewrite the address bar by default.
+
+### Prefer store + service over duplicate data hooks
+
+If the feature already uses **MobX** for that screen, load data with **store methods** that call **existing `src/services/...` fetch functions** (see create-service). Do **not** add parallel **`useFetch` / SWR-style hooks** for the same payload unless there is a deliberate exception.
+
+### Numeric guards outside forms
+
+For checks in components or stores (not only Form validators), prefer **`isValidNumber`** from `src/_shared/utils/helpers.tsx` instead of ad-hoc `!= null` or `Number.isFinite` alone, so behavior matches the rest of the repo.
+
+### Ant Design `Tree` (and similar)
+
+- Prefer **stable keys** (e.g. numeric **id** as `key`) when the component API allows it; avoid string prefixes on the key unless required for uniqueness.
+- In **`onSelect`**, read identifiers from **`info.node`** / **node data** you attached when building `treeData`. **Do not** parse ids from string keys (e.g. stripping a `cluster-` prefix).
+
+### Repeated Tooltip + icon JSX
+
+When many call sites repeat the same **`Tooltip` + icon** (or similar), define a **pre-built element** constant (e.g. `export const MilvusUtilTooltip = <Tooltip title={...}><QuestionCircleOutlined /></Tooltip>`) and render `{MilvusUtilTooltip}` in consumers. Prefer that over exporting **only** the string title and duplicating the wrapper markup everywhere.
+
+## Observable declarations and access (project convention)
+
+### Omit default initializers on `@observable`
+
+Prefer **no** `= []`, `= null`, `= ''`, `= {} as ...` on observables: they start as **`undefined`** until an **`@action.bound` setter** runs. Rely on **TypeScript types** for documentation. This matches how newer project-management stores are written and avoids masking “never loaded” vs “empty result”.
+
+### Optional chaining and safe iteration
+
+After adopting the above, use **`?.`** when reading nested fields on observables that may still be **`undefined`** (e.g. `store.detail?.clusterName`). For **arrays** passed to **`.map` / iteration**, use **`?? []`** (e.g. `store.clusters ?? []`) so children never call `.map` on `undefined`.
+
+### `reset()` must call setters
+
+In **`reset()`** (and similar bulk clears), call **`this.setXxx(...)`** for each field instead of **`this.xxx = ...`**. Setters may enforce invariants (filtering, normalisation). The same applies to **small modal/side stores**: prefer individual setters and have composite helpers delegate to them.
+
+### Store shape matches API responses
+
+Hold **detail/list** payloads on the store using the **service response type** (e.g. `IMyDetailRsp`) **without** mapping to a parallel “view model” in the **service** layer. Normalisation for UI belongs in **components**, **helpers**, or **store methods** that are explicitly about presentation—so types stay aligned with the BE contract.
+
+## Store Decorators
+
+From `@shopee-data/reaction`：
+
+- `@observable`: variables that are to be observed by store
+- `@action.bound`: functions that need to be synchronous (most commonly setters of observables)
+- `@computed`: getters that are computed (and recomputed when observables change)
+- `@loading(ELoading.xxx)`: loading state for attached function, requires a Promise to be returned（**DO NOT** use with `@action.bound`）
+- `@followUp('setterName')`: Trigger another function after the completion of current function
+
+### `@loading`
+
+1. **MUST EXTEND `BaseStore`** as `@loading` depends on  `loadMap`、`getLoading`、`setLoading` from `AbstractBaseStore`
+2. **CANNOT USE WITH `@action.bound`**：`@loading` already handles the logic that action handles, will cause an error: `initializer is not a function`
+3. **Usage**: Add to component requiring loading status: `store.getLoading(ELoading.xxx)`
+
+### `@followUp` (Standard way to update an observable asynchronously)
+
+Under MobX strict, computations following `await` will not be in the action context, so directly assigning to an `observable` will cause an error. `@followUp` allows you to asynchronously set values using `@action.bound` setter：
+
+```typescript
+import { action, observable, loading, followUp } from '@shopee-data/reaction';
+import { BaseStore } from 'src/store/base';
+
+class MyStore extends BaseStore {
+  @observable list: Item[];
+
+  // 1. setter：@action.bound, updates observable values
+  @action.bound
+  setList(items: Item[]) {
+    this.list = items;
+  }
+
+  // 2. asynchronous @followUp + @loading
+  @followUp('setList')
+  @loading(ELoading.getList)
+  fetchList() {
+    return listApi().then((res) => res.items ?? []);
+  }
+}
+```
+
+**Update multiple observables**：setter recieves an object：
+
+```typescript
+@action.bound
+setAfterDelete(data: { items: Item[]; total: number }) {
+  this.items = data.items;
+  this.total = data.total;
+}
+
+@followUp('setAfterDelete')
+@loading(ELoading.delete)
+deleteItem(id: number) {
+  return deleteApi(id).then(() => ({
+    items: this.items.filter((i) => i.id !== id),
+    total: Math.max(0, this.total - 1),
+  }));
+}
+```
+
+**Cases to not use `@followUp`**：
+- side effects with no observable assignments（e.g. `await api(); message.success()`）
+- following await call, only call other `@action.bound`（e.g. `this.reset()`、`otherStore.doSomething()`）
+- (SSE streaming) synchronous calls of `@action.bound` after await
+
+## Standard Store Example
+
+```typescript
+import { BaseStore } from '@shopee-data/di-fe-component';
+import { action, computed, loading, followUp, observable } from '@shopee-data/reaction';
+
+export enum ELoading {
+  getList = 'getList',
+  submit = 'submit',
+}
+
+class MyStore extends BaseStore {
+  @observable list: Item[];
+  @observable selectedItem?: Item;
+
+  @action.bound
+  setList(items: Item[]) {
+    this.list = items;
+  }
+
+  @computed
+  get filteredList() {
+    return (this.list ?? []).filter(/* ... */);
+  }
+
+  @followUp('setList')
+  @loading(ELoading.getList)
+  fetchList() {
+    return someApi().then((res) => res.items ?? []);
+  }
+}
+
+export const myStore = new MyStore();
+```
+
+### Component Needs Loading State
+
+```typescript
+import { observer } from '@shopee-data/reaction';
+import { myStore, ELoading } from 'diana/store/my-store';
+import { Spin } from 'antd';
+
+const MyComponent = observer(() => {
+  const loading = myStore.getLoading(ELoading.getList);
+  return <Spin spinning={loading}>...</Spin>;
+});
+```
+
+## Modal Store Example（consider src/modal/diana-access-group）
+You should only open the modal in this store, any props to pass to initialize values in the modal should be instead passed to the data store for the modal.
+```typescript
+import { action, BaseModalStore } from '@shopee-data/reaction';
+import { ModalKey } from 'src/modal/constant.ts';
+
+class Modal extends BaseModalStore {
+  @action.bound
+  showXxxModal() {
+    return this.open(ModalKey.XXX);
+  }
+}
+
+export const modal = new Modal();
+```
+
+## Standard usage
+
+```typescript
+export const modal = new Modal();
+export const myStore = new MyStore();
+```
+
+## Review checklist (APIs, types, mocks)
+
+Before merge or handoff on a feature that adds stores + services:
+
+- **Types vs BE:** list vs detail field names differ (`desc` vs `description`, `region` vs `idc`, etc.)—each **surface** should use the field the API/TD defines for **that** response, not a shared guess helper across endpoints.
+- **Services:** `src/services/...` stays **HTTP + param validation** only; no accidental response mapping or normalisation.
+- **Mocks / fixtures:** Prefer **`@followUp`** so the setter receives **real API `data`**—do not pre-fill observables with client fixtures in production store paths. If mocks are required (Storybook, unit tests, or a dev-only flag), keep them **out of** the main fetch path and align shapes with the **response type**. For Milvus tab specifics, see [milvus-project-tab](../milvus-project-tab/SKILL.mdc).
+
+## 参考文件
+
+- `src/store/diana-access-group/list.ts` - Table + filter store
+- `src/store/modal.ts` - Modal Store
+- `src/store/data-workspace/reporting-line/team-member.ts` - FE filter + pagination store

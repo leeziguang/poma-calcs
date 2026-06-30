@@ -1,0 +1,39 @@
+---
+description: TypeScript naming conventions for enums and interfaces
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# TypeScript Naming Conventions
+
+## Enums — `E` prefix
+
+All enums must be prefixed with `E`.
+
+```typescript
+// ❌ BAD
+enum DataSourceTab { Trino = 'trino' }
+type Status = 'running' | 'done' | 'error';
+
+// ✅ GOOD
+enum EDataSourceTab { Trino = 'trino' }
+enum EDiscoverStatus { Running = 'running', Done = 'done', Error = 'error' }
+```
+
+**String union types used as discriminators / status values should be replaced with enums** instead of `type Foo = 'a' | 'b'`.
+
+## Enums location
+
+All shared enums must live in `diana/types/enum.ts`. Do not define enums inline in store or component files — define them in `enum.ts` and import from there.
+
+## Interfaces — `I` prefix
+
+All interfaces must be prefixed with `I`.
+
+```typescript
+// ❌ BAD
+interface DiscoverStep { id: number; status: EDiscoverStepStatus }
+
+// ✅ GOOD
+interface IDiscoverStep { id: number; status: EDiscoverStepStatus }
+```

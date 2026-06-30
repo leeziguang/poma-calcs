@@ -1,0 +1,183 @@
+---
+name: create-filter
+description: Create a filter component that consists of multiple individual filters, that may be of different component types. Use this skill when there is a data source render that can be filtered.
+alwaysApply: false
+---
+# Create Filter
+## Overview
+A skill to create a filter component and manage the values of each filter field.
+
+An overview of the process:
+- Write seperate functional components for each filter field
+- Wrap them all in a <Form></Form> for value management
+```tsx
+export const FeatureNameFilter = ({ props }: { props: PropsType }) => {
+  return (
+    <Form>
+      // Place filter component renders here
+    </Form>
+  )
+}
+```
+- Initialize the filterStore in the corresponding data source store
+- Determine if the filtering is done by Front-End(FE) or Back-End(BE)
+  - If FE, write a filter function in the same store
+  - If BE, initialize the filterStore with the api call for the data source
+- Check if there is also a paginationStore in the same store, reset current page to 1 on filter
+
+## Component Implementation
+Since a filter is usually part of a bigger page, and will always come with another data source component, place this filter component under the path ../{feature-name}/components/filter/index.tsx
+
+Example of a filter functional component
+Use an enumeration for Form.Item name, this enum will be constructed from
+```ts
+  - Pick<Partial<ReqParamType>, 'filterField1' | 'filterField2' | 'etc...'>
+```
+Since the filters are wrapped in a <Form></Form>, there is no need to use the value and onChange props to manage filter values
+  - DO use the onChange if there are any side-effects involved when changing a filter field
+
+### Input Example
+Placeholder for Input is Enter
+```tsx
+const renderNameFilter() {
+  return (
+    <Form.Item name={EFilterField.name} label={FILTER_LABEL_MAP[EFilterField.name]}>
+      <Input {...props} />
+    </Form.Item>
+  )
+}
+```
+For input filters, remember to create a debounced api call function in store to call to prevent excessive api calls when user is typing
+```tsx
+import debounce from 'lodash/debounce';
+
+debouncedApiCall = debounce(apiCall, 400);
+```
+and pass this debouncedApiCall into the filterStore initialization
+
+### Select Example
+Placeholder for Select is Select
+The options for the <Select /> component should be a get() in the data source store
+```tsx
+@computed
+get filterFieldSelectOption() {
+  return this.dataSource?.map(data => ({
+    label: `${data?.projectName} (${data?.projectCode})`,
+    value: data?.projectCode
+  })) || [];
+}
+```
+
+```tsx
+const renderIdcRegionFilter() {
+  return (
+    <Form.Item name={EFilterField.idcRegion} label={FILTER_LABEL_MAP[EFilterField.name]}>
+      <Select {...props} />
+    </Form.Item>
+  )
+}
+```
+
+### Radio Example
+The options for the <Radio.Group /> component should be a get() in the data source store
+Default selection will be the first option
+```tsx
+@computed
+get filterFieldRadioOption() {
+  return this.dataSource?.map(data => ({
+    label: data?.projectName,
+    value: data?.projectCode
+  })) || [];
+}
+```
+
+```tsx
+const renderIdcRegionFilter() {
+  return (
+    <Form.Item name={EFilterField.idcRegion} label={FILTER_LABEL_MAP[EFilterField.name]}>
+      <Radio.Group {...props}>
+        {store?.filterNameRadioOption?.map((value, label) => <Radio.Button value={value}>{label}</Radio.Button>)}
+      </Radio.Group>
+    </Form.Item>
+  )
+}
+```
+
+### Filters with Inter-Filter logic Example
+Some filters will cause a change in render/value in another filter
+It is necessary to wrap the current filter in a <Form.Item noStyle shouldUpdate></Form.Item>
+
+```tsx
+const renderNameFilter() {
+  return (
+    <Form.Item noStyle shouldUpdate>
+      {({ getFieldValue, setFieldValue, validateFields }) => {
+        return (
+          <Form.Item name={EFilterField.name} label={FILTER_LABEL_MAP[EFilterField.name]}>
+            <Input onChange={(value) => {
+              // Case where you need to reset another field on this field's change
+              setFieldValue(EFilterField.otherField, undefined);
+
+              // Case where you need to validate another field on this field's change
+              validateFields({[EFilterField.otherField]});
+
+              // Case where you perform an action if this value after change matches another field's value
+              if (getFieldValue(EFilterField.name) === value) return;
+              }
+            }
+            />
+          </Form.Item>
+        )
+      }}
+    </Form.Item>
+  )
+}
+```
+
+### Extendable Filters
+If you discover that there are filter fields that have **total** logic overlap, consider writing a reuseable functional component render, and use props to manage to render differences
+
+In this scenario, consider the following code block 
+```tsx
+const renderProjNameFilter() {
+  return (
+    <Form.Item name={EFilterField.projectName} label={FILTER_LABEL_MAP[EFilterField.projectName]}>
+      <Input onChange={value => store.filterStore.setSingleFilter(EFilterField.projectName, value)} />
+    </Form.Item>
+  )
+}
+
+const renderTeamNameFilter() {
+  return (
+    <Form.Item name={EFilterField.teamName} label={FILTER_LABEL_MAP[EFilterField.teamName]}>
+      <Input onChange={value => store.filterStore.setSingleFilter(EFilterField.teamName, value)} />
+    </Form.Item>
+  )
+}
+
+const renderTopicNameFilter() {
+  return (
+    <Form.Item name={EFilterField.topicName} label={FILTER_LABEL_MAP[EFilterField.topicName]}>
+      <Input onChange={value => store.filterStore.setSingleFilter(EFilterField.topicName, value)} />
+    </Form.Item>
+  )
+}
+```
+Since all 3 input filters have no further logics beyond filtering, we can instead use a common render function to reduce the amount of code debt in the repo
+```tsx
+const renderInputFilter(filterField: EFilterField) {
+  return (
+    <Form.Item name={filterField} label={FILTER_LABEL_MAP[filterField]}>
+      <Input onChange={value => store.filterStore.setSingleFilter(filterField, value)} />
+    </Form.Item>
+  )
+}
+
+const renderFilter() {
+  <Form>
+    {renderInputFilter(EFilterField.projectName)}
+    {renderInputFilter(EFilterField.teamName)}
+    {renderInputFilter(EFilterField.topicName)}
+  </Form>
+}
+```

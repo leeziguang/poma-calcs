@@ -1,0 +1,108 @@
+---
+description: Guideline to writing and formatting modals, use when you need to write a modal
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+## File layout
+
+- Place modal implementations under **`src/modal/<domain>/<feature>/`** (e.g. `src/modal/project-management/milvus/`), not under feature `components/` folders.
+- **Convention:** one modal per subfolder named for the modal, with **`index.tsx`** as the entry (e.g. `src/modal/project-management/milvus/connection-info/index.tsx`). Flat single files are acceptable only when they match an existing area’s pattern.
+
+## Necessary Configs
+
+1. **ModalKey**：Set in `src/modal/constant.ts`
+2. **Store 方法**：In `src/store/modal.ts`, add `showXxxModal() matching name of modal`
+3. **Modal 组件**：In `src/modal/index.tsx`, add new entry under AioModal referring to the modal component
+
+## Shared data and permissions
+
+Before adding hooks such as **`usePermission`** (or similar) inside a modal, check whether a **parent or feature store** already holds the same data (e.g. `projectManageStore.permissions`). Reuse the store to **avoid duplicate API calls** and keep behavior consistent with the page.
+
+## Step 1: Add ModalKey
+
+```typescript
+// src/modal/constant.ts
+export enum ModalKey {
+  VIEW_TRANSFORMER = 'VIEW_TRANSFORMER',
+  MY_NEW_MODAL = 'MY_NEW_MODAL',  // New entry
+}
+```
+
+## Step 2: Add new open function in Modal store
+
+```typescript
+// src/store/modal.ts
+import { ModalKey } from 'src/modal/constant';
+
+class Modal extends BaseModalStore {
+  showMyNewModal() {
+    return this.open(ModalKey.MY_NEW_MODAL);
+  }
+}
+```
+
+## Step 3：Create Modal Component
+
+### Inherit from ModalBase
+
+Example: `src/modal/diana-access-group/batch-change-status.tsx`：
+
+```typescript
+// src/modal/<domain>/<feature>/my-new-modal/index.tsx
+import { ModalBase } from 'src/modal/modal-base';
+import { modal } from 'src/store/modal';
+import { FormProps, ModalProps } from 'antd';
+
+export class MyNewModal extends ModalBase<IMyFormValues> {
+  public renderContent(): React.ReactNode {
+    return <MyFormFields />;
+  }
+
+  public getModalProps(): ModalProps {
+    return {
+      title: 'My Modal',
+      width: 600,
+      onOk: () => {
+        this.formRef.current?.validateFields().then((values) => {
+          // Submit logic here if needed
+          modal.close();
+        });
+      },
+    };
+  }
+}
+```
+
+## ModalBase Inherited Methods
+
+| Method | Description |
+|------|------|
+| `renderContent()` | render function for modal content, between header and footer |
+| `getModalProps()` | props for modal, follow AntD v4 Modal props (title, width, onOk, ...) |
+| `getFormProps()` | props for from, follow AntD v4 Form props (labelCol, wrapperCol, ...) |
+| `getInitialValues()` | to set the initial values of form in the modal |
+| `onFinish(values)` | after submit finish |
+| `renderTopMsg()` | render above content, but below header |
+| `renderBottomMsg()` | render below content, but above footer |
+
+### Form initial values
+
+- **Prefer** overriding **`getInitialValues()`** so `ModalBase` wires **`initialValues`** on the Form.
+- **Avoid** `componentDidMount` / **`useEffect`** + **`setFieldsValue`** for the same purpose unless there is a documented edge case (e.g. values that truly cannot be known synchronously when the modal opens).
+
+## Rich read-only or mixed modals
+
+- Split the body into **small functional subcomponents** (e.g. `DetailField`, `PasswordField`, link rows) instead of one monolithic render.
+- Put **`observer()`** on the **root** modal component when it reads **MobX** stores.
+- Use **co-located** **`s.module.less`** in the modal folder (same pattern as other feature modals).
+
+## Displaying API fields row-by-row
+
+- For a labelled row (e.g. “IDC Region”), show **only** the property the **detail** API / TD names for that surface—e.g. **`detail.region ?? '-'`**—not a chain that falls back to **list** fields (`idc`, `idcRegion`, etc.) unless product explicitly requires it. List and detail payloads often use **different** shapes; avoid one “smart” helper that hides that.
+
+## Example files
+
+Can consider files under src/modal, but some direct examples are:
+- `src/modal/diana-access-group/batch-change-status.tsx`
+- `src/modal/data-workspace/transfer-asset/index.tsx`

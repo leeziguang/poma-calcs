@@ -1,0 +1,26 @@
+---
+description: Co-locate CSS module styles with feature components. Use when adding or splitting .module.less (or .module.scss) for a page or widget.
+globs: **/*.less,**/*.scss,**/*.tsx
+alwaysApply: false
+---
+
+# CSS modules (feature components)
+
+## One stylesheet per component folder
+
+- Prefer a **local `s.module.less`** (or `.module.scss`) **next to the component** that uses it, imported as **`./s.module.less`** (or a short relative path within that folder).
+- **Avoid** a single mega-stylesheet shared by every file under a feature via long relative imports (`../../s.module.less`). Split so each **component folder** owns its styles; easier ownership and dead-style detection.
+
+## Shared snippets across components
+
+- If the same small rule (e.g. icon + tooltip spacing) appears in multiple places, **duplicating** a few lines across modules is acceptable when it keeps **co-location** clear.
+- Promote to a **shared** module only when many unrelated features need the same token or utility class (follow existing design-system / `_shared` patterns if present).
+
+## Naming
+
+- Keep using the project’s existing CSS-module **class naming**; this skill only governs **file placement** and **import distance**, not BEM vs camelCase.
+
+## Structure inside the file
+
+- **Nest** rules so selectors follow the **component DOM tree** (parents wrap children in the `.less` file the same way as in JSX). That makes ownership of styles obvious at a glance.
+- Rely on structure instead of long explanatory comments; keep **comments minimal** unless documenting a non-obvious override (e.g. third-party widget).

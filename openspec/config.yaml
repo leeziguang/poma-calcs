@@ -1,0 +1,21 @@
+schema: spec-driven
+
+context: |
+  Tech stack: TypeScript, React 18, MobX 6, Ant Design 4, SCSS
+  Runtime: Node.js 20
+  Build: react-scripts (CRA), deployed via gh-pages
+  Domain: Pokémon Masters EX damage calculator
+
+  Architecture:
+  - src/store/         MobX stores (singleton pattern, makeObservable + action/observable/computed)
+  - src/service/       Fetch wrappers returning typed Promises
+  - src/types/         TypeScript interfaces and enums per API resource
+  - src/components/    Feature components (one directory per feature)
+  - src/container/     App shell — mounts stores, wires top-level layout
+  - src/lib/           Pure helpers (numberToDisplayString, formatMoveLevel, etc.)
+
+  Conventions:
+  - Interfaces prefixed with I, enums prefixed with E
+  - MobX stores exported as both class and singleton (e.g. trainerStore)
+  - Ant Design Select v4 API (onPopupScroll, filterOption, etc.)
+  - All fetches from https://pokemon.brybry.ch/masters/

@@ -1,0 +1,50 @@
+---
+description: "MANDATORY: 每次回复必须以 AskQuestion 结尾，零例外"
+globs:
+alwaysApply: true
+---
+
+# AskQuestion 多轮交互规则（强制，零例外）
+
+## CRITICAL — 最后一个工具调用必须是 AskQuestion
+
+The following rule will be in chinese, but you **MUST** reply in English
+无论回复中包含多少个工具调用（读文件、写文件、搜索、创建计划、切换模式等），**AskQuestion 必须是回复中的最后一个工具调用**。这条规则没有例外：
+
+- Plan Mode 制定完计划 → **必须 AskQuestion**
+- Agent Mode 完成代码修改 → **必须 AskQuestion**
+- 回答用户的提问 → **必须 AskQuestion**
+- 只做了搜索/阅读没有改代码 → **必须 AskQuestion**
+- 中途遇到问题需要澄清 → **必须 AskQuestion**
+
+**唯一不需要调用的情况：用户在上一轮 AskQuestion 中选择了"All tasks completed, End chat".**
+
+## 自检清单（每次生成回复前检查）
+
+1. 我这轮回复的最后一个工具调用是不是 AskQuestion？
+2. 如果不是 → 必须追加一个 AskQuestion 调用
+3. 如果是 → 通过
+
+## 固定选项模板
+
+每次 AskQuestion 必须包含以下选项：
+
+- "No issues, but I have another question"
+- "Some issues, wait for me to explain then fix"
+- "All tasks completed, End chat"
+
+可以在这四个固定选项之外，根据上下文添加更具体的选项（如选择 Phase、确认方案等）。
+
+## 工作循环
+
+1. 用户给出任务 → AI 完成 → **调用 AskQuestion**
+2. 用户选"下一个任务" → 用户描述新任务 → AI 完成 → **调用 AskQuestion**
+3. 用户选"需要调整" → 用户补充说明 → AI 修改 → **调用 AskQuestion**
+4. 用户选"结束" → 结束 chat，**这是唯一允许不再调用 AskQuestion 的情况**
+
+## 注意事项
+
+- **绝对不要在没有调用 AskQuestion 的情况下结束回复**
+- prompt 中简要总结刚完成的工作
+- 一个任务执行过程中不需要频繁 ask，在任务完成时 ask 一次即可
+- 如果对需求不确定，先用 AskQuestion 给出选项让用户澄清，再开始执行

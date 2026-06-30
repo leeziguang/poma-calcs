@@ -1,0 +1,180 @@
+---
+description: Architecture of project, an overview of where each file should go during generation
+alwaysApply: true
+---
+
+# /src
+The root folder is src, **all** generated code will be in this folder [src](../../src/)
+
+# /src/container
+This folder will contain root pages, index.tsx, which will call other components from other folders.
+The naming convention for the folders will be based off the requirement, there are 2 major sub-folder grouping considerations.
+
+1.  Does the page exist under one of the pages from the sidebar [sidebar-new](../../src/sidebar-new/constant.tsx)
+    Commonly developed items from the sidebar are (In no particular order):
+      1a. Project Management, main index file: [project_management](../../src/project-management/index.tsx)
+      1b. Team Management, main index file: [team_management](../../src/team-management/index.tsx)
+      1c. Data Workspace, main index file: [data_workspace](../../src/my-data-access/index.tsx)
+      1d. SuperAdmin Portal, add component directly to sidebar under superAdminSidebarMenuItems [sidebar-new](../../src/sidebar-new/constant.tsx) 
+    
+    When encountering a feature that takes place under these domains (mainly a new tab), nest the generated code under their respective folders in [src/container](../../src/container)
+
+    An example would be the starrocks tab in project management page, nested under the project-managment folder. [starrocks_tab](../../src/container/project-management/starrocks/index.tsx)
+
+2.  Pages that are standalone will take up their own folder under container. 
+
+    For certain pages like those under [hbase](../../src/container/hbase), they are mainly redirected to from the project-management hbase tab, however they can also be accessed from outside this project, or through direct url use. As such, since they do not only exist under project-management, you will create a new folder to nest such pages (usually application form pages).
+
+    Another example is [diana-access-group-operation](../../src/container/diana-access-group-operation/).
+
+Folders outside of the container file that are named based on the page like: [apply-presto-queue](../../src/apply-presto-queue/) or [apply-starrocks-queue-expansion](../../src/apply-starRocks-queue-expansion/), are from a different architecture and should only be referenced to if **EXPLICITLY** mentioned in the chat.
+
+## src/container/{nested_folder(if needed)}/{feature}/components
+There may be features that require similar components across different pages. In that case, create a component folder to house the shared component.
+
+Example [k8s](../../src/container/sp/k8s/components)
+
+# /src/services
+Services folder contains the method calls for various API endpoints, and follows the same nesting format as written in the /src/container section. If an index.ts file exists, it serves as a common shared file across multiple products for that folder, only add to this file if the method is used in **more than 1** product.
+
+[index](../../src/services/project-management/index.ts)
+Example:
+```ts
+export const fetchUserProjectList = (): Promise<Project[]> => {
+  return fetch('/project/current/user');
+};
+```
+Since this service is called by the general project-management store, it can be used across different tabs
+
+When writing service methods, use comments to create blocks to make it easier to identify which feature the method is for, for example
+[kafka](../../src/services/project-management/kafka.ts)
+```tsx
+// Consumer Group ID Start
+export const getConsumerGroupList = ({
+  params,
+}: {
+  params: IConsumerGrpListReq;
+}): Promise<IConsumerGrpListRsp> => {
+  if (params?.projectCode) {
+    const { projectCode, ...restParams } = params;
+    const extra = urlParameterToString(restParams);
+    return fetch(
+      `/project/${projectCode}/kafka/consumer-group/access/list` + extra
+    );
+  }
+
+  console.log('Missing API param: projectCode');
+  return Promise.reject();
+};
+
+export const submitAddConsumerGroup = (params: IAddConsumerGrpBody) => {
+  return fetch(
+    '/applyConsumerGroupAccess',
+    {
+      method: 'POST',
+      body: params,
+    },
+    {
+      rawResponse: true,
+    }
+  );
+};
+// Consumer Group ID End
+```
+
+# /src/store
+Contains the stores for each feature, follows the same nesting format as written in the /src/container section. If an index.ts file exists, it serves as a common shared file across multiple components/pages for that feature, only add to this file if the observables are used in **more than 1** component/page.
+
+Unlike the other folders however, there is a further nesting involved with store folders based on how many components and pages are involved.
+For example [kafka](../../src/store/project-manage/kafka/) page involves 3 tabs, and within those tabs there exists multiple modals per tab. Because of the amount of observables to manage, it makes more sense to split them into their own stores for readability and reducing coupling.
+
+Compare this to a simpler feature like [hbase](../../src/store/project-manage/hbase/), which involves 2 tables, one which has a filter. In this case, there is no need to split the store. However, this is the upper limit of how much a store should manage, and you may ask in the chat to break this store into a more granular level of 1 for a table, and another for the table + filter.
+
+
+# /src/types
+Contains the type specifications for different requirements, and follows the same nesting format as written in the /src/container section. If an index.ts file exists, it serves as a common shared file across multiple products for that folder, only add to this file if the method is used in **more than 1** product.
+
+[index](../../src/types/project-management/index.ts)
+Example:
+```ts
+export type IdcRegionVo = components['schemas']['IdcRegionVo'];
+```
+Since multiple pages have an idcRegion field/filter/render, this type can be reused across different products.
+
+# /../constants.tsx
+Place all constants that the container/store/component needs here, this will include simple constants like
+```tsx
+export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
+```
+Or maps
+```tsx
+export const TRANSFER_STATUS_TAG_MAP = {
+  [ETransferStatus.TRANSFERRING]: (
+    <Tag color="blue">{TRANSFER_STATUS_MAP[ETransferStatus.TRANSFERRING]}</Tag>
+  ),
+  [ETransferStatus.SUCCESSFUL]: (
+    <Tag color="green">{TRANSFER_STATUS_MAP[ETransferStatus.SUCCESSFUL]}</Tag>
+  ),
+  [ETransferStatus.FAILED]: (
+    <Tag color="red">{TRANSFER_STATUS_MAP[ETransferStatus.FAILED]}</Tag>
+  ),
+  [ETransferStatus.NA]: (
+    <Tag color="gray">{TRANSFER_STATUS_MAP[ETransferStatus.NA]}</Tag>
+  ),
+};
+```
+Or table columns like in [DATA_MIGRATION_TABLE_COLUMNS:171](../../src/container/hdfs/data-migration/constants.tsx)
+
+Or static components
+From [alert-center:45](../../src/modal/project-management/alert-center/project-management-alert/components/notification-channel/constants.tsx)
+```tsx
+export const SMSTopAlert = (
+  <Alert
+    description={
+      <ul style={{ paddingLeft: '20px ' }}>
+        <li>
+          {`Please ensure the recipient's phone number is updated in Home > Profile section. They won't receive alerts otherwise.`}
+        </li>
+        <li>
+          There is a rate limitation of 3 minute interval and maximum 20 SMS
+          messages in last 24 hours per phone number.
+        </li>
+      </ul>
+    }
+    type="warning"
+    className={style.smsTopAlert}
+    showIcon
+  />
+);
+```
+
+
+# /../helpers.ts
+Place methods that are used more than once from a container/component here
+Some examples include 
+Getting Progress colours
+```ts
+export const getProgressColor = (progress: number) => {
+  if (progress < 60) {
+    return '#808080';
+  }
+  if (progress >= 60 && progress < 80) {
+    return '#f6be16';
+  }
+  if (progress >= 80) {
+    return '#e7103b';
+  }
+};
+```
+
+Refer to the shared folder for some global shared helpers [helpers](../../src/_shared/utils/helpers.tsx) instead of writing new ones with the same functionality
+Commonly used ones include 
+
+isValidNumber - uses lodash to check if arg is a number, is not NaN, and is finite (will allow 0 through)
+convertUnit - convertor for B to PB, backwards compatible as well (PB to B)
+toSafeNumber - leverages isValidNumber to render 0 for invalid numbers
+numberToDisplayString - leverages isValidNumber to render '-' for invalid numbers, importantly also renders without trailing 0s for decimal values
+
+# /../s.module.less
+**USE** .less instead of .scss going forward, but feel free to reference css stylings from .scss files
+The change is due to pure .less changes updating the page without refreshes, unlike .scss

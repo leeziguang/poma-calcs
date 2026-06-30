@@ -1,0 +1,130 @@
+---
+description: Guide to how to write and format a service file, use this when the page needs to create methods to call API(s)
+globs: **/*.ts
+alwaysApply: false
+---
+# Standard Template
+**MOST IMPORTANTLY** you **MUST** use fetch that is imported from [](../../../../src/_shared/lib/fetch.ts)
+**DO NOT** use a fetch from any other library
+**DO NOT** transform the return data from an API in any way. 
+**ONLY** create functions that only call the api and return its response.
+
+Also do not throw any errors as we don't want staging errors to be captured by our error tracking portal, we should only see live issues there
+
+Use comment blocks to split each requirement to improve readability as per [HDFS](../../../../src/services/project-management/hdfs.ts)
+
+## Request shape and return style (project-management style)
+
+- **GET:** Accept a single typed **`params`** object. Destructure **path** segments the URL needs (e.g. `projectCode`), build the query string from the rest with **`urlParameterToString`**. Validate required fields at the top of the function.
+- **POST / PUT / PATCH:** Pass the payload as **`body`** in the `fetch` options (plus `params` in the URL when needed).
+- **Return** the **`fetch(...)` promise directly**—do **not** chain **`.then()` / `.catch()`** in the service to reshape data or swallow errors for “convenience” 
+- On validation failure, call **`handleMissingParams`** from `src/_shared/utils/helpers.tsx` where appropriate, then **`return Promise.reject()`** (follow patterns in [milvus](../../../../src/services/project-management/milvus.ts), [kafka](../../../../src/services/project-management/kafka.ts), [starrocks](../../../../src/services/project-management/starrocks.ts)).
+
+## GET
+```ts
+export const fetchClusterMetricList = (params?: IClusterMetricReq): Promise<IClusterMetricRsp> => {
+  // Check if required fields exist first before calling API
+  if (params?.id && params?.projectCode) {
+    const extra = urlParameterToString(param);
+    return fetch(`/api/endpoint` + extra);
+  }
+
+  const missingParams = [];
+  for (const key in params) {
+    if (params[key as keyof IMigDetailCancelBody] === undefined) {
+      missingParams.push(key);
+    }
+  }
+
+  // **DO NOT** throw errors 
+  if (missingParams?.length > 0) console.log('Missing params: ' + missingParams?.join(', '));
+  return Promise.reject();
+};
+```
+
+## POST
+Example with just a body
+```ts
+export const postEditClusterMetrics = (body?: IClusterMetricsBody): Promise<void> => {
+  return fetch(`/api/endpoint`, {
+    method: 'POST',
+    body: body,
+  });
+};
+```
+
+Example with both body and request params
+```ts
+export const postEditClusterMetrics = (params?: IClusterMetricsReq ,body?: IClusterMetricsBody): Promise<void> => {
+  // Check if required fields exist first before calling API
+  if (params?.id && params?.projectCode) {
+    const extra = urlParameterToString(param);
+    return fetch(`/api/endpoint` + extra, {
+      method: 'POST',
+      body: body,
+    });
+  }
+
+  const missingParams = [];
+  for (const key in params) {
+    if (params[key as keyof IMigDetailCancelBody] === undefined) {
+      missingParams.push(key);
+    }
+  }
+
+  // **DO NOT** throw errors 
+  if (missingParams?.length > 0) console.log('Missing params: ' + missingParams?.join(', '));
+  return Promise.reject();
+};
+```
+
+## PUT
+Similar to POST
+```ts
+export const putEditClusterMetrics = (body?: IClusterMetricsBody): Promise<void> => {
+  return fetch(`/api/endpoint`, {
+    method: 'PUT',
+    body: body,
+  });
+};
+```
+
+## DELETE
+Similar to POST
+```ts
+export const deleteEditClusterMetrics = (body?: IClusterMetricsBody): Promise<void> => {
+  return fetch(`/api/endpoint`, {
+    method: 'DELETE',
+    body: body,
+  });
+};
+```
+
+# Variations
+## rawResponse
+An example from [Data_workspace_project_asset](../../../../src/services/data-workspace/my-asset/project-asset.ts)
+```ts
+export const deleteProjectMember = (body: ILeaveProjectBody): Promise<void> => {
+  return fetch(
+    '/project/member/leave',
+    {
+      method: 'DELETE',
+      body,
+    },
+    { rawResponse: true }
+  );
+};
+```
+Use rawResponse when you need access to the status code of the API call (usually for rendering custom popups during code 200)
+
+# References
+Data Workspace
+[Data_workspace](../../../../src/services/data-workspace/)
+
+Project Management 
+[HDFS](../../../../src/services/project-management/hdfs.ts)
+[HBase](../../../../src/services/project-management/hbase.ts)
+[Kafka](../../../../src/services/project-management/kafka.ts)
+
+Diana
+[Diana](../../../../src/services/diana-access-group/)
